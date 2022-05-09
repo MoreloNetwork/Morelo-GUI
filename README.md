@@ -49,11 +49,11 @@ Of course that wallet doesn't giving you full control of Morelo wallet, but givi
 
 If you want run Morelo_GUI script by self or you using other OS than windows you need that things:
 
-* [Python 3.7](https://www.python.org/downloads/)
+* [Python 3.x](https://www.python.org/downloads/)
 
 Download, run installator and follow installation steps.
 
-* [Latest Morelo binaries](https://github.com/MORELO-PROJECT/morelo/releases)
+* [Latest Morelo binaries](https://github.com/MoreloNetwork/morelo/releases)
 
 Download and unpack binaries (morelod, morelo-wallet-rpc) in same folder as script.
 
@@ -85,6 +85,6 @@ python Morelo-GUI.py
 
 ## Contact
 
-Krzysztof Walędziak - E-mail: mrkris7100@gmail.com - [Discord](https://discordapp.com/): Mrkris7100#1836
+Krzysztof Walędziak - E-mail: mrkris7100@gmail.com - [Discord](https://discordapp.com/): Mrkris7100#0810
 
-Project Link: [https://github.com/Morelo-Network/Morelo-GUI](https://github.com/MORELO-PROJECT/Morelo-GUI)
+Project Link: [https://github.com/MoreloNetwork/Morelo-GUI](https://github.com/MoreloNetwork/Morelo-GUI)

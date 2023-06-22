@@ -1,3 +1,6 @@
+from modules.transactions import *
+from modules.morelo import *
+
 import version
 missingLibs = False
 try:
@@ -301,6 +304,7 @@ class App(QWidget):
 	def __init__(self):
 		#initial values for some variables
 		super().__init__()
+		self.transactions = Transactions()
 		self.threadpool = QThreadPool()
 		self.ctrlCount = 0
 		self.walletRPC = 0
@@ -1221,8 +1225,9 @@ If you enjoy the program you can support me by donating some MRL using button be
 			#starting local node and waiting for connection
 			if not daemon:
 				print('INFO: Starting local node...')
-				self.xi_daemon = Popen(os.getcwd() + '/morelod --add-exclusive-node 80.60.19.222 --data-dir "' + config['wallet']['workdir'], shell=True)#, stdout=PIPE, shell=True)
-				if self.WaitForDaemon():
+				self.xi_daemon = Morelo('aa')
+				#self.xi_daemon = Popen(os.getcwd() + '/morelod --add-exclusive-node 80.60.19.222 --data-dir "' + config['wallet']['workdir'], stdout=PIPE, shell=True)
+				if self.xi_daemon.daemon.wait():
 					daemon = True
 				else:
 					print('ERROR: Unable connect to local node')
@@ -1325,7 +1330,6 @@ If you enjoy the program you can support me by donating some MRL using button be
 				#i dont remember why this shit exist here but leave that
 				walletAddresses = GetWalletAddress()
 				if walletAddresses:
-					print(walletAddresses)
 					self.wallet_address = walletAddresses['result']['address']
 				self.UpdateWalletAddress()
 				self.UpdateBalance()
@@ -1451,6 +1455,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 				#Get transactions hashes list
 				for transaction in transactions:
 					tx_info = GetTransactionInfo(transaction)
+					self.transactions.add(tx_info)
 					date = datetime.datetime.fromtimestamp(int(tx_info['result']['transfer']['timestamp']))
 					amount = tx_info['result']['transfer']['amount']
 					amount = amount / 1000000000
@@ -1460,6 +1465,8 @@ If you enjoy the program you can support me by donating some MRL using button be
 					if not fullScan and tx_info['result']['transfer']['type'] == 'in':
 						print('New transaction found! Amount:' + str(amount) + ' (' + transaction + ')')
 						self.IncomingTx(transaction, str(amount), str(date))
+						
+				print(self.transactions)
 				#sort table
 				self.sortTx.emit()
 				print('INFO: ', len(transactions), 'transactions added to table')

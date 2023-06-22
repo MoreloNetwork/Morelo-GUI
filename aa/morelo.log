@@ -1,0 +1,676 @@
+2023-06-22 22:03:39.286	11916	INFO	logging	contrib/epee/src/mlog.cpp:271	New log categories: *:WARNING,net:FATAL,net.http:FATAL,net.ssl:FATAL,net.p2p:FATAL,net.cn:FATAL,global:INFO,verify:FATAL,serialization:FATAL,daemon.rpc.payment:ERROR,stacktrace:INFO,logging:INFO,msgwriter:INFO
+2023-06-22 22:03:39.287	11916	INFO	global	src/daemon/main.cpp:273	Morelo 'Apricot's Pit' (v0.1.0.3-e02793e)
+2023-06-22 22:03:39.287	11916	INFO	global	src/daemon/protocol.h:54	Initializing cryptonote protocol...
+2023-06-22 22:03:39.287	11916	INFO	global	src/daemon/protocol.h:59	Cryptonote protocol initialized OK
+2023-06-22 22:03:39.292	11916	INFO	global	src/daemon/core.h:64	Initializing core...
+2023-06-22 22:03:39.293	11916	INFO	global	src/cryptonote_core/cryptonote_core.cpp:495	Loading blockchain from folder aa\lmdb ...
+2023-06-22 22:03:39.313	11916	INFO	global	src/cryptonote_core/cryptonote_core.cpp:645	Loading checkpoints
+2023-06-22 22:03:39.313	11916	INFO	global	src/daemon/core.h:74	Core initialized OK
+2023-06-22 22:03:39.313	11916	INFO	global	src/daemon/p2p.h:64	Initializing p2p server...
+2023-06-22 22:03:39.314	11916	INFO	global	src/daemon/p2p.h:69	p2p server initialized OK
+2023-06-22 22:03:39.314	11916	INFO	global	src/daemon/rpc.h:63	Initializing core RPC server...
+2023-06-22 22:03:39.315	11916	INFO	global	contrib/epee/include/net/http_server_impl_base.h:80	Binding on 127.0.0.1:38302
+2023-06-22 22:03:39.315	11916	INFO	global	contrib/epee/src/net_ssl.cpp:124	Generating SSL certificate
+2023-06-22 22:03:39.598	11916	INFO	global	src/daemon/rpc.h:69	core RPC server initialized OK on port: 38302
+2023-06-22 22:03:39.598	11916	INFO	global	src/daemon/rpc.h:74	Starting core RPC server...
+2023-06-22 22:03:39.598	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:79	core RPC server started ok
+2023-06-22 22:03:39.605	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:203	Morelo ZMQ Server Disabled
+2023-06-22 22:03:39.605	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:79	Starting p2p net loop...
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      o***o o
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      O *oO O ooo
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     o****oOO* o *o
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O    O   *O * O
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O    O      *O*
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O  O         O
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O O        o*
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     *O      o*
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	       ******
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	  _____ _____ __
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |     | __  |  |
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 | | | |    -|  |__
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |_|_|_|__|__|_____|
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	The daemon will start synchronizing with the network. This may take a long time to complete.
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	You can set the level of process detailization through "set_log <level|categories>" command,
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	where <level> is between 0 (no details) and 4 (very verbose), or custom category based levels (eg, *:WARNING).
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use the "help" command to see the list of available commands.
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use "help <command>" to see a command's documentation.
+2023-06-22 22:03:40.619	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:03:40.871	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:351	[80.60.19.222:38301 OUT] Sync data returned a new top block candidate: 1 -> 230762 [Your node is 230761 blocks (10.5 months) behind] 
+2023-06-22 22:03:40.871	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:351	SYNCHRONIZATION started
+2023-06-22 22:03:41.658	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 21/230762 (0%, 230741 left)
+2023-06-22 22:03:41.889	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 41/230762 (0%, 230721 left)
+2023-06-22 22:03:42.130	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 61/230762 (0%, 230701 left)
+2023-06-22 22:03:42.369	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 81/230762 (0%, 230681 left)
+2023-06-22 22:03:42.610	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 101/230762 (0%, 230661 left)
+2023-06-22 22:03:42.830	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 121/230762 (0%, 230641 left)
+2023-06-22 22:03:43.069	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 141/230762 (0%, 230621 left)
+2023-06-22 22:03:43.317	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 161/230762 (0%, 230601 left)
+2023-06-22 22:03:43.562	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 181/230762 (0%, 230581 left)
+2023-06-22 22:03:43.788	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 201/230762 (0%, 230561 left)
+2023-06-22 22:03:44.029	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 221/230762 (0%, 230541 left)
+2023-06-22 22:03:44.255	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 241/230762 (0%, 230521 left)
+2023-06-22 22:03:44.498	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 261/230762 (0%, 230501 left)
+2023-06-22 22:03:44.707	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 281/230762 (0%, 230481 left)
+2023-06-22 22:03:44.950	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 301/230762 (0%, 230461 left)
+2023-06-22 22:03:45.189	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 321/230762 (0%, 230441 left)
+2023-06-22 22:03:45.433	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 341/230762 (0%, 230421 left)
+2023-06-22 22:03:45.669	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 361/230762 (0%, 230401 left)
+2023-06-22 22:03:45.918	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 381/230762 (0%, 230381 left)
+2023-06-22 22:03:46.157	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 401/230762 (0%, 230361 left)
+2023-06-22 22:03:46.390	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 421/230762 (0%, 230341 left)
+2023-06-22 22:04:13.829	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 441/230762 (0%, 230321 left)
+2023-06-22 22:04:14.071	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 461/230762 (0%, 230301 left)
+2023-06-22 22:04:14.310	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 481/230762 (0%, 230281 left)
+2023-06-22 22:04:14.549	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 501/230762 (0%, 230261 left)
+2023-06-22 22:04:14.790	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 521/230762 (0%, 230241 left)
+2023-06-22 22:04:15.038	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 541/230762 (0%, 230221 left)
+2023-06-22 22:04:15.278	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 561/230762 (0%, 230201 left)
+2023-06-22 22:04:15.510	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 581/230762 (0%, 230181 left)
+2023-06-22 22:04:15.749	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 601/230762 (0%, 230161 left)
+2023-06-22 22:04:15.990	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 621/230762 (0%, 230141 left)
+2023-06-22 22:04:16.230	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 641/230762 (0%, 230121 left)
+2023-06-22 22:04:16.478	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 661/230762 (0%, 230101 left)
+2023-06-22 22:04:16.709	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 681/230762 (0%, 230081 left)
+2023-06-22 22:04:16.967	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 701/230762 (0%, 230061 left)
+2023-06-22 22:04:17.217	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 721/230762 (0%, 230041 left)
+2023-06-22 22:04:17.450	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 741/230762 (0%, 230021 left)
+2023-06-22 22:04:17.690	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 761/230762 (0%, 230001 left)
+2023-06-22 22:04:17.929	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 781/230762 (0%, 229981 left)
+2023-06-22 22:04:18.169	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 801/230762 (0%, 229961 left)
+2023-06-22 22:04:18.431	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 821/230762 (0%, 229941 left)
+2023-06-22 22:04:18.671	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 841/230762 (0%, 229921 left)
+2023-06-22 22:04:18.909	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 861/230762 (0%, 229901 left)
+2023-06-22 22:04:19.151	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 881/230762 (0%, 229881 left)
+2023-06-22 22:04:19.397	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 901/230762 (0%, 229861 left)
+2023-06-22 22:04:19.627	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 921/230762 (0%, 229841 left)
+2023-06-22 22:04:19.850	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 941/230762 (0%, 229821 left)
+2023-06-22 22:04:20.104	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 961/230762 (0%, 229801 left)
+2023-06-22 22:04:20.350	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 981/230762 (0%, 229781 left)
+2023-06-22 22:04:20.596	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1001/230762 (0%, 229761 left)
+2023-06-22 22:04:20.829	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1021/230762 (0%, 229741 left)
+2023-06-22 22:04:21.070	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1041/230762 (0%, 229721 left)
+2023-06-22 22:04:21.309	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1061/230762 (0%, 229701 left)
+2023-06-22 22:04:21.557	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1081/230762 (0%, 229681 left)
+2023-06-22 22:04:21.791	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1101/230762 (0%, 229661 left)
+2023-06-22 22:04:22.030	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1121/230762 (0%, 229641 left)
+2023-06-22 22:04:22.270	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1141/230762 (0%, 229621 left)
+2023-06-22 22:04:22.510	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1161/230762 (0%, 229601 left)
+2023-06-22 22:04:22.769	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1181/230762 (0%, 229581 left)
+2023-06-22 22:04:23.010	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1201/230762 (0%, 229561 left)
+2023-06-22 22:04:23.258	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1221/230762 (0%, 229541 left)
+2023-06-22 22:04:23.489	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1241/230762 (0%, 229521 left)
+2023-06-22 22:04:23.738	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1261/230762 (0%, 229501 left)
+2023-06-22 22:04:23.970	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1281/230762 (0%, 229481 left)
+2023-06-22 22:04:24.210	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1301/230762 (0%, 229461 left)
+2023-06-22 22:04:24.458	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1321/230762 (0%, 229441 left)
+2023-06-22 22:04:24.689	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1341/230762 (0%, 229421 left)
+2023-06-22 22:04:24.929	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1361/230762 (0%, 229401 left)
+2023-06-22 22:04:25.170	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1381/230762 (0%, 229381 left)
+2023-06-22 22:04:25.410	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1401/230762 (0%, 229361 left)
+2023-06-22 22:04:25.649	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1421/230762 (0%, 229341 left)
+2023-06-22 22:04:25.891	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1441/230762 (0%, 229321 left)
+2023-06-22 22:04:26.139	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1461/230762 (0%, 229301 left)
+2023-06-22 22:04:26.370	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1481/230762 (0%, 229281 left)
+2023-06-22 22:04:26.610	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1501/230762 (0%, 229261 left)
+2023-06-22 22:04:26.867	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1521/230762 (0%, 229241 left)
+2023-06-22 22:04:27.110	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1541/230762 (0%, 229221 left)
+2023-06-22 22:04:27.350	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1561/230762 (0%, 229201 left)
+2023-06-22 22:04:27.589	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1581/230762 (0%, 229181 left)
+2023-06-22 22:04:27.831	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1601/230762 (0%, 229161 left)
+2023-06-22 22:04:28.078	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1621/230762 (0%, 229141 left)
+2023-06-22 22:04:28.331	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1641/230762 (0%, 229121 left)
+2023-06-22 22:04:28.570	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1661/230762 (0%, 229101 left)
+2023-06-22 22:04:28.811	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1681/230762 (0%, 229081 left)
+2023-06-22 22:04:29.049	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1701/230762 (0%, 229061 left)
+2023-06-22 22:04:29.290	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1721/230762 (0%, 229041 left)
+2023-06-22 22:04:29.530	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1741/230762 (0%, 229021 left)
+2023-06-22 22:04:29.770	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1761/230762 (0%, 229001 left)
+2023-06-22 22:04:30.010	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1781/230762 (0%, 228981 left)
+2023-06-22 22:04:30.250	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1801/230762 (0%, 228961 left)
+2023-06-22 22:04:30.499	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1821/230762 (0%, 228941 left)
+2023-06-22 22:04:30.730	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1841/230762 (0%, 228921 left)
+2023-06-22 22:04:30.969	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1861/230762 (0%, 228901 left)
+2023-06-22 22:04:31.211	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1881/230762 (0%, 228881 left)
+2023-06-22 22:04:31.470	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1901/230762 (0%, 228861 left)
+2023-06-22 22:04:31.710	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1921/230762 (0%, 228841 left)
+2023-06-22 22:04:31.949	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1941/230762 (0%, 228821 left)
+2023-06-22 22:04:32.190	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1961/230762 (0%, 228801 left)
+2023-06-22 22:04:32.429	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 1981/230762 (0%, 228781 left)
+2023-06-22 22:04:32.671	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2001/230762 (0%, 228761 left)
+2023-06-22 22:04:32.910	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2021/230762 (0%, 228741 left)
+2023-06-22 22:04:33.159	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2041/230762 (0%, 228721 left)
+2023-06-22 22:04:33.391	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2061/230762 (0%, 228701 left)
+2023-06-22 22:04:33.639	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2081/230762 (0%, 228681 left)
+2023-06-22 22:04:33.879	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2101/230762 (0%, 228661 left)
+2023-06-22 22:04:34.241	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2121/230762 (0%, 228641 left)
+2023-06-22 22:04:34.499	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2141/230762 (0%, 228621 left)
+2023-06-22 22:04:34.737	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2161/230762 (0%, 228601 left)
+2023-06-22 22:04:34.970	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2181/230762 (0%, 228581 left)
+2023-06-22 22:04:35.190	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2201/230762 (0%, 228561 left)
+2023-06-22 22:04:35.431	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2221/230762 (0%, 228541 left)
+2023-06-22 22:04:35.668	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2241/230762 (0%, 228521 left)
+2023-06-22 22:04:35.910	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2261/230762 (0%, 228501 left)
+2023-06-22 22:04:36.151	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2281/230762 (0%, 228481 left)
+2023-06-22 22:04:36.390	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2301/230762 (0%, 228461 left)
+2023-06-22 22:04:36.629	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2321/230762 (1%, 228441 left)
+2023-06-22 22:04:36.882	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2341/230762 (1%, 228421 left)
+2023-06-22 22:04:37.138	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2361/230762 (1%, 228401 left)
+2023-06-22 22:04:37.370	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2381/230762 (1%, 228381 left)
+2023-06-22 22:04:37.618	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2401/230762 (1%, 228361 left)
+2023-06-22 22:04:37.831	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2421/230762 (1%, 228341 left)
+2023-06-22 22:04:38.069	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2441/230762 (1%, 228321 left)
+2023-06-22 22:04:38.318	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2461/230762 (1%, 228301 left)
+2023-06-22 22:04:38.551	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2481/230762 (1%, 228281 left)
+2023-06-22 22:04:38.802	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2501/230762 (1%, 228261 left)
+2023-06-22 22:04:39.029	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2521/230762 (1%, 228241 left)
+2023-06-22 22:04:39.272	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2541/230762 (1%, 228221 left)
+2023-06-22 22:04:39.514	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2561/230762 (1%, 228201 left)
+2023-06-22 22:04:39.731	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2581/230762 (1%, 228181 left)
+2023-06-22 22:04:39.951	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2601/230762 (1%, 228161 left)
+2023-06-22 22:04:40.171	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2621/230762 (1%, 228141 left)
+2023-06-22 22:04:40.419	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2641/230762 (1%, 228121 left)
+2023-06-22 22:04:40.633	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2661/230762 (1%, 228101 left)
+2023-06-22 22:04:40.872	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2681/230762 (1%, 228081 left)
+2023-06-22 22:04:41.113	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2701/230762 (1%, 228061 left)
+2023-06-22 22:04:41.434	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2721/230762 (1%, 228041 left)
+2023-06-22 22:04:41.678	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2741/230762 (1%, 228021 left)
+2023-06-22 22:04:41.912	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2761/230762 (1%, 228001 left)
+2023-06-22 22:04:42.150	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2781/230762 (1%, 227981 left)
+2023-06-22 22:04:42.371	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2801/230762 (1%, 227961 left)
+2023-06-22 22:04:42.618	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2821/230762 (1%, 227941 left)
+2023-06-22 22:04:42.851	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2841/230762 (1%, 227921 left)
+2023-06-22 22:04:43.092	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2861/230762 (1%, 227901 left)
+2023-06-22 22:04:43.330	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2881/230762 (1%, 227881 left)
+2023-06-22 22:04:43.571	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2901/230762 (1%, 227861 left)
+2023-06-22 22:04:43.811	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2921/230762 (1%, 227841 left)
+2023-06-22 22:04:44.058	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2941/230762 (1%, 227821 left)
+2023-06-22 22:04:44.291	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2961/230762 (1%, 227801 left)
+2023-06-22 22:04:44.538	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 2981/230762 (1%, 227781 left)
+2023-06-22 22:04:44.780	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3001/230762 (1%, 227761 left)
+2023-06-22 22:04:45.040	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3021/230762 (1%, 227741 left)
+2023-06-22 22:04:45.274	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3041/230762 (1%, 227721 left)
+2023-06-22 22:04:45.511	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3061/230762 (1%, 227701 left)
+2023-06-22 22:04:45.760	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3081/230762 (1%, 227681 left)
+2023-06-22 22:04:46.010	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3101/230762 (1%, 227661 left)
+2023-06-22 22:04:46.251	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3121/230762 (1%, 227641 left)
+2023-06-22 22:04:46.490	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3141/230762 (1%, 227621 left)
+2023-06-22 22:04:46.731	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3161/230762 (1%, 227601 left)
+2023-06-22 22:04:46.971	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3181/230762 (1%, 227581 left)
+2023-06-22 22:04:47.213	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3201/230762 (1%, 227561 left)
+2023-06-22 22:04:47.451	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3221/230762 (1%, 227541 left)
+2023-06-22 22:04:47.694	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3241/230762 (1%, 227521 left)
+2023-06-22 22:04:47.931	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3261/230762 (1%, 227501 left)
+2023-06-22 22:04:48.151	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3281/230762 (1%, 227481 left)
+2023-06-22 22:04:48.391	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3301/230762 (1%, 227461 left)
+2023-06-22 22:04:48.621	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3321/230762 (1%, 227441 left)
+2023-06-22 22:04:48.675	9388	INFO	msgwriter	src/common/scoped_message_writer.h:103	Height: 3321/230762 (1.4%) on mainnet, not mining, net hash 84.17 kH/s, v15 (next fork in 5.9 days), up to date, 1(out)+0(in) connections
+2023-06-22 22:04:48.871	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3341/230762 (1%, 227421 left)
+2023-06-22 22:04:49.112	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3361/230762 (1%, 227401 left)
+2023-06-22 22:04:49.359	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3381/230762 (1%, 227381 left)
+2023-06-22 22:04:49.591	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3401/230762 (1%, 227361 left)
+2023-06-22 22:04:49.832	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3421/230762 (1%, 227341 left)
+2023-06-22 22:04:50.071	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3441/230762 (1%, 227321 left)
+2023-06-22 22:04:50.312	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3461/230762 (1%, 227301 left)
+2023-06-22 22:04:50.560	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3481/230762 (1%, 227281 left)
+2023-06-22 22:04:50.811	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3501/230762 (1%, 227261 left)
+2023-06-22 22:04:50.849	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:81	p2p net loop stopped
+2023-06-22 22:04:50.962	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:84	Stopping core RPC server...
+2023-06-22 22:04:50.962	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:226	Node stopped.
+2023-06-22 22:04:50.963	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:96	Deinitializing core RPC server...
+2023-06-22 22:04:50.963	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:91	Deinitializing p2p...
+2023-06-22 22:04:51.040	[SRV_MAIN]	INFO	global	src/daemon/core.h:95	Deinitializing core...
+2023-06-22 22:04:51.047	[SRV_MAIN]	INFO	global	src/daemon/protocol.h:76	Stopping cryptonote protocol...
+2023-06-22 22:04:51.047	[SRV_MAIN]	INFO	global	src/daemon/protocol.h:80	Cryptonote protocol stopped successfully
+2023-06-22 22:04:54.305	10808	INFO	logging	contrib/epee/src/mlog.cpp:271	New log categories: *:WARNING,net:FATAL,net.http:FATAL,net.ssl:FATAL,net.p2p:FATAL,net.cn:FATAL,global:INFO,verify:FATAL,serialization:FATAL,daemon.rpc.payment:ERROR,stacktrace:INFO,logging:INFO,msgwriter:INFO
+2023-06-22 22:04:54.306	10808	INFO	global	src/daemon/main.cpp:273	Morelo 'Apricot's Pit' (v0.1.0.3-e02793e)
+2023-06-22 22:04:54.306	10808	INFO	global	src/daemon/protocol.h:54	Initializing cryptonote protocol...
+2023-06-22 22:04:54.306	10808	INFO	global	src/daemon/protocol.h:59	Cryptonote protocol initialized OK
+2023-06-22 22:04:54.311	10808	INFO	global	src/daemon/core.h:64	Initializing core...
+2023-06-22 22:04:54.311	10808	INFO	global	src/cryptonote_core/cryptonote_core.cpp:495	Loading blockchain from folder aa\lmdb ...
+2023-06-22 22:04:54.322	10808	INFO	global	src/cryptonote_core/cryptonote_core.cpp:645	Loading checkpoints
+2023-06-22 22:04:54.322	10808	INFO	global	src/daemon/core.h:74	Core initialized OK
+2023-06-22 22:04:54.322	10808	INFO	global	src/daemon/p2p.h:64	Initializing p2p server...
+2023-06-22 22:04:54.323	10808	INFO	global	src/daemon/p2p.h:69	p2p server initialized OK
+2023-06-22 22:04:54.323	10808	INFO	global	src/daemon/rpc.h:63	Initializing core RPC server...
+2023-06-22 22:04:54.323	10808	INFO	global	contrib/epee/include/net/http_server_impl_base.h:80	Binding on 127.0.0.1:38302
+2023-06-22 22:04:54.324	10808	INFO	global	contrib/epee/src/net_ssl.cpp:124	Generating SSL certificate
+2023-06-22 22:04:55.162	10808	INFO	global	src/daemon/rpc.h:69	core RPC server initialized OK on port: 38302
+2023-06-22 22:04:55.162	10808	INFO	global	src/daemon/rpc.h:74	Starting core RPC server...
+2023-06-22 22:04:55.162	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:79	core RPC server started ok
+2023-06-22 22:04:55.169	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:203	Morelo ZMQ Server Disabled
+2023-06-22 22:04:55.170	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:79	Starting p2p net loop...
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      o***o o
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      O *oO O ooo
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     o****oOO* o *o
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O    O   *O * O
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O    O      *O*
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O  O         O
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O O        o*
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     *O      o*
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	       ******
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	  _____ _____ __
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |     | __  |  |
+2023-06-22 22:04:56.183	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 | | | |    -|  |__
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |_|_|_|__|__|_____|
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	The daemon will start synchronizing with the network. This may take a long time to complete.
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	You can set the level of process detailization through "set_log <level|categories>" command,
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	where <level> is between 0 (no details) and 4 (very verbose), or custom category based levels (eg, *:WARNING).
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use the "help" command to see the list of available commands.
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use "help <command>" to see a command's documentation.
+2023-06-22 22:04:56.184	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:05:45.873	8776	INFO	global	contrib/epee/include/console_handler.h:359	EOF on stdin, exiting
+2023-06-22 22:05:45.874	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:81	p2p net loop stopped
+2023-06-22 22:05:45.874	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:84	Stopping core RPC server...
+2023-06-22 22:05:45.874	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:226	Node stopped.
+2023-06-22 22:05:45.875	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:96	Deinitializing core RPC server...
+2023-06-22 22:05:45.875	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:91	Deinitializing p2p...
+2023-06-22 22:05:46.514	[SRV_MAIN]	INFO	global	src/daemon/core.h:95	Deinitializing core...
+2023-06-22 22:05:46.516	[SRV_MAIN]	INFO	global	src/daemon/protocol.h:76	Stopping cryptonote protocol...
+2023-06-22 22:05:46.516	[SRV_MAIN]	INFO	global	src/daemon/protocol.h:80	Cryptonote protocol stopped successfully
+2023-06-22 22:05:48.991	12716	INFO	logging	contrib/epee/src/mlog.cpp:271	New log categories: *:WARNING,net:FATAL,net.http:FATAL,net.ssl:FATAL,net.p2p:FATAL,net.cn:FATAL,global:INFO,verify:FATAL,serialization:FATAL,daemon.rpc.payment:ERROR,stacktrace:INFO,logging:INFO,msgwriter:INFO
+2023-06-22 22:05:48.991	12716	INFO	global	src/daemon/main.cpp:273	Morelo 'Apricot's Pit' (v0.1.0.3-e02793e)
+2023-06-22 22:05:48.991	12716	INFO	global	src/daemon/protocol.h:54	Initializing cryptonote protocol...
+2023-06-22 22:05:48.991	12716	INFO	global	src/daemon/protocol.h:59	Cryptonote protocol initialized OK
+2023-06-22 22:05:48.997	12716	INFO	global	src/daemon/core.h:64	Initializing core...
+2023-06-22 22:05:48.997	12716	INFO	global	src/cryptonote_core/cryptonote_core.cpp:495	Loading blockchain from folder aa\lmdb ...
+2023-06-22 22:05:49.007	12716	INFO	global	src/cryptonote_core/cryptonote_core.cpp:645	Loading checkpoints
+2023-06-22 22:05:49.007	12716	INFO	global	src/daemon/core.h:74	Core initialized OK
+2023-06-22 22:05:49.007	12716	INFO	global	src/daemon/p2p.h:64	Initializing p2p server...
+2023-06-22 22:05:49.009	12716	INFO	global	src/daemon/p2p.h:69	p2p server initialized OK
+2023-06-22 22:05:49.009	12716	INFO	global	src/daemon/rpc.h:63	Initializing core RPC server...
+2023-06-22 22:05:49.009	12716	INFO	global	contrib/epee/include/net/http_server_impl_base.h:80	Binding on 127.0.0.1:38302
+2023-06-22 22:05:49.009	12716	INFO	global	contrib/epee/src/net_ssl.cpp:124	Generating SSL certificate
+2023-06-22 22:05:49.123	12716	INFO	global	src/daemon/rpc.h:69	core RPC server initialized OK on port: 38302
+2023-06-22 22:05:49.124	12716	INFO	global	src/daemon/rpc.h:74	Starting core RPC server...
+2023-06-22 22:05:49.124	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:79	core RPC server started ok
+2023-06-22 22:05:49.131	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:203	Morelo ZMQ Server Disabled
+2023-06-22 22:05:49.131	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:79	Starting p2p net loop...
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      o***o o
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      O *oO O ooo
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     o****oOO* o *o
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O    O   *O * O
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O    O      *O*
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O  O         O
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O O        o*
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     *O      o*
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	       ******
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	  _____ _____ __
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |     | __  |  |
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 | | | |    -|  |__
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |_|_|_|__|__|_____|
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	The daemon will start synchronizing with the network. This may take a long time to complete.
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	You can set the level of process detailization through "set_log <level|categories>" command,
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	where <level> is between 0 (no details) and 4 (very verbose), or custom category based levels (eg, *:WARNING).
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use the "help" command to see the list of available commands.
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use "help <command>" to see a command's documentation.
+2023-06-22 22:05:50.136	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:06:14.304	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:351	[80.60.19.222:38301 OUT] Sync data returned a new top block candidate: 3501 -> 230763 [Your node is 227262 blocks (10.3 months) behind] 
+2023-06-22 22:06:14.304	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:351	SYNCHRONIZATION started
+2023-06-22 22:06:15.197	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3521/230763 (1%, 227242 left)
+2023-06-22 22:06:15.421	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3541/230763 (1%, 227222 left)
+2023-06-22 22:06:15.619	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3561/230763 (1%, 227202 left)
+2023-06-22 22:06:15.839	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3581/230763 (1%, 227182 left)
+2023-06-22 22:06:16.079	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3601/230763 (1%, 227162 left)
+2023-06-22 22:06:16.291	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3621/230763 (1%, 227142 left)
+2023-06-22 22:06:16.541	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3641/230763 (1%, 227122 left)
+2023-06-22 22:06:16.791	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3661/230763 (1%, 227102 left)
+2023-06-22 22:06:16.999	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3681/230763 (1%, 227082 left)
+2023-06-22 22:06:17.232	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3701/230763 (1%, 227062 left)
+2023-06-22 22:06:17.466	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3721/230763 (1%, 227042 left)
+2023-06-22 22:06:17.686	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3741/230763 (1%, 227022 left)
+2023-06-22 22:06:17.931	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3761/230763 (1%, 227002 left)
+2023-06-22 22:06:18.172	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3781/230763 (1%, 226982 left)
+2023-06-22 22:06:18.411	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3801/230763 (1%, 226962 left)
+2023-06-22 22:06:18.655	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3821/230763 (1%, 226942 left)
+2023-06-22 22:06:18.899	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3841/230763 (1%, 226922 left)
+2023-06-22 22:06:19.129	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3861/230763 (1%, 226902 left)
+2023-06-22 22:06:19.372	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3881/230763 (1%, 226882 left)
+2023-06-22 22:06:19.593	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3901/230763 (1%, 226862 left)
+2023-06-22 22:06:23.619	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3921/230763 (1%, 226842 left)
+2023-06-22 22:06:23.846	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3941/230763 (1%, 226822 left)
+2023-06-22 22:06:24.080	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3961/230763 (1%, 226802 left)
+2023-06-22 22:06:24.312	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 3981/230763 (1%, 226782 left)
+2023-06-22 22:06:24.546	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4001/230763 (1%, 226762 left)
+2023-06-22 22:06:24.842	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4021/230763 (1%, 226742 left)
+2023-06-22 22:06:25.134	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4041/230763 (1%, 226722 left)
+2023-06-22 22:06:25.377	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4061/230763 (1%, 226702 left)
+2023-06-22 22:06:25.613	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4081/230763 (1%, 226682 left)
+2023-06-22 22:06:25.851	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4101/230763 (1%, 226662 left)
+2023-06-22 22:06:26.062	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4121/230763 (1%, 226642 left)
+2023-06-22 22:06:26.311	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4141/230763 (1%, 226622 left)
+2023-06-22 22:06:26.532	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4161/230763 (1%, 226602 left)
+2023-06-22 22:06:26.877	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4181/230763 (1%, 226582 left)
+2023-06-22 22:06:27.113	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4201/230763 (1%, 226562 left)
+2023-06-22 22:06:27.351	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4221/230763 (1%, 226542 left)
+2023-06-22 22:06:27.591	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4241/230763 (1%, 226522 left)
+2023-06-22 22:06:27.812	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4261/230763 (1%, 226502 left)
+2023-06-22 22:06:28.062	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4281/230763 (1%, 226482 left)
+2023-06-22 22:06:28.295	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4301/230763 (1%, 226462 left)
+2023-06-22 22:06:28.520	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4321/230763 (1%, 226442 left)
+2023-06-22 22:06:28.788	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4341/230763 (1%, 226422 left)
+2023-06-22 22:06:29.035	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4361/230763 (1%, 226402 left)
+2023-06-22 22:06:29.251	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4381/230763 (1%, 226382 left)
+2023-06-22 22:06:29.472	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4401/230763 (1%, 226362 left)
+2023-06-22 22:06:29.723	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4421/230763 (1%, 226342 left)
+2023-06-22 22:06:29.980	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4441/230763 (1%, 226322 left)
+2023-06-22 22:06:30.212	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4461/230763 (1%, 226302 left)
+2023-06-22 22:06:30.432	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4481/230763 (1%, 226282 left)
+2023-06-22 22:06:30.675	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4501/230763 (1%, 226262 left)
+2023-06-22 22:06:30.921	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4521/230763 (1%, 226242 left)
+2023-06-22 22:06:31.191	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4541/230763 (1%, 226222 left)
+2023-06-22 22:06:31.437	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4561/230763 (1%, 226202 left)
+2023-06-22 22:06:31.673	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4581/230763 (1%, 226182 left)
+2023-06-22 22:06:31.909	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4601/230763 (1%, 226162 left)
+2023-06-22 22:06:32.156	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4621/230763 (2%, 226142 left)
+2023-06-22 22:06:32.374	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4641/230763 (2%, 226122 left)
+2023-06-22 22:06:32.614	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4661/230763 (2%, 226102 left)
+2023-06-22 22:06:32.855	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4681/230763 (2%, 226082 left)
+2023-06-22 22:06:33.092	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4701/230763 (2%, 226062 left)
+2023-06-22 22:06:33.312	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4721/230763 (2%, 226042 left)
+2023-06-22 22:06:33.532	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4741/230763 (2%, 226022 left)
+2023-06-22 22:06:33.759	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4761/230763 (2%, 226002 left)
+2023-06-22 22:06:33.992	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4781/230763 (2%, 225982 left)
+2023-06-22 22:06:34.228	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4801/230763 (2%, 225962 left)
+2023-06-22 22:06:34.461	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4821/230763 (2%, 225942 left)
+2023-06-22 22:06:34.703	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4841/230763 (2%, 225922 left)
+2023-06-22 22:06:34.955	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4861/230763 (2%, 225902 left)
+2023-06-22 22:06:35.192	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4881/230763 (2%, 225882 left)
+2023-06-22 22:06:35.452	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4901/230763 (2%, 225862 left)
+2023-06-22 22:06:35.729	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4921/230763 (2%, 225842 left)
+2023-06-22 22:06:35.972	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4941/230763 (2%, 225822 left)
+2023-06-22 22:06:36.223	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4961/230763 (2%, 225802 left)
+2023-06-22 22:06:36.471	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 4981/230763 (2%, 225782 left)
+2023-06-22 22:06:36.720	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5001/230763 (2%, 225762 left)
+2023-06-22 22:06:37.000	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5021/230763 (2%, 225742 left)
+2023-06-22 22:06:37.229	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5041/230763 (2%, 225722 left)
+2023-06-22 22:06:37.833	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5061/230763 (2%, 225702 left)
+2023-06-22 22:06:38.393	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5081/230763 (2%, 225682 left)
+2023-06-22 22:06:38.893	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5101/230763 (2%, 225662 left)
+2023-06-22 22:06:39.459	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5121/230763 (2%, 225642 left)
+2023-06-22 22:06:39.839	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5141/230763 (2%, 225622 left)
+2023-06-22 22:06:40.156	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5161/230763 (2%, 225602 left)
+2023-06-22 22:06:40.576	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5181/230763 (2%, 225582 left)
+2023-06-22 22:06:41.042	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5201/230763 (2%, 225562 left)
+2023-06-22 22:06:41.433	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5221/230763 (2%, 225542 left)
+2023-06-22 22:06:41.826	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5241/230763 (2%, 225522 left)
+2023-06-22 22:06:42.249	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5261/230763 (2%, 225502 left)
+2023-06-22 22:06:42.692	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5281/230763 (2%, 225482 left)
+2023-06-22 22:06:43.126	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5301/230763 (2%, 225462 left)
+2023-06-22 22:06:43.481	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5321/230763 (2%, 225442 left)
+2023-06-22 22:06:43.897	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5341/230763 (2%, 225422 left)
+2023-06-22 22:06:44.279	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5361/230763 (2%, 225402 left)
+2023-06-22 22:06:44.642	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5381/230763 (2%, 225382 left)
+2023-06-22 22:06:45.099	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5401/230763 (2%, 225362 left)
+2023-06-22 22:06:45.816	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5421/230763 (2%, 225342 left)
+2023-06-22 22:06:46.348	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5441/230763 (2%, 225322 left)
+2023-06-22 22:06:47.021	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5461/230763 (2%, 225302 left)
+2023-06-22 22:06:47.613	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5481/230763 (2%, 225282 left)
+2023-06-22 22:06:48.017	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5501/230763 (2%, 225262 left)
+2023-06-22 22:06:48.564	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5521/230763 (2%, 225242 left)
+2023-06-22 22:06:49.128	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5541/230763 (2%, 225222 left)
+2023-06-22 22:06:49.639	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5561/230763 (2%, 225202 left)
+2023-06-22 22:06:50.483	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5581/230763 (2%, 225182 left)
+2023-06-22 22:06:51.336	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5601/230763 (2%, 225162 left)
+2023-06-22 22:06:52.154	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5621/230763 (2%, 225142 left)
+2023-06-22 22:06:52.976	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5641/230763 (2%, 225122 left)
+2023-06-22 22:06:53.802	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5661/230763 (2%, 225102 left)
+2023-06-22 22:06:54.689	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5681/230763 (2%, 225082 left)
+2023-06-22 22:06:55.591	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5701/230763 (2%, 225062 left)
+2023-06-22 22:06:56.377	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5721/230763 (2%, 225042 left)
+2023-06-22 22:06:57.169	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5741/230763 (2%, 225022 left)
+2023-06-22 22:06:58.041	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5761/230763 (2%, 225002 left)
+2023-06-22 22:06:58.809	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5781/230763 (2%, 224982 left)
+2023-06-22 22:06:59.620	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5801/230763 (2%, 224962 left)
+2023-06-22 22:07:00.492	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5821/230763 (2%, 224942 left)
+2023-06-22 22:07:01.434	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5841/230763 (2%, 224922 left)
+2023-06-22 22:07:02.180	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5861/230763 (2%, 224902 left)
+2023-06-22 22:07:03.067	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5881/230763 (2%, 224882 left)
+2023-06-22 22:07:03.880	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5901/230763 (2%, 224862 left)
+2023-06-22 22:07:04.569	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5921/230763 (2%, 224842 left)
+2023-06-22 22:07:05.466	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5941/230763 (2%, 224822 left)
+2023-06-22 22:07:06.253	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5961/230763 (2%, 224802 left)
+2023-06-22 22:07:07.144	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 5981/230763 (2%, 224782 left)
+2023-06-22 22:07:07.870	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6001/230763 (2%, 224762 left)
+2023-06-22 22:07:08.755	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6021/230763 (2%, 224742 left)
+2023-06-22 22:07:09.639	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6041/230763 (2%, 224722 left)
+2023-06-22 22:07:10.533	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6061/230763 (2%, 224702 left)
+2023-06-22 22:07:11.429	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6081/230763 (2%, 224682 left)
+2023-06-22 22:07:12.262	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6101/230763 (2%, 224662 left)
+2023-06-22 22:07:13.101	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6121/230763 (2%, 224642 left)
+2023-06-22 22:07:13.914	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6141/230763 (2%, 224622 left)
+2023-06-22 22:07:14.768	[P2P14]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6161/230763 (2%, 224602 left)
+2023-06-22 22:07:15.745	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6181/230763 (2%, 224582 left)
+2023-06-22 22:07:16.709	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6201/230763 (2%, 224562 left)
+2023-06-22 22:07:17.769	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6221/230763 (2%, 224542 left)
+2023-06-22 22:07:18.841	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6241/230763 (2%, 224522 left)
+2023-06-22 22:07:19.848	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6261/230763 (2%, 224502 left)
+2023-06-22 22:07:20.863	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6281/230763 (2%, 224482 left)
+2023-06-22 22:07:21.906	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6301/230763 (2%, 224462 left)
+2023-06-22 22:07:21.906	9312	INFO	msgwriter	src/common/scoped_message_writer.h:103	Height: 6281/230763 (2.7%) on mainnet, not mining, net hash 563.33 kH/s, v15 (next fork in 5.9 days), up to date, 1(out)+0(in) connections
+2023-06-22 22:07:22.900	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6321/230763 (2%, 224442 left)
+2023-06-22 22:07:23.740	[P2P13]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6341/230763 (2%, 224422 left)
+2023-06-22 22:07:23.844	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:81	p2p net loop stopped
+2023-06-22 22:07:23.949	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:84	Stopping core RPC server...
+2023-06-22 22:07:23.949	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:226	Node stopped.
+2023-06-22 22:07:23.950	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:96	Deinitializing core RPC server...
+2023-06-22 22:07:23.951	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:91	Deinitializing p2p...
+2023-06-22 22:07:24.832	[SRV_MAIN]	INFO	global	src/daemon/core.h:95	Deinitializing core...
+2023-06-22 22:07:24.856	[SRV_MAIN]	INFO	global	src/daemon/protocol.h:76	Stopping cryptonote protocol...
+2023-06-22 22:07:24.856	[SRV_MAIN]	INFO	global	src/daemon/protocol.h:80	Cryptonote protocol stopped successfully
+2023-06-22 22:07:27.116	3980	INFO	logging	contrib/epee/src/mlog.cpp:271	New log categories: *:WARNING,net:FATAL,net.http:FATAL,net.ssl:FATAL,net.p2p:FATAL,net.cn:FATAL,global:INFO,verify:FATAL,serialization:FATAL,daemon.rpc.payment:ERROR,stacktrace:INFO,logging:INFO,msgwriter:INFO
+2023-06-22 22:07:27.116	3980	INFO	global	src/daemon/main.cpp:273	Morelo 'Apricot's Pit' (v0.1.0.3-e02793e)
+2023-06-22 22:07:27.116	3980	INFO	global	src/daemon/protocol.h:54	Initializing cryptonote protocol...
+2023-06-22 22:07:27.116	3980	INFO	global	src/daemon/protocol.h:59	Cryptonote protocol initialized OK
+2023-06-22 22:07:27.121	3980	INFO	global	src/daemon/core.h:64	Initializing core...
+2023-06-22 22:07:27.121	3980	INFO	global	src/cryptonote_core/cryptonote_core.cpp:495	Loading blockchain from folder aa\lmdb ...
+2023-06-22 22:07:27.140	3980	INFO	global	src/cryptonote_core/cryptonote_core.cpp:645	Loading checkpoints
+2023-06-22 22:07:27.140	3980	INFO	global	src/daemon/core.h:74	Core initialized OK
+2023-06-22 22:07:27.140	3980	INFO	global	src/daemon/p2p.h:64	Initializing p2p server...
+2023-06-22 22:07:27.141	3980	INFO	global	src/daemon/p2p.h:69	p2p server initialized OK
+2023-06-22 22:07:27.141	3980	INFO	global	src/daemon/rpc.h:63	Initializing core RPC server...
+2023-06-22 22:07:27.142	3980	INFO	global	contrib/epee/include/net/http_server_impl_base.h:80	Binding on 127.0.0.1:38302
+2023-06-22 22:07:27.142	3980	INFO	global	contrib/epee/src/net_ssl.cpp:124	Generating SSL certificate
+2023-06-22 22:07:28.011	3980	INFO	global	src/daemon/rpc.h:69	core RPC server initialized OK on port: 38302
+2023-06-22 22:07:28.011	3980	INFO	global	src/daemon/rpc.h:74	Starting core RPC server...
+2023-06-22 22:07:28.011	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:79	core RPC server started ok
+2023-06-22 22:07:28.018	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:203	Morelo ZMQ Server Disabled
+2023-06-22 22:07:28.019	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:79	Starting p2p net loop...
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      o***o o
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      O *oO O ooo
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     o****oOO* o *o
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O    O   *O * O
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O    O      *O*
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O  O         O
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O O        o*
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     *O      o*
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	       ******
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	  _____ _____ __
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |     | __  |  |
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 | | | |    -|  |__
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |_|_|_|__|__|_____|
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	The daemon will start synchronizing with the network. This may take a long time to complete.
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	You can set the level of process detailization through "set_log <level|categories>" command,
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	where <level> is between 0 (no details) and 4 (very verbose), or custom category based levels (eg, *:WARNING).
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use the "help" command to see the list of available commands.
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use "help <command>" to see a command's documentation.
+2023-06-22 22:07:29.029	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:08:06.074	9744	INFO	global	contrib/epee/include/console_handler.h:359	EOF on stdin, exiting
+2023-06-22 22:08:06.075	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:81	p2p net loop stopped
+2023-06-22 22:08:06.075	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:84	Stopping core RPC server...
+2023-06-22 22:08:06.075	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:226	Node stopped.
+2023-06-22 22:08:06.158	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:96	Deinitializing core RPC server...
+2023-06-22 22:08:06.158	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:91	Deinitializing p2p...
+2023-06-22 22:08:06.297	[SRV_MAIN]	INFO	global	src/daemon/core.h:95	Deinitializing core...
+2023-06-22 22:08:06.300	[SRV_MAIN]	INFO	global	src/daemon/protocol.h:76	Stopping cryptonote protocol...
+2023-06-22 22:08:06.300	[SRV_MAIN]	INFO	global	src/daemon/protocol.h:80	Cryptonote protocol stopped successfully
+2023-06-22 22:08:09.478	1264	INFO	logging	contrib/epee/src/mlog.cpp:271	New log categories: *:WARNING,net:FATAL,net.http:FATAL,net.ssl:FATAL,net.p2p:FATAL,net.cn:FATAL,global:INFO,verify:FATAL,serialization:FATAL,daemon.rpc.payment:ERROR,stacktrace:INFO,logging:INFO,msgwriter:INFO
+2023-06-22 22:08:09.478	1264	INFO	global	src/daemon/main.cpp:273	Morelo 'Apricot's Pit' (v0.1.0.3-e02793e)
+2023-06-22 22:08:09.478	1264	INFO	global	src/daemon/protocol.h:54	Initializing cryptonote protocol...
+2023-06-22 22:08:09.478	1264	INFO	global	src/daemon/protocol.h:59	Cryptonote protocol initialized OK
+2023-06-22 22:08:09.483	1264	INFO	global	src/daemon/core.h:64	Initializing core...
+2023-06-22 22:08:09.484	1264	INFO	global	src/cryptonote_core/cryptonote_core.cpp:495	Loading blockchain from folder aa\lmdb ...
+2023-06-22 22:08:09.502	1264	INFO	global	src/cryptonote_core/cryptonote_core.cpp:645	Loading checkpoints
+2023-06-22 22:08:09.502	1264	INFO	global	src/daemon/core.h:74	Core initialized OK
+2023-06-22 22:08:09.502	1264	INFO	global	src/daemon/p2p.h:64	Initializing p2p server...
+2023-06-22 22:08:09.503	1264	INFO	global	src/daemon/p2p.h:69	p2p server initialized OK
+2023-06-22 22:08:09.504	1264	INFO	global	src/daemon/rpc.h:63	Initializing core RPC server...
+2023-06-22 22:08:09.504	1264	INFO	global	contrib/epee/include/net/http_server_impl_base.h:80	Binding on 127.0.0.1:38302
+2023-06-22 22:08:09.504	1264	INFO	global	contrib/epee/src/net_ssl.cpp:124	Generating SSL certificate
+2023-06-22 22:08:09.737	1264	INFO	global	src/daemon/rpc.h:69	core RPC server initialized OK on port: 38302
+2023-06-22 22:08:09.737	1264	INFO	global	src/daemon/rpc.h:74	Starting core RPC server...
+2023-06-22 22:08:09.737	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:79	core RPC server started ok
+2023-06-22 22:08:09.744	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:203	Morelo ZMQ Server Disabled
+2023-06-22 22:08:09.744	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:79	Starting p2p net loop...
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      o***o o
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      O *oO O ooo
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     o****oOO* o *o
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O    O   *O * O
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O    O      *O*
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O  O         O
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O O        o*
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     *O      o*
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	       ******
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	  _____ _____ __
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |     | __  |  |
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 | | | |    -|  |__
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |_|_|_|__|__|_____|
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	The daemon will start synchronizing with the network. This may take a long time to complete.
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	You can set the level of process detailization through "set_log <level|categories>" command,
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	where <level> is between 0 (no details) and 4 (very verbose), or custom category based levels (eg, *:WARNING).
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use the "help" command to see the list of available commands.
+2023-06-22 22:08:10.755	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use "help <command>" to see a command's documentation.
+2023-06-22 22:08:10.756	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:08:20.837	1844	INFO	msgwriter	src/common/scoped_message_writer.h:103	Height: 6341/6341 (100.0%) on mainnet, not mining, net hash 545.00 kH/s, v15, up to date, 0(out)+0(in) connections
+2023-06-22 22:08:22.658	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:81	p2p net loop stopped
+2023-06-22 22:08:22.756	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:84	Stopping core RPC server...
+2023-06-22 22:08:22.756	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:226	Node stopped.
+2023-06-22 22:08:22.757	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:96	Deinitializing core RPC server...
+2023-06-22 22:08:22.757	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:91	Deinitializing p2p...
+2023-06-22 22:08:22.846	[SRV_MAIN]	INFO	global	src/daemon/core.h:95	Deinitializing core...
+2023-06-22 22:08:22.850	[SRV_MAIN]	INFO	global	src/daemon/protocol.h:76	Stopping cryptonote protocol...
+2023-06-22 22:08:22.850	[SRV_MAIN]	INFO	global	src/daemon/protocol.h:80	Cryptonote protocol stopped successfully
+2023-06-22 22:08:26.168	12724	INFO	logging	contrib/epee/src/mlog.cpp:271	New log categories: *:WARNING,net:FATAL,net.http:FATAL,net.ssl:FATAL,net.p2p:FATAL,net.cn:FATAL,global:INFO,verify:FATAL,serialization:FATAL,daemon.rpc.payment:ERROR,stacktrace:INFO,logging:INFO,msgwriter:INFO
+2023-06-22 22:08:26.168	12724	INFO	global	src/daemon/main.cpp:273	Morelo 'Apricot's Pit' (v0.1.0.3-e02793e)
+2023-06-22 22:08:26.168	12724	INFO	global	src/daemon/protocol.h:54	Initializing cryptonote protocol...
+2023-06-22 22:08:26.168	12724	INFO	global	src/daemon/protocol.h:59	Cryptonote protocol initialized OK
+2023-06-22 22:08:26.174	12724	INFO	global	src/daemon/core.h:64	Initializing core...
+2023-06-22 22:08:26.174	12724	INFO	global	src/cryptonote_core/cryptonote_core.cpp:495	Loading blockchain from folder aa\lmdb ...
+2023-06-22 22:08:26.192	12724	INFO	global	src/cryptonote_core/cryptonote_core.cpp:645	Loading checkpoints
+2023-06-22 22:08:26.192	12724	INFO	global	src/daemon/core.h:74	Core initialized OK
+2023-06-22 22:08:26.192	12724	INFO	global	src/daemon/p2p.h:64	Initializing p2p server...
+2023-06-22 22:08:26.194	12724	INFO	global	src/daemon/p2p.h:69	p2p server initialized OK
+2023-06-22 22:08:26.194	12724	INFO	global	src/daemon/rpc.h:63	Initializing core RPC server...
+2023-06-22 22:08:26.194	12724	INFO	global	contrib/epee/include/net/http_server_impl_base.h:80	Binding on 127.0.0.1:38302
+2023-06-22 22:08:26.194	12724	INFO	global	contrib/epee/src/net_ssl.cpp:124	Generating SSL certificate
+2023-06-22 22:08:26.243	12724	INFO	global	src/daemon/rpc.h:69	core RPC server initialized OK on port: 38302
+2023-06-22 22:08:26.243	12724	INFO	global	src/daemon/rpc.h:74	Starting core RPC server...
+2023-06-22 22:08:26.244	[SRV_MAIN]	INFO	global	src/daemon/rpc.h:79	core RPC server started ok
+2023-06-22 22:08:26.250	[SRV_MAIN]	INFO	global	src/daemon/daemon.cpp:203	Morelo ZMQ Server Disabled
+2023-06-22 22:08:26.250	[SRV_MAIN]	INFO	global	src/daemon/p2p.h:79	Starting p2p net loop...
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      o***o o
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	      O *oO O ooo
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     o****oOO* o *o
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O    O   *O * O
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O    O      *O*
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O   O        O
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	   O  O         O
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	    O O        o*
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	     *O      o*
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	       ******
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	  _____ _____ __
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |     | __  |  |
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 | | | |    -|  |__
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	 |_|_|_|__|__|_____|
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1660	
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	The daemon will start synchronizing with the network. This may take a long time to complete.
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	You can set the level of process detailization through "set_log <level|categories>" command,
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	where <level> is between 0 (no details) and 4 (very verbose), or custom category based levels (eg, *:WARNING).
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use the "help" command to see the list of available commands.
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	Use "help <command>" to see a command's documentation.
+2023-06-22 22:08:27.267	[P2P13]	INFO	global	src/cryptonote_core/cryptonote_core.cpp:1677	**********************************************************************
+2023-06-22 22:08:38.303	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:351	[80.60.19.222:38301 OUT] Sync data returned a new top block candidate: 6341 -> 230764 [Your node is 224423 blocks (10.2 months) behind] 
+2023-06-22 22:08:38.303	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:351	SYNCHRONIZATION started
+2023-06-22 22:08:39.867	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6361/230764 (2%, 224403 left)
+2023-06-22 22:08:40.684	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6381/230764 (2%, 224383 left)
+2023-06-22 22:08:41.478	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6401/230764 (2%, 224363 left)
+2023-06-22 22:08:42.441	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6421/230764 (2%, 224343 left)
+2023-06-22 22:08:43.418	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6441/230764 (2%, 224323 left)
+2023-06-22 22:08:44.201	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6461/230764 (2%, 224303 left)
+2023-06-22 22:08:45.121	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6481/230764 (2%, 224283 left)
+2023-06-22 22:08:46.024	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6501/230764 (2%, 224263 left)
+2023-06-22 22:08:46.897	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6521/230764 (2%, 224243 left)
+2023-06-22 22:08:47.857	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6541/230764 (2%, 224223 left)
+2023-06-22 22:08:48.762	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6561/230764 (2%, 224203 left)
+2023-06-22 22:08:49.548	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6581/230764 (2%, 224183 left)
+2023-06-22 22:08:50.464	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6601/230764 (2%, 224163 left)
+2023-06-22 22:08:51.332	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6621/230764 (2%, 224143 left)
+2023-06-22 22:08:52.188	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6641/230764 (2%, 224123 left)
+2023-06-22 22:08:53.005	[P2P15]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6661/230764 (2%, 224103 left)
+2023-06-22 22:08:53.754	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6681/230764 (2%, 224083 left)
+2023-06-22 22:08:54.430	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6701/230764 (2%, 224063 left)
+2023-06-22 22:08:55.070	[P2P11]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6721/230764 (2%, 224043 left)
+2023-06-22 22:08:55.737	[P2P12]	INFO	global	src/cryptonote_protocol/cryptonote_protocol_handler.inl:1471	Synced 6741/230764 (2%, 224023 left)

@@ -246,34 +246,7 @@ def find_str(s, char):
 
 	return -1
 	
-   
-def GetWalletBalance():
-	response = -1
-	try:
-		response = requests.post('http://127.0.0.1:38340/json_rpc', data='{"jsonrpc":"2.0","id":"0","method":"get_balance","params":{"account_index":0}', headers={'Content-Type':'application/json'})
-		response = json.loads(response.text)
-	except:
-		print("ERROR: Can't get wallet's balance")
-	return response
-
-def GetWalletTransactions(start, count):
-	transactions = []
-	response = requests.post('http://127.0.0.1:38340/json_rpc', data='{"jsonrpc":"2.0","id":"0","method":"get_transfers","params":{"filter_by_height":true, "pending":true, "in":true, "out":true, "min_height":' + str(start) + ', "max_height":' + str(start + count) +'}}', headers={'Content-Type':'application/json'})
-	data = json.loads(response.text)
-	if 'in' in data['result']:
-		for block in data['result']['in']:
-			transactions.append(block['txid'])
-	if 'out' in data['result']:
-		for block in data['result']['out']:
-			transactions.append(block['txid'])
-	#else:
-	#	print("ERROR: Can't get transaction list")
-	#	print(data)
-	return transactions
 	
-def GetTransactionInfo(hash):
-	response = requests.post('http://127.0.0.1:38340/json_rpc',data='{"jsonrpc":"2.0","id":"0","method":"get_transfer_by_txid","params":{"txid":"' + hash + '"}}', headers={'Content-Type':'application/json'})
-	return json.loads(response.text)
 
 class Worker(QRunnable):
     def __init__(self, fn, *args, **kwargs):
@@ -822,11 +795,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 	def XiNetworkSetState(self, iState, iPercent = 0):
 		if iState != self.XiNetworkState:
 			self.XiNetworkState = iState
-			if self.XiNetworkState == 0:
-				print('INFO: Network disconnected')
-				GUICtrlSetColor(self.hLabelNetworkStatus, '#fc7c7c')
-				self.hLabelNetworkStatus.setText("Disconnected")
-			elif self.XiNetworkState == 1:
+			if self.XiNetworkState == 1:
 				GUICtrlSetColor(self.hLabelNetworkStatus, '#f7ff91')
 				self.hLabelNetworkStatus.setText("Syncing (" + '%.2f' % iPercent + "%)")
 			elif self.XiNetworkState == 2:
@@ -1111,24 +1080,16 @@ If you enjoy the program you can support me by donating some MRL using button be
 				if diff < 1000:
 					diff = str(diff) + " H/s"
 		self.hLabelNetworkHashrate.setText("Network hashrate: " + str(diff))
-		walletInfo = GetWalletBalance()
+		walletInfo = self.morelo.wallet.get_balance()
 		#locked and unlocked balance calculations
-		if walletInfo == -1:
-			self.walletBalance = "Unknown"
-			self.walletBalanceLocked = "Unknown"
-		else:
+		if walletInfo:
 			self.walletBalance = walletInfo['result']['unlocked_balance'] / 1000000000
 			self.walletBalanceLocked = (walletInfo['result']['balance'] / 1000000000) - self.walletBalance
-		if self.walletBalanceLocked != "Unknown" and self.walletBalanceLocked < 0:
-			self.walletBalanceLocked *=-1
-			self.walletBalance -= self.walletBalanceLocked
 		if self.networkSync and self.networkSync > 1:
 			if self.nodeSync < self.networkSync:
 				self.XiNetworkSetState(1, self.nodeSync / self.networkSync * 100)
 			else:
 				self.XiNetworkSetState(2)
-		else:
-			self.XiNetworkSetState(0)
 	#magic background thread
 	def NetworkThread(self):
 		global daemon_url
@@ -1326,11 +1287,10 @@ If you enjoy the program you can support me by donating some MRL using button be
 		#read wallet address
 		self.GetWalletKeys()
 		self.UpdateKeys()
-		#self.walletRPC = Popen(os.getcwd() + '/morelo-wallet-rpc --wallet-file "' + config['wallet']['path'] + '" --password "' + str(self.pwd) + '" --rpc-bind-port 38340 --disable-rpc-login --log-level 1 --trusted-daemon --daemon-address ' + addr + ':' + port, stdout=PIPE, shell=True)#, creationflags = CREATE_NO_WINDOW)
 		walletRPC = False
 		#waiting for respond or crash
 		while self.morelo.wallet.proc.poll() is None:
-			rpc = GetWalletBalance()
+			rpc = self.morelo.wallet.get_balance()
 			if rpc != -1:
 				walletRPC = True
 				break
@@ -1394,12 +1354,12 @@ If you enjoy the program you can support me by donating some MRL using button be
 				#wallet just started so we need full wallet scan
 				print('INFO: Full tx list request')
 				fullScan = True
-				transactions = GetWalletTransactions(1, self.networkSync)
+				transactions = self.morelo.wallet.get_transfers(1, self.networkSync)
 				self.lastScan = self.networkSync
 			#new network height so we scanning new range for incoming transactions
 			elif self.networkSync - self.lastScan > 0:
 				print('INFO: Partial tx list request, blocks from', self.lastScan, ' to ', self.networkSync)
-				transactions =  GetWalletTransactions(self.lastScan - 1, self.networkSync - self.lastScan) 
+				transactions =  self.morelo.wallet.get_transfers(self.lastScan - 1, self.networkSync - self.lastScan) 
 				self.lastScan = self.networkSync
 			else:
 				self.scanning = False
@@ -1408,7 +1368,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 			if len(transactions):
 				#Get transactions hashes list
 				for transaction in transactions:
-					tx_info = GetTransactionInfo(transaction)
+					tx_info = self.morelo.wallet.get_transaction(transaction)
 					self.transactions.add(tx_info)
 					date = datetime.datetime.fromtimestamp(int(tx_info['result']['transfer']['timestamp']))
 					amount = tx_info['result']['transfer']['amount']

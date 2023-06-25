@@ -23,10 +23,19 @@ class API():
 			return self.post("open_wallet", {"filename": file, "password": password})
 			
 		def transfer(self, receipent, amount, txid):
-			return self.post("transfer", {"destinations":[{"amount": + str(int(amount * 1000000000)) +,"address":" + receipent +"}], "payment_id": "txid"})
+			return self.post("transfer", {"destinations":[{"amount": str(int(amount * 1000000000)), "address": receipent}], "payment_id": "txid"})
 		
 		def get_address(self):
 			return self.post("get_address", {"account_index":0})
+			
+		def get_balance(self):
+			return self.post("get_balance", {"account_index":0})
+			
+		def get_transfers(self, start, count):
+			return self.post("get_transfers", {"filter_by_height": True, "pending": False, "in": True, "out": True, "min_height": str(start), "max_height": str(start + count)})
+		
+		def get_transfer(self, tx_hash):
+			return self.post("get_transfer_by_txid", {"txid": tx_hash})
 	
 	class Daemon():
 		def __init__(self, url):

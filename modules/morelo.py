@@ -58,4 +58,25 @@ class Morelo():
 		def open(self, file, password = ""):
 			self.api.wallet.open(file, password)
 			
+		def get_balance(self):
+			self.api.wallet.get_balance()
+			
+		def get_address(self):
+			self.api.wallet.get_address()
+			
+		def get_transfers(self, start, count):
+			transactions = []
+			response = self.api.wallet.get_transfers(start, count)
+			if 'in' in data['result']:
+				for block in data['result']['in']:
+					transactions.append(block['txid'])
+			if 'out' in data['result']:
+				for block in data['result']['out']:
+					transactions.append(block['txid'])
+			return transactions
+			
+		def get_transfer(self, tx_hash):
+			return self.api.wallet.get_transaction(tx_hash)
+		
+			
 		

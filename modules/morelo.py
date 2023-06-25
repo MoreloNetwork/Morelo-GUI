@@ -32,9 +32,9 @@ class Morelo():
 			return False
 		
 		def get_info(self):
-			req1 = json.loads(self.api.daemon.sync_info())
-			req2 = json.loads(self.api.daemon.get_connections())
-			req3 = json.loads(self.api.daemon.get_info())
+			req1 = self.api.daemon.sync_info()
+			req2 = self.api.daemon.get_connections()
+			req3 = self.api.daemon.get_info()
 			#some shitty mixing responses json
 			req1['result']['difficulty'] = 0
 			target_height = 0
@@ -56,13 +56,14 @@ class Morelo():
 			return subprocess.Popen(os.getcwd() + '/morelo-wallet-rpc --wallet-dir "' + workdir + '" --rpc-bind-port ' + str(w_port) + ' --disable-rpc-login', stdout=subprocess.DEVNULL,  shell=True)#, creationflags = CREATE_NO_WINDOW)
 		
 		def open(self, file, password = ""):
-			self.api.wallet.open(file, password)
+			return self.api.wallet.open(file, password)
 			
 		def get_balance(self):
-			self.api.wallet.get_balance()
+			return self.api.wallet.get_balance()
 			
 		def get_address(self):
-			self.api.wallet.get_address()
+			data = self.api.wallet.get_address()
+			return data['result']['address']
 			
 		def get_transfers(self, start, count):
 			transactions = []

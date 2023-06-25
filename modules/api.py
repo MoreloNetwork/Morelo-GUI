@@ -17,7 +17,7 @@ class API():
 			else:
 				data = json.dumps({"jsonrpc": "2.0", "id": "0", "method": method})
 			response = requests.post('http://127.0.0.1:' + str(self.port) + '/json_rpc', data=data, headers=self.headers)
-			return json.dumps(response.json())
+			return json.loads(response.text)
 			
 		def open(self, file, password = ""):
 			return self.post("open_wallet", {"filename": file, "password": password})
@@ -48,7 +48,7 @@ class API():
 			else:
 				data = json.dumps({"jsonrpc": "2.0", "id": "0", "method": method})
 			response = requests.post(self.url + '/json_rpc', data=data, headers=self.headers)
-			return json.dumps(response.json())
+			return json.loads(response.text)
 			
 		def get_info(self):
 			return self.post("get_info")

@@ -1,7 +1,7 @@
 from modules.transactions import *
 from modules.morelo import *
+from modules.version import *
 
-import version
 missingLibs = False
 try:
 	import math
@@ -204,6 +204,12 @@ initStyle = '''
 		color: white;
 	}
 '''
+
+def MoreloGetPrice():
+	response = requests.get("https://xeggex.com/api/v2/asset/getbyticker/MRL", headers = {'Content-Type': 'application/json'})
+	data = json.loads(response.text)
+	return data['usdValue']
+
 #modyfing controls (widgets) style attributes
 def GUICtrlSetBkColor(control, color):
 	control.mybackgroundcolor = color
@@ -317,7 +323,7 @@ class App(QWidget):
 	def initUI(self):
 		print('INFO: Generating window controls')
 		#window title and size
-		self.setWindowTitle('Morelo GUI Wallet v' + version.version)
+		self.setWindowTitle('Morelo GUI Wallet v' + version)
 		self.setFixedSize(800, 470)
 		self.tabsControls = {}
 		
@@ -329,7 +335,7 @@ class App(QWidget):
 		self.hLabelLogo.setAlignment(Qt.AlignCenter)
 		self.hLabelInit = self.GUICtrlCreateLabel('Initializing...', 470, 100, 0, 0, 0, 0, '14px')
 		self.hLabelInit.hide()
-		#self.hLabelCopyrights = self.GUICtrlCreateLabel('All rights reserved © 2019-2020 MrKris7100', 520, 450, 0, 0, 0, 0, '12px')
+		#self.hLabelCopyrights = self.GUICtrlCreateLabel('All rights reserved © 2019-2023 MrKris7100', 520, 450, 0, 0, 0, 0, '12px')
 		self.hLabelTip = self.GUICtrlCreateLabel('What you want to do?', 250, 320, 300, 0, 0, 0, '14px')
 		self.hLabelTip.setAlignment(Qt.AlignCenter)
 		self.hLabelTip.hide()
@@ -390,8 +396,9 @@ class App(QWidget):
 		#Network status
 		self.hLabelNetwork = self.GUICtrlCreateLabel("Network status:", 5, 448, 0, 0, 'transparent', 0, '14px', 'bold')
 		self.hLabelNetworkStatus = self.GUICtrlCreateLabel("Disconnected", 125, 450, 150, 0, 'transparent', '#fc7c7c', '11px', 'bold')
-		self.hLabelNetworkDiff = self.GUICtrlCreateLabel("Network diff: 1000000000", 300, 450, 190, 0, 'transparent', 0, '11px', 'bold')
-		self.hLabelNetworkHashrate = self.GUICtrlCreateLabel("Network hashrate: 0", 555, 450, 190, 0, 'transparent', 0, '11px', 'bold')
+		self.hLabelNetworkDiff = self.GUICtrlCreateLabel("Network diff: 1000000000", 250, 450, 190, 0, 'transparent', 0, '11px', 'bold')
+		self.hLabelNetworkHashrate = self.GUICtrlCreateLabel("Network hashrate: 0", 400, 450, 190, 0, 'transparent', 0, '11px', 'bold')
+		self.hLabelMoreloPrice = self.GUICtrlCreateLabel("Price: ", 600, 450, 190, 0, 'transparent', 0, '11px', 'bold')
 		#Navigation
 		self.activeTab = self.hButtonSend = self.GUICtrlCreateButton('Send', 0, 150, 200, 35, 'rgba(230, 140, 0, 50%)', 'white')
 		self.hButtonReceive = self.GUICtrlCreateButton("Receive", 0, 185, 200, 35)
@@ -405,7 +412,7 @@ class App(QWidget):
 											self.hLabelBalanceValue, self.hLabelBalanceLocked, self.hLabelBalanceLockedValue,
 											self.hLabelNetwork, self.hButtonSend, self.hButtonReceive,
 											self.hButtonHistory, self.hButtonSettings, self.hLabelNetworkStatus, self.hButtonAbout,
-											self.hLabelNetworkDiff, self.hLabelNetworkHashrate]
+											self.hLabelNetworkDiff, self.hLabelNetworkHashrate, self.hLabelMoreloPrice]
 		
 		#Send TAB
 		self.hInputAmount = self.GUICtrlCreateInput('', 215, 30, 250, 30, 'rgba(255, 0, 0, 15%)')
@@ -522,7 +529,7 @@ class App(QWidget):
 		self.hTableTransactions.horizontalHeader().resizeSection(2, 163)
 		self.tabsControls[self.hButtonHistory.objectName()] = [self.hTableTransactions]
 		#About TAB
-		self.hLabelAbout = self.GUICtrlCreateLabel('''Morelo GUI Wallet v''' + version.version + '''
+		self.hLabelAbout = self.GUICtrlCreateLabel('''Morelo GUI Wallet v''' + version + '''
 
 Author: MrKris7100
 
@@ -1064,6 +1071,8 @@ If you enjoy the program you can support me by donating some MRL using button be
 	
 	#network status update 
 	def XiNetworkUpdate(self):
+		morelo_price = MoreloGetPrice()
+		self.hLabelMoreloPrice.setText("Price: " + str(morelo_price) + " USD")
 		nodeInfo = self.morelo.daemon.get_info()
 		self.nodeSync = nodeInfo['result']['height']
 		self.networkSync = nodeInfo['result']['target_height']
@@ -1243,9 +1252,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 				else:
 					print('INFO: Wallet started (Password is correct)')
 				#i dont remember why this shit exist here but leave that
-				walletAddresses = self.morelo.wallet.get_address()
-				if walletAddresses:
-					self.wallet_address = walletAddresses['result']['address']
+				self.wallet_address = self.morelo.wallet.get_address()
 				self.UpdateWalletAddress()
 				self.UpdateBalance()
 				#hide some controls and show other

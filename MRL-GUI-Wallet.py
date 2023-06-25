@@ -246,9 +246,6 @@ def find_str(s, char):
 
 	return -1
 	
-def SendTransaction(receiver, amount, pay_id):
-	response = requests.post('http://127.0.0.1:38340/json_rpc', data='{"jsonrpc":"2.0","id":"0","method":"transfer","params":{"destinations":[{"amount":' + str(int(amount * 1000000000)) +',"address":"' + receiver +'"}]}}', headers={'Content-Type':'application/json'})
-	return json.loads(response.text)
    
 def GetWalletBalance():
 	response = -1
@@ -257,15 +254,6 @@ def GetWalletBalance():
 		response = json.loads(response.text)
 	except:
 		print("ERROR: Can't get wallet's balance")
-	return response
-   
-def GetWalletAddress():
-	response = False
-	try:
-		response = requests.post('http://127.0.0.1:38340/json_rpc', data='{"jsonrpc":"2.0","id":"0","method":"get_address","params":{"account_index":0}', headers={'Content-Type':'application/json'})
-		response = json.loads(response.text)
-	except:
-		pass
 	return response
 
 def GetWalletTransactions(start, count):
@@ -657,38 +645,6 @@ If you enjoy the program you can support me by donating some MRL using button be
 		except:
 			print("ERROR: Can't read wallet mnemonic seed")
 	
-	def GetNodeInfo(self):
-		response = False
-		try:
-			response = requests.post(daemon_url + '/json_rpc', data='{"method" : "sync_info", "id" : "0", "jsonrpc" : "2.0"}', headers={'Content-Type':'application/json'})
-			response2 = requests.post(daemon_url + '/json_rpc', data='{"jsonrpc":"2.0","id":"0","method":"get_connections"}', headers={'Content-Type':'application/json'})
-			response3 = requests.post(daemon_url + '/json_rpc', data='{"jsonrpc":"2.0","id":"0","method":"get_info"}', headers={'Content-Type':'application/json'})
-		except:
-			pass
-		if response and response2 and response3:
-			#some shitty mixing responses json
-			response.json = json.loads(response.text)
-			response.json['result']['difficulty'] = 0
-			response2 = json.loads(response2.text)
-			response3 = json.loads(response3.text)
-			target_height = 0
-			if 'connections' in response2['result']:
-				for conn in response2['result']['connections']:
-					if conn['height'] > target_height:
-						target_height = conn['height']
-			response.json['result']['target_height'] = target_height
-			if response3: response.json['result']['difficulty'] = response3['result']['difficulty']
-		return response
-		
-	def WaitForDaemon(self):
-		timeout = TimerInit()
-		while TimerDiff(timeout) < 15000:
-			nodeInfo = self.GetNodeInfo()
-			if nodeInfo and 'result' in nodeInfo.json:
-				return True
-			sleep(0.5)
-		return False
-	
 	#detecting hover event on create / open / restore wallet buttons and modify "tooltip" with right text
 	def eventFilter(self, obj, event):
 		type = event.type()
@@ -1057,7 +1013,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 						self.controlBlink(3, 0.15)
 						sending = False
 					if sending:
-						respond = SendTransaction(self.hInputAddress.text(), float(self.hInputAmount.text()), 133791)
+						respond = self.morelo.wallet.transfer(self.hInputAddress.text(), float(self.hInputAmount.text()), self.hInputPaymentID.text())
 						self.hInputAddress.setText('')
 						self.hInputAmount.setText('')
 						if 'error' in respond:
@@ -1139,10 +1095,10 @@ If you enjoy the program you can support me by donating some MRL using button be
 	
 	#network status update 
 	def XiNetworkUpdate(self):
-		nodeInfo = self.GetNodeInfo()
-		self.nodeSync = nodeInfo.json['result']['height']
-		self.networkSync = nodeInfo.json['result']['target_height']
-		diff = nodeInfo.json['result']['difficulty']
+		nodeInfo = self.morelo.daemon.get_info()
+		self.nodeSync = nodeInfo['result']['height']
+		self.networkSync = nodeInfo['result']['target_height']
+		diff = nodeInfo['result']['difficulty']
 		self.hLabelNetworkDiff.setText("Network diff: " + str(diff))
 		diff = math.floor(diff / 120)
 		#hashrate formatting
@@ -1225,9 +1181,9 @@ If you enjoy the program you can support me by donating some MRL using button be
 			#starting local node and waiting for connection
 			if not daemon:
 				print('INFO: Starting local node...')
-				self.xi_daemon = Morelo('aa')
+				self.morelo = Morelo(config['wallet']['workdir'])
 				#self.xi_daemon = Popen(os.getcwd() + '/morelod --add-exclusive-node 80.60.19.222 --data-dir "' + config['wallet']['workdir'], stdout=PIPE, shell=True)
-				if self.xi_daemon.daemon.wait():
+				if self.morelo.daemon.wait():
 					daemon = True
 				else:
 					print('ERROR: Unable connect to local node')
@@ -1251,8 +1207,6 @@ If you enjoy the program you can support me by donating some MRL using button be
 					#if yes we going further
 					print('INFO: Wallet file found')
 					self.pipe = 'walletrpc'
-			#Run wallet RPC
-			self.walletRPC = Popen(os.getcwd() + '/morelo-wallet-rpc --wallet-dir "' + config['wallet']['workdir'] + '" --rpc-bind-port 38340 --disable-rpc-login',stdout=DEVNULL,  shell=True)#, creationflags = CREATE_NO_WINDOW)
 			#magic here
 			#\/ this loop for logout and re logging feature
 			while True:
@@ -1328,7 +1282,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 				else:
 					print('INFO: Wallet started (Password is correct)')
 				#i dont remember why this shit exist here but leave that
-				walletAddresses = GetWalletAddress()
+				walletAddresses = self.morelo.wallet.get_address()
 				if walletAddresses:
 					self.wallet_address = walletAddresses['result']['address']
 				self.UpdateWalletAddress()
@@ -1368,14 +1322,14 @@ If you enjoy the program you can support me by donating some MRL using button be
 		addr = url[0]
 		port = url[1]
 		#opening wallet using RPC
-		response = json.loads(requests.post('http://127.0.0.1:38340/json_rpc', data='{"jsonrpc":"2.0","id":"0","method":"open_wallet","params":{"filename":"' + config['wallet']['path'] + '","password":""}}', headers={'Content-Type':'application/json'}).text)
+		response = self.morelo.wallet.open(config['wallet']['path'])
 		#read wallet address
 		self.GetWalletKeys()
 		self.UpdateKeys()
 		#self.walletRPC = Popen(os.getcwd() + '/morelo-wallet-rpc --wallet-file "' + config['wallet']['path'] + '" --password "' + str(self.pwd) + '" --rpc-bind-port 38340 --disable-rpc-login --log-level 1 --trusted-daemon --daemon-address ' + addr + ':' + port, stdout=PIPE, shell=True)#, creationflags = CREATE_NO_WINDOW)
 		walletRPC = False
 		#waiting for respond or crash
-		while self.walletRPC.poll() is None:
+		while self.morelo.wallet.proc.poll() is None:
 			rpc = GetWalletBalance()
 			if rpc != -1:
 				walletRPC = True

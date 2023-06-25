@@ -2,9 +2,32 @@ import requests
 import json
 
 class API():
-	def __init__(self, d_url = 'http://127.0.0.1:38302', w_url = 'http://127.0.0.1:38340'):
+	def __init__(self, d_url = 'http://127.0.0.1:38302', w_port = 38340):
 		self.daemon = self.Daemon(d_url)
+		self.wallet = self.Wallet(w_port)
 		
+	class Wallet():
+		def __init__(self, w_port):
+			self.port = w_port
+			self.headers = {'Content-Type': 'application/json'}
+			
+		def post(self, method, params=None):
+			if params is not None:
+				data = json.dumps({"jsonrpc": "2.0", "id": "0", "method": method, "params": params})
+			else:
+				data = json.dumps({"jsonrpc": "2.0", "id": "0", "method": method})
+			response = requests.post('http://127.0.0.1:' + str(self.port) + '/json_rpc', data=data, headers=self.headers)
+			return json.dumps(response.json())
+			
+		def open(self, file, password = ""):
+			return self.post("open_wallet", {"filename": file, "password": password})
+			
+		def transfer(self, receipent, amount, txid):
+			return self.post("transfer", {"destinations":[{"amount": + str(int(amount * 1000000000)) +,"address":" + receipent +"}], "payment_id": "txid"})
+		
+		def get_address(self):
+			return self.post("get_address", {"account_index":0})
+	
 	class Daemon():
 		def __init__(self, url):
 			self.url = url
@@ -20,6 +43,13 @@ class API():
 			
 		def get_info(self):
 			return self.post("get_info")
+			
+		def sync_info(self):
+			return self.post("sync_info")
+			
+		def get_connections(self):
+			return self.post("get_connections")
+		
 '''
     def json_rpc_modify_post(self, replacement_uri: str, to_text:bool, data=None):
         url = self.rpc_url.replace('json_rpc', replacement_uri)

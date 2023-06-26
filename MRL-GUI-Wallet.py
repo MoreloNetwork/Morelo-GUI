@@ -1080,20 +1080,20 @@ If you enjoy the program you can support me by donating some MRL using button be
 		self.hLabelNetworkDiff.setText("Network diff: " + str(diff))
 		diff = math.floor(diff / 120)
 		#hashrate formatting
-		if diff < 1000000000:
+		if diff < 1000:
+			diff = str(diff) + " H/s"
+		elif diff < 1000000:
+			diff = str('%.2f' % (diff / 1000)) + " kH/s"
+		elif diff < 1000000000:
 			diff = str('%.2f' % (diff / 1000000)) + " MH/s"
-		else: 
-			if diff < 1000000:
-				diff = str('%.2f' % (diff / 1000)) + " kH/s"
-			else:
-				if diff < 1000:
-					diff = str(diff) + " H/s"
 		self.hLabelNetworkHashrate.setText("Network hashrate: " + str(diff))
 		walletInfo = self.morelo.wallet.get_balance()
 		#locked and unlocked balance calculations
 		if walletInfo:
 			self.walletBalance = walletInfo['result']['unlocked_balance'] / 1000000000
 			self.walletBalanceLocked = (walletInfo['result']['balance'] / 1000000000) - self.walletBalance
+			if self.walletBalanceLocked < 0:
+				self.walletBalanceLocked *= -1
 		if self.networkSync and self.networkSync > 1:
 			if self.nodeSync < self.networkSync:
 				self.XiNetworkSetState(1, self.nodeSync / self.networkSync * 100)
@@ -1375,7 +1375,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 			if len(transactions):
 				#Get transactions hashes list
 				for transaction in transactions:
-					tx_info = self.morelo.wallet.get_transaction(transaction)
+					tx_info = self.morelo.wallet.get_transfer(transaction)
 					self.transactions.add(tx_info)
 					date = datetime.datetime.fromtimestamp(int(tx_info['result']['transfer']['timestamp']))
 					amount = tx_info['result']['transfer']['amount']
@@ -1399,12 +1399,8 @@ If you enjoy the program you can support me by donating some MRL using button be
 		self.notQueue.put([time, hash, amount])
 	
 	def UpdateBalance(self):
-		if self.walletBalance != "Unknown":
-			self.hLabelBalanceValue.setText('%.6f' % self.walletBalance)
-			self.hLabelBalanceLockedValue.setText('%.6f' % self.walletBalanceLocked)
-		else:
-			self.hLabelBalanceValue.setText("Unknown")
-			self.hLabelBalanceLockedValue.setText("Unknown")
+		self.hLabelBalanceValue.setText('%.6f' % self.walletBalance)
+		self.hLabelBalanceLockedValue.setText('%.6f' % self.walletBalanceLocked)
 		
 	def UpdateKeys(self):
 		self.hInputSpend.setText(self.wallet_keys['spend'])

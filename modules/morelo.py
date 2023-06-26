@@ -8,7 +8,7 @@ class Morelo():
 	def __init__(self, workdir, local = True, d_url = 'http://127.0.0.1:38302', w_port = 38340):
 		self.api = API()
 		self.daemon = self.Daemon(local, d_url, workdir, self.api)
-		self.wallet = self.Wallet(workdir, w_port, self.api)
+		self.wallet = self.Wallet(workdir, w_port, self.api, d_url)
 		
 	class Daemon():
 		def __init__(self, local, d_url, workdir, api):
@@ -48,12 +48,12 @@ class Morelo():
 			return req1
 			
 	class Wallet():
-		def __init__(self, workdir, w_port, api):
+		def __init__(self, workdir, w_port, api, d_url):
 			self.api = api
-			self.proc = self.run(workdir, w_port)
+			self.proc = self.run(workdir, w_port, d_url)
 			
-		def run(self, workdir, w_port):
-			return subprocess.Popen(os.getcwd() + '/morelo-wallet-rpc --wallet-dir "' + workdir + '" --rpc-bind-port ' + str(w_port) + ' --disable-rpc-login', stdout=subprocess.DEVNULL,  shell=True)#, creationflags = CREATE_NO_WINDOW)
+		def run(self, workdir, w_port, d_url):
+			return subprocess.Popen(os.getcwd() + '/morelo-wallet-rpc --daemon-addres ' + d_url + ' --wallet-dir "' + workdir + '" --rpc-bind-port ' + str(w_port) + ' --disable-rpc-login', stdout=subprocess.DEVNULL,  shell=True)#, creationflags = CREATE_NO_WINDOW)
 		
 		def open(self, file, password = ""):
 			return self.api.wallet.open(file, password)
@@ -67,7 +67,7 @@ class Morelo():
 			
 		def get_transfers(self, start, count):
 			transactions = []
-			response = self.api.wallet.get_transfers(start, count)
+			data = self.api.wallet.get_transfers(start, count)
 			if 'in' in data['result']:
 				for block in data['result']['in']:
 					transactions.append(block['txid'])
@@ -77,7 +77,10 @@ class Morelo():
 			return transactions
 			
 		def get_transfer(self, tx_hash):
-			return self.api.wallet.get_transaction(tx_hash)
+			return self.api.wallet.get_transfer(tx_hash)
+			
+		def transfer(self, receipent, amount, txid):
+			return self.api.wallet.transfer(receipent, amount, txid)
 		
 			
 		

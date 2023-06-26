@@ -23,7 +23,7 @@ class API():
 			return self.post("open_wallet", {"filename": file, "password": password})
 			
 		def transfer(self, receipent, amount, txid):
-			return self.post("transfer", {"destinations":[{"amount": str(int(amount * 1000000000)), "address": receipent}], "payment_id": "txid"})
+			return self.post("transfer", {"destinations":[{"amount": str(int(amount * 1000000000)), "address": receipent}], "payment_id": str(txid)})
 		
 		def get_address(self):
 			return self.post("get_address", {"account_index":0})

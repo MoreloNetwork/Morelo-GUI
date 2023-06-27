@@ -124,6 +124,12 @@ except:
 	print('ERROR: Missing module, try install it by command: python -m pip install image')
 	missingLibs = True
 try:
+	import shutil
+except:
+	pass
+	print('ERROR: Missing module, try install it by command: python -m pip install shutil')
+	missingLibs = True
+try:
 	from PyQt5.QtWidgets import *
 	from PyQt5.QtGui import *
 	from PyQt5.QtCore import *
@@ -885,7 +891,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 					print(file_path)
 					if file_path and pathlib.Path(file_path).exists():
 						self.hInputPath.setText(file_path)
-						config['wallet']['workdir'] = '"' + file_path + '"'
+						config['wallet']['workdir'] = file_path
 					self.hDropDownNode.hButtonSelect.setEnabled(True)
 					self.hButtonBrowse.setEnabled(True)
 					self.hButtonOk.setEnabled(True)
@@ -904,7 +910,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 					self.hButtonLogout.hide()
 					self.pipe = 'logout'
 					try:
-						requests.post('http://127.0.0.1:383407/json_rpc', data='{"method" : "stop_wallet", "id" : "", "jsonrpc" : "2.0"}', headers={'Content-Type':'application/json'})
+						requests.post('http://127.0.0.1:38340/json_rpc', data='{"method" : "stop_wallet", "id" : "", "jsonrpc" : "2.0"}', headers={'Content-Type':'application/json'})
 					except:
 						pass
 				#submit password (On wallet opening)
@@ -948,9 +954,12 @@ If you enjoy the program you can support me by donating some MRL using button be
 					file_path = filedialog.askopenfilename(title='Select wallet file', filetypes=[('All files', '*')])
 					tkroot.destroy()
 					if pathlib.Path(file_path).is_file():
-						config['wallet']['path'] = '"' + file_path + '"'
+						filename = file_path.split("/").pop()
+						config['wallet']['path'] = filename
 						with open("Wallet.ini", "w") as configfile:
 							config.write(configfile)
+						shutil.copyfile(file_path, config['wallet']['workdir'] + "/" + filename)
+						shutil.copyfile(file_path + ".keys", config['wallet']['workdir'] + "/" + filename + ".keys")
 						self.hLabelInit.show()
 						self.hButtonCreate.hide()
 						self.hButtonOpen.hide()
@@ -963,7 +972,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 				#Wallet create button
 				elif obj == self.hButtonCreate:
 					random_container = randomString(10)
-					config['wallet']['path'] = '"' + str(pathlib.Path(config['wallet']['workdir'] + '/' + random_container + '"'))
+					config['wallet']['path'] = str(pathlib.Path(config['wallet']['workdir'] + '/' + random_container))
 					self.filename = random_container
 					self.hButtonCreate.hide()
 					self.hButtonOpen.hide()
@@ -1140,20 +1149,25 @@ If you enjoy the program you can support me by donating some MRL using button be
 			#killing morelod process if exists
 			if ProcessExists("morelod"):
 				ProcessClose("morelod")
+			#Starting morelo daemon and wallet RPC
+			self.morelo = Morelo(config['wallet']['workdir'], d_url = config['wallet']['url'])
+			if not self.morelo.daemon.wait():
+				print('ERROR: Failed to start morelo daemon')
+				return
 			#checking connection with external node if is choosen
 			if config['wallet']['connection'] != 'local':
 				print('INFO: Connecting to', config['wallet']['url'] + '...')
-				if self.WaitForDaemon():
+				response = self.morelo.api.daemon.get_info()
+				if 'result' in response:
 					daemon = True
 				else:
 					print('ERROR: Unable connect to external node')
 					daemon_url = 'http://127.0.0.1:38301'
 			#starting local node and waiting for connection
 			if not daemon:
-				print('INFO: Starting local node...')
-				self.morelo = Morelo(config['wallet']['workdir'])
-				#self.xi_daemon = Popen(os.getcwd() + '/morelod --add-exclusive-node 80.60.19.222 --data-dir "' + config['wallet']['workdir'], stdout=PIPE, shell=True)
-				if self.morelo.daemon.wait():
+				print('INFO: Connecting to local node...')
+				response = self.morelo.api.daemon.get_info()
+				if 'result' in response:
 					daemon = True
 				else:
 					print('ERROR: Unable connect to local node')
@@ -1165,7 +1179,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 				return
 			else:
 				#checking wallet in config exists or is not configured
-				if not pathlib.Path(config['wallet']['workdir'] + '/' + config['wallet']['path']).is_file():
+				if not pathlib.Path(config['wallet']['path']).is_file():
 					#if no show open / create / restore wallet buttons
 					print('ERROR: Wallet file not found')
 					self.hButtonCreate.show()
@@ -1199,7 +1213,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 							if not self.running:
 								return
 							try:
-								respond = requests.post('http://127.0.0.1:38340/json_rpc', data='{"jsonrpc":"2.0","id":"0","method":"create_wallet","params":{"filename":"' + self.filename + '","password":"' + self.pwd + '","language":"English"}}', headers={'Content-Type':'application/json'})
+								respond = self.morelo.wallet.create()
 								if respond.status_code == 200:
 									break
 							except:
@@ -1290,10 +1304,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 		addr = url[0]
 		port = url[1]
 		#opening wallet using RPC
-		response = self.morelo.wallet.open(config['wallet']['path'])
-		#read wallet address
-		self.GetWalletKeys()
-		self.UpdateKeys()
+		response = self.morelo.wallet.open(config['wallet']['path'].split("/").pop(), self.hInputPass.text())
 		walletRPC = False
 		#waiting for respond or crash
 		while self.morelo.wallet.proc.poll() is None:
@@ -1301,7 +1312,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 			if rpc != -1:
 				walletRPC = True
 				break
-		if not walletRPC:
+		if False:
 			stdout = str(self.walletRPC.communicate()[0])
 			if 'invalid password' in stdout:
 				if self.pwd == '':
@@ -1509,7 +1520,7 @@ style = '''
 if __name__ == '__main__':
 	donate_address = 'enter donate address here'
 	config = configparser.ConfigParser()
-	config['wallet'] = {'workdir' : '"' + str(pathlib.Path(str(pathlib.Path.home()) + '/morelo"')), 'path' : '', 'url' : 'http://127.0.0.1:38422', 'connection' : 'local', 'trayclose' : 0, 'disablenotifications' : 0}
+	config['wallet'] = {'workdir' : str(pathlib.Path(str(pathlib.Path.home()) + '/morelo')), 'path' : '', 'url' : 'http://127.0.0.1:38302', 'connection' : 'local', 'trayclose' : 0, 'disablenotifications' : 0}
 	if not '--offline' in sys.argv:
 		#check morelo binaries exists
 		pathwalletRPC = 'morelo-wallet-rpc.exe' if os.name == 'nt' else 'morelo-wallet-rpc'

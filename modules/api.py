@@ -19,8 +19,11 @@ class API():
 			response = requests.post('http://127.0.0.1:' + str(self.port) + '/json_rpc', data=data, headers=self.headers)
 			return json.loads(response.text)
 			
-		def open(self, file, password = ""):
+		def open(self, file, password):
 			return self.post("open_wallet", {"filename": file, "password": password})
+			
+		def create(self, file, password):
+			return self.post("create_wallet", {"filename": file, "password": + password, "language": "English"})
 			
 		def transfer(self, receipent, amount, txid):
 			return self.post("transfer", {"destinations":[{"amount": str(int(amount * 1000000000)), "address": receipent}], "payment_id": str(txid)})

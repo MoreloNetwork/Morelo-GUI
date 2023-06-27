@@ -52,6 +52,9 @@ class Morelo():
 			self.api = api
 			self.proc = self.run(workdir, w_port, d_url)
 			
+		def create(slef, filename, password = ""):
+			return self.api.wallet.create(filename, password)
+			
 		def run(self, workdir, w_port, d_url):
 			return subprocess.Popen(os.getcwd() + '/morelo-wallet-rpc --daemon-addres ' + d_url + ' --wallet-dir "' + workdir + '" --rpc-bind-port ' + str(w_port) + ' --disable-rpc-login', stdout=subprocess.DEVNULL,  shell=True)#, creationflags = CREATE_NO_WINDOW)
 		

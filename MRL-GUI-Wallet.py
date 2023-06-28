@@ -315,7 +315,7 @@ class App(QWidget):
 			if not '--offline' in app.arguments():
 				try:
 				#send close signal to wallet's rpc
-					requests.post('http://127.0.0.1:38340/json_rpc', data='{"method" : "stop_wallet", "id" : "", "jsonrpc" : "2.0"}', headers={'Content-Type':'application/json'})
+					self.morelo.wallet.stop()
 				except:
 					pass
 				#close daemon
@@ -612,25 +612,9 @@ If you enjoy the program you can support me by donating some MRL using button be
 		self.threadpool.start(thread) 
 	
 	def GetWalletKeys(self):
-		try:
-			response = requests.post('http://127.0.0.1:38340/json_rpc',data='{"jsonrpc":"2.0","id":"0","method":"query_key","params":{"key_type":"view_key"}}', headers={'Content-Type':'application/json'})
-			response = json.loads(response.text)
-			self.wallet_keys['view'] = response['result']['key']
-		except:
-			print("ERROR: Can't read wallet view key")
-		try:
-			response = requests.post('http://127.0.0.1:38340/json_rpc',data='{"jsonrpc":"2.0","id":"0","method":"query_key","params":{"key_type":"spend_key"}}', headers={'Content-Type':'application/json'})
-			response = json.loads(response.text)
-			self.wallet_keys['spend'] = response['result']['key']
-		except:
-			print("ERROR: Can't read wallet spend key")
-		try:
-			response = requests.post('http://127.0.0.1:38340/json_rpc',data='{"jsonrpc":"2.0","id":"0","method":"query_key","params":{"key_type":"mnemonic"}}', headers={'Content-Type':'application/json'})
-			response = json.loads(response.text)
-			self.wallet_keys['seed'] = response['result']['key']
-		except:
-			print("ERROR: Can't read wallet mnemonic seed")
-	
+		self.wallet_keys = self.morelo.wallet.get_keys()
+		if !self.wallet_keys:
+			print("ERROR: Can't read wallet keys")
 	#detecting hover event on create / open / restore wallet buttons and modify "tooltip" with right text
 	def eventFilter(self, obj, event):
 		type = event.type()
@@ -910,7 +894,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 					self.hButtonLogout.hide()
 					self.pipe = 'logout'
 					try:
-						requests.post('http://127.0.0.1:38340/json_rpc', data='{"method" : "stop_wallet", "id" : "", "jsonrpc" : "2.0"}', headers={'Content-Type':'application/json'})
+						self.morelo.wallet.stop()
 					except:
 						pass
 				#submit password (On wallet opening)
@@ -1224,14 +1208,6 @@ If you enjoy the program you can support me by donating some MRL using button be
 						break
 					else:
 						sleep(0.05)
-				#wallet-rpc initializing
-				#if ProcessExists("morelo-wallet-rpc"):
-				#	ProcessClose("morelo-wallet-rpc")
-				#new wallet is generated
-				#if self.pwd == -1:
-				#	print('INFO: Starting wallet-rpc (New wallet generated)')
-				#else:
-				#	print('INFO: Starting wallet-rpc (Checking that have password)')
 				#next magic loop
 				while True:
 					if not self.running:
@@ -1356,7 +1332,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 	#read transactions from wallet then add them to table, scan and add incoming transactions to table
 	def UpdateTransactions(self):
 		try:
-			response = json.loads(requests.post('http://127.0.0.1:38340/json_rpc', data='{"jsonrpc":"2.0","id":"0","method":"get_height"}', headers={'Content-Type':'application/json'}).text)
+			response = self.morelo.wallet.get_height()
 		except:
 			print("ERROR: Can't get wallet sync height")
 			return
@@ -1518,7 +1494,7 @@ style = '''
 		'''
 
 if __name__ == '__main__':
-	donate_address = 'enter donate address here'
+	donate_address = 'emo1MrKriSGc5AfEyUaEMMExVkKpPbNXSiUcNdNWX4W8KK5NH8E9zMiBi35QJii89SYwZmSyNBdWUYmGFJvphYUM4qRL5E33bq'
 	config = configparser.ConfigParser()
 	config['wallet'] = {'workdir' : str(pathlib.Path(str(pathlib.Path.home()) + '/morelo')), 'path' : '', 'url' : 'http://127.0.0.1:38302', 'connection' : 'local', 'trayclose' : 0, 'disablenotifications' : 0}
 	if not '--offline' in sys.argv:

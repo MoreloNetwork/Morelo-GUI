@@ -39,6 +39,23 @@ class API():
 		
 		def get_transfer(self, tx_hash):
 			return self.post("get_transfer_by_txid", {"txid": tx_hash})
+			
+		def stop(self):
+			return self.post("stop_wallet")
+			
+		def get_keys(self):
+			keys = {}
+			response = self.post("query_key", {"key_type":"view_key"}})
+			keys['view'] = response['result']['key']
+			response = self.post("query_key", {"key_type":"spend_key"}}})
+			keys['spend'] = response['result']['key']
+			response = self.post("query_key", {"key_type":"mnemonic"}}})
+			keys['seed'] = response['result']['key']
+			
+			return keys
+			
+		def get_height(self):
+			return self.post("get_height")
 	
 	class Daemon():
 		def __init__(self, url):

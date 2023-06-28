@@ -10,6 +10,7 @@ class Morelo():
 		self.daemon = self.Daemon(local, d_url, workdir, self.api)
 		self.wallet = self.Wallet(workdir, w_port, self.api, d_url)
 		
+		
 	class Daemon():
 		def __init__(self, local, d_url, workdir, api):
 			self.api = api
@@ -52,6 +53,9 @@ class Morelo():
 			self.api = api
 			self.proc = self.run(workdir, w_port, d_url)
 			
+		def stop(self):
+			return self.api.wallet.stop()
+			
 		def create(slef, filename, password = ""):
 			return self.api.wallet.create(filename, password)
 			
@@ -85,5 +89,7 @@ class Morelo():
 		def transfer(self, receipent, amount, txid):
 			return self.api.wallet.transfer(receipent, amount, txid)
 		
+		def get_keys(self):
+			return self.api.wallet.get_keys()
 			
 		

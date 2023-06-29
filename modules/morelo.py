@@ -92,4 +92,7 @@ class Morelo():
 		def get_keys(self):
 			return self.api.wallet.get_keys()
 			
+		def get_height(self):
+			return self.api.wallet.get_height()
+			
 		

@@ -613,7 +613,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 	
 	def GetWalletKeys(self):
 		self.wallet_keys = self.morelo.wallet.get_keys()
-		if !self.wallet_keys:
+		if not self.wallet_keys:
 			print("ERROR: Can't read wallet keys")
 	#detecting hover event on create / open / restore wallet buttons and modify "tooltip" with right text
 	def eventFilter(self, obj, event):
@@ -850,6 +850,8 @@ If you enjoy the program you can support me by donating some MRL using button be
 			else:
 				#Initial config ok button
 				if obj == self.hButtonOk:
+					for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
+							ctrl.hide()
 					self.pipe = 'config'
 				#Show keys button
 				elif obj == self.hButtonKeys:
@@ -1163,7 +1165,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 				return
 			else:
 				#checking wallet in config exists or is not configured
-				if not pathlib.Path(config['wallet']['path']).is_file():
+				if not pathlib.Path(config['wallet']['path'] + "/" + config['wallet']['path']).is_file():
 					#if no show open / create / restore wallet buttons
 					print('ERROR: Wallet file not found')
 					self.hButtonCreate.show()

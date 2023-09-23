@@ -261,13 +261,13 @@ def find_str(s, char):
 	
 
 class Worker(QRunnable):
-    def __init__(self, fn, *args, **kwargs):
-        super(Worker, self).__init__()
-        self.fn = fn
+	def __init__(self, fn, *args, **kwargs):
+		super(Worker, self).__init__()
+		self.fn = fn
 
-    @pyqtSlot()
-    def run(self):
-        self.fn()
+	@pyqtSlot()
+	def run(self):
+		self.fn()
 		
 #Main window class
 class App(QWidget):
@@ -1132,11 +1132,14 @@ If you enjoy the program you can support me by donating some MRL using button be
 			self.runOffline()
 		else:
 			daemon = False
-			#killing morelod process if exists
-			if ProcessExists("morelod"):
-				ProcessClose("morelod")
+			local=False
+			if config["wallet"]["connection"] == "local":
+				#killing morelod process if exists
+				if ProcessExists("morelod"):
+					ProcessClose("morelod")
+				local = True
 			#Starting morelo daemon and wallet RPC
-			self.morelo = Morelo(config['wallet']['workdir'], d_url = config['wallet']['url'])
+			self.morelo = Morelo(config['wallet']['workdir'], d_url = config['wallet']['url'], local=local)
 			if not self.morelo.daemon.wait():
 				print('ERROR: Failed to start morelo daemon')
 				return

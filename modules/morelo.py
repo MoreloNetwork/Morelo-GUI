@@ -18,7 +18,7 @@ class Morelo():
 				self.process = self.run(workdir)
 			
 		def run(self, workdir):
-			return subprocess.Popen(os.getcwd() + '/morelod --add-exclusive-node 80.60.19.222 --data-dir "' + workdir, stdout=subprocess.PIPE, shell=True)
+			return subprocess.Popen(os.getcwd() + '/morelod --data-dir "' + workdir,shell=True)#, stdout=subprocess.PIPE, shell=True)
 			
 		def wait(self):
 			timeout = Timer()
@@ -86,7 +86,7 @@ class Morelo():
 		def get_transfer(self, tx_hash):
 			return self.api.wallet.get_transfer(tx_hash)
 			
-		def transfer(self, receipent, amount, txid):
+		def transfer(self, receipent, amount, txid = ""):
 			return self.api.wallet.transfer(receipent, amount, txid)
 		
 		def get_keys(self):

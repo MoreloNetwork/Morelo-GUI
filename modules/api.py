@@ -1,5 +1,6 @@
 import requests
 import json
+import random
 
 class API():
 	def __init__(self, d_url = 'http://127.0.0.1:38302', w_port = 38340):
@@ -19,20 +20,26 @@ class API():
 			response = requests.post('http://127.0.0.1:' + str(self.port) + '/json_rpc', data=data, headers=self.headers)
 			return json.loads(response.text)
 			
-		def open(self, file, password):
+		def open(self, file, password = ""):
 			return self.post("open_wallet", {"filename": file, "password": password})
 			
 		def create(self, file, password):
 			return self.post("create_wallet", {"filename": file, "password": + password, "language": "English"})
 			
-		def transfer(self, receipent, amount, txid):
-			return self.post("transfer", {"destinations":[{"amount": str(int(amount * 1000000000)), "address": receipent}], "payment_id": str(txid)})
+		def transfer(self, receipent, amount, txid = "", index = 0):
+			return self.post("transfer", {"account_index": index, "destinations":[{"amount": str(int(amount * 1000000000)), "address": receipent}], "payment_id": str(txid)})
 		
 		def get_address(self):
 			return self.post("get_address", {"account_index":0})
 			
-		def get_balance(self):
-			return self.post("get_balance", {"account_index":0})
+		def get_balance(self, index = 0):
+			response = self.post("get_balance", {"account_index": index})
+			if index and 'per_subaddress' in response['result']:
+				for addr in response['result']['per_subaddress']:
+					if addr['account_index'] == index:
+						return {"result": addr}
+			else:
+				return {'result': {'unlocked_balance': 0, 'balance': 0}}
 			
 		def get_transfers(self, start, count):
 			return self.post("get_transfers", {"filter_by_height": True, "pending": False, "in": True, "out": True, "min_height": str(start), "max_height": str(start + count)})
@@ -56,6 +63,19 @@ class API():
 			
 		def get_height(self):
 			return self.post("get_height")
+			
+		def get_address_index(self, address):
+			response = self.post("get_address_index", {"address": address})
+			if 'index' in response['result']:
+				return response['result']['index']['major']
+			return False
+			
+		def create_account(self):
+			response = self.post("create_account")
+			if 'address' in response['result']:
+				return response['result']['address']
+			else:
+				return False
 	
 	class Daemon():
 		def __init__(self, url):

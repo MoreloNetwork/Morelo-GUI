@@ -1275,7 +1275,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 	#running wallet rpc and waiting for his respond
 	def WaitForWalletRPC(self):
 		#opening wallet using RPC
-		response = self.morelo.wallet.open(config['wallet']['path'].split("/").pop(), self.hInputPass.text())
+		response = self.morelo.wallet.open(config['wallet']['file'], self.hInputPass.text())
 		walletRPC = False
 		#waiting for respond or crash
 		while self.morelo.wallet.proc.poll() is None:

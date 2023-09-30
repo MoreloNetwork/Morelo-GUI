@@ -959,7 +959,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 				#Wallet create button
 				elif obj == self.hButtonCreate:
 					random_container = randomString(10)
-					config['wallet']['path'] = str(pathlib.Path(config['wallet']['workdir'] + '/' + random_container))
+					config['wallet']['file'] = str(pathlib.Path(random_container))
 					self.filename = random_container
 					self.hButtonCreate.hide()
 					self.hButtonOpen.hide()
@@ -1141,8 +1141,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 			#Check connection with external node if is choosen
 			if config['wallet']['connection'] != 'local':
 				print('INFO: Connecting to', config['wallet']['url'] + '...')
-				response = self.morelo.api.daemon.get_info()
-				if 'result' in response:
+				if self.morelo.daemon.wait():
 					daemon = True
 				else:
 					print('ERROR: Unable connect to external node, using local instead')
@@ -1151,8 +1150,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 			#Waiting for connection to daemon
 			if not daemon:
 				print('INFO: Connecting to local node...')
-				response = self.morelo.api.daemon.get_info()
-				if 'result' in response:
+				if self.morelo.daemon.wait():
 					daemon = True
 				else:
 					print('ERROR: Unable connect to local node')
@@ -1199,12 +1197,10 @@ If you enjoy the program you can support me by donating some MRL using button be
 						while True:
 							if not self.running:
 								return
-							try:
-								respond = self.morelo.wallet.create()
-								if respond.status_code == 200:
-									break
-							except:
-								pass
+							respond = self.morelo.wallet.create(config['wallet']['file'], self.hInputPass.text())
+							print(respond)
+							if 'result' in respond:
+								break
 						#update wallet config
 						with open("Wallet.ini", "w") as configfile:
 							config.write(configfile)
@@ -1275,7 +1271,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 					self.UpdateTransactions()
 					sleep(2.5)
 				#finally the end of this fucking loops magic
-			
+
 	#running wallet rpc and waiting for his respond
 	def WaitForWalletRPC(self):
 		#opening wallet using RPC

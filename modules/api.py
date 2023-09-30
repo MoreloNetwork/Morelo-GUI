@@ -24,7 +24,7 @@ class API():
 			return self.post("open_wallet", {"filename": file, "password": password})
 			
 		def create(self, file, password):
-			return self.post("create_wallet", {"filename": file, "password": + password, "language": "English"})
+			return self.post("create_wallet", {"filename": file, "password": password, "language": "English"})
 			
 		def transfer(self, receipent, amount, txid = "", index = 0):
 			return self.post("transfer", {"account_index": index, "destinations":[{"amount": str(int(amount * 1000000000)), "address": receipent}], "payment_id": str(txid)})

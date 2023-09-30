@@ -18,7 +18,7 @@ class Morelo():
 				self.process = self.run(workdir)
 			
 		def run(self, workdir):
-			return subprocess.Popen(os.getcwd() + '/morelod --data-dir "' + workdir,shell=True)#, stdout=subprocess.PIPE, shell=True)
+			return subprocess.Popen(os.getcwd() + '/morelod --data-dir "' + workdir, stdout=subprocess.PIPE, shell=True)
 			
 		def wait(self):
 			timeout = Timer()
@@ -56,7 +56,7 @@ class Morelo():
 		def stop(self):
 			return self.api.wallet.stop()
 			
-		def create(slef, filename, password = ""):
+		def create(self, filename, password = ""):
 			return self.api.wallet.create(filename, password)
 			
 		def run(self, workdir, w_port, d_url):

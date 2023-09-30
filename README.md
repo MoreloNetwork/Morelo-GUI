@@ -12,9 +12,8 @@
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
 * [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#usage)
+  * [Pre Requirementss](#pre-requirements)
+* [Usage](#script-usage)
 * [Contact](#contact)
 
 
@@ -22,12 +21,13 @@
 
 ### About The Project
 
-Standard Morelo wallet application is console-based application, and this is reason why it's sometimes hard to operate on her. So I created this easy to use, user friendly and nice looking GUI wallet for Morelo.
+Standard Morelo wallet application is console-based application, and this is reason why it's sometimes hard to use it. Our team created this easy to use, user friendly and nice looking GUI wallet for Morelo cryptocurrency. Wallet is providing basic functionallity to receieve and send your founds. For advanced users it's recommended to use wallet CLI instead. 
 
-Why:
-* User friendly
-* Easy to setup and use
-* Nice looking
+Why you should use it?
+* Is user friendly. Everyone can setup wallet in secs!
+* Easy to setup, just download the binary and launch It.
+* Nice looking UI is porn for your eyes.
+* Provide basic functionallit, which is enough for most users.
 
 Of course that wallet doesn't giving you full control of Morelo wallet, but giving you enough features for basic usage. If you have any suggestions you can pull a request and i will review that.
 
@@ -45,9 +45,9 @@ Of course that wallet doesn't giving you full control of Morelo wallet, but givi
 4) Run Morelo-GUI.
 5) Follow steps in application to create or open existing wallet.
 
-### Prerequisites
+### Pre Requirements
 
-If you want run Morelo_GUI script by self or you using other OS than windows you need that things:
+If you want run Morelo GUI script by self or you using other OS than windows you need that things:
 
 * [Python 3.x](https://www.python.org/downloads/)
 
@@ -72,19 +72,18 @@ python -m pip install psutil
 If some another package is missed, script will tell you during execution.
 
 
-### Usage
-
-If you using windows just run 'Morelo-GUI.exe' from latest release
-Then follow steps in application.
-
-If you using another OS than windows you need run python script manually:
+### Script usage
 ```sh
-python Morelo-GUI.py
+python Morelo-GUI.py [--offline]
+
+Arguments:
+
+--offline     Optional, runs wallet in offline mode. Generally for debuging purposes
 ```
 
 
 ## Contact
 
-Krzysztof Walędziak - E-mail: mrkris7100@gmail.com - [Discord](https://discordapp.com/): Mrkris7100#0810
+MrKris7100 (Dev) - E-mail: mrkris7100@gmail.com - [Discord](https://discordapp.com/): Mrkris7100#0810
 
 Project Link: [https://github.com/MoreloNetwork/Morelo-GUI](https://github.com/MoreloNetwork/Morelo-GUI)

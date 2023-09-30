@@ -942,7 +942,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 					tkroot.destroy()
 					if pathlib.Path(file_path).is_file():
 						filename = file_path.split("/").pop()
-						config['wallet']['path'] = filename
+						config['wallet']['file'] = filename
 						with open("Wallet.ini", "w") as configfile:
 							config.write(configfile)
 						shutil.copyfile(file_path, config['wallet']['workdir'] + "/" + filename)
@@ -1166,7 +1166,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 			#	return
 			#else:
 			#	checking wallet in config exists or is not configured
-			if not pathlib.Path(config['wallet']['path']).is_file():
+			if not pathlib.Path(config['wallet']['workdir'] + '/' + config['wallet']['file']).is_file():
                 #if no show open / create / restore wallet buttons
 				print('ERROR: Wallet file not found')
 				self.hButtonCreate.show()
@@ -1176,7 +1176,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 				self.hLabelInit.hide()
 			else:
 				#if yes we going further
-				print('INFO: Wallet file found')
+				print('INFO: Loading wallet file', config['wallet']['workdir'] + '/' + config['wallet']['file'])
 				self.pipe = 'walletrpc'
 			#magic here
 			#\/ this loop for logout and re logging feature
@@ -1495,7 +1495,7 @@ style = '''
 if __name__ == '__main__':
 	donate_address = 'emo1MrKriSGc5AfEyUaEMMExVkKpPbNXSiUcNdNWX4W8KK5NH8E9zMiBi35QJii89SYwZmSyNBdWUYmGFJvphYUM4qRL5E33bq'
 	config = configparser.ConfigParser()
-	config['wallet'] = {'workdir' : str(pathlib.Path(str(pathlib.Path.home()) + '/morelo')), 'path' : '', 'url' : 'http://127.0.0.1:38302', 'connection' : 'local', 'trayclose' : 0, 'disablenotifications' : 0}
+	config['wallet'] = {'workdir' : str(pathlib.Path(str(pathlib.Path.home()) + '/morelo')), 'file' : '', 'url' : 'http://127.0.0.1:38302', 'connection' : 'local', 'trayclose' : 0, 'disablenotifications' : 0}
 	if not '--offline' in sys.argv:
 		#check morelo binaries exists
 		pathwalletRPC = 'morelo-wallet-rpc.exe' if os.name == 'nt' else 'morelo-wallet-rpc'

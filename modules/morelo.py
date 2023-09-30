@@ -6,7 +6,7 @@ import os
 
 class Morelo():
 	def __init__(self, workdir, local = True, d_url = 'http://127.0.0.1:38302', w_port = 38340):
-		self.api = API()
+		self.api = API(d_url, w_port)
 		self.daemon = self.Daemon(local, d_url, workdir, self.api)
 		self.wallet = self.Wallet(workdir, w_port, self.api, d_url)
 		

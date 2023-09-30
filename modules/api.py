@@ -34,7 +34,8 @@ class API():
 			
 		def get_balance(self, index = 0):
 			response = self.post("get_balance", {"account_index": index})
-			if index and 'per_subaddress' in response['result']:
+			#if index and 'per_subaddress' in response['result']: #Why if index?
+			if 'per_subaddress' in response['result']:
 				for addr in response['result']['per_subaddress']:
 					if addr['account_index'] == index:
 						return {"result": addr}

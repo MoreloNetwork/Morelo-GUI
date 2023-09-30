@@ -299,6 +299,10 @@ class App(QWidget):
 		print('INFO: Window config initialized')
 		self.initUI()
 		
+		#Start wallet network thread
+		thread = Worker(self.NetworkThread)
+		self.threadpool.start(thread)
+		
 	#custom close event
 	def closeEvent(self, event):
 		#checking if minimize to tray instead of closing checbox is checked
@@ -607,9 +611,6 @@ If you enjoy the program you can support me by donating some MRL using button be
 			ctrl.hide()
 		self.tray_icon.show()
 		self.show()
-		#Wallet initialization (background thread)
-		thread = Worker(self.NetworkThread)
-		self.threadpool.start(thread) 
 	
 	def GetWalletKeys(self):
 		self.wallet_keys = self.morelo.wallet.get_keys()
@@ -789,18 +790,18 @@ If you enjoy the program you can support me by donating some MRL using button be
 		return input
 		
 	#network status update function (visual)
-	def XiNetworkSetState(self, iState, iPercent = 0):
-		if iState != self.XiNetworkState:
-			self.XiNetworkState = iState
-			if self.XiNetworkState == 1:
+	def NetworkState(self, state, percent = 0):
+		match state:
+			case 1:
 				GUICtrlSetColor(self.hLabelNetworkStatus, '#f7ff91')
-				self.hLabelNetworkStatus.setText("Syncing (" + '%.2f' % iPercent + "%)")
-			elif self.XiNetworkState == 2:
-				print('INFO: Network synced')
+				self.hLabelNetworkStatus.setText("Syncing (" + '%.2f' % percent + "%)")
+			case 2:
 				GUICtrlSetColor(self.hLabelNetworkStatus, 'rgb(26, 188, 156)')
 				self.hLabelNetworkStatus.setText("Synced")
-		elif iState == 1:
-			self.hLabelNetworkStatus.setText("Syncing (" + '%.2f' % iPercent + "%)")
+			case 3: 
+				GUICtrlSetColor(self.hLabelNetworkStatus, '#fc7c7c')
+				self.hLabelNetworkStatus.setText("Disconnected")
+		self.XiNetworkState = state
 	
 	#node type selection
 	def SelectNode(self):
@@ -810,10 +811,10 @@ If you enjoy the program you can support me by donating some MRL using button be
 			config['wallet']['connection'] = 'local'
 			config['wallet']['url'] = 'http://127.0.0.1:38302'
 		elif obj == self.hDropDownNode.items[1]:
-			config['wallet']['connection'] = 'ext1'
-			config['wallet']['url'] = 'http://'
+			config['wallet']['connection'] = 'remote'
+			config['wallet']['url'] = 'http://80.60.19.222:38302' #Sniper's public node
 		elif obj == self.hDropDownNode.items[2]:
-			config['wallet']['connection'] = 'ext2'
+			config['wallet']['connection'] = 'remote'
 			config['wallet']['url'] = 'http://'
 		elif obj == self.hDropDownNode.items[3]:
 			config['wallet']['connection'] = 'custom'
@@ -1065,7 +1066,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 			sleep(delay)
 	
 	#network status update 
-	def XiNetworkUpdate(self):
+	def NetworkUpdate(self):
 		morelo_price = MoreloGetPrice()
 		self.hLabelMoreloPrice.setText("Price: " + str(morelo_price) + " USD")
 		nodeInfo = self.morelo.daemon.get_info()
@@ -1089,14 +1090,15 @@ If you enjoy the program you can support me by donating some MRL using button be
 			self.walletBalanceLocked = (walletInfo['result']['balance'] / 1000000000) - self.walletBalance
 			if self.walletBalanceLocked < 0:
 				self.walletBalanceLocked *= -1
-		if self.networkSync and self.networkSync > 1:
-			if self.nodeSync < self.networkSync:
-				self.XiNetworkSetState(1, self.nodeSync / self.networkSync * 100)
-			else:
-				self.XiNetworkSetState(2)
-	#magic background thread
+		if self.nodeSync < self.networkSync:
+			self.NetworkState(1, self.nodeSync / self.networkSync * 100)
+		else:
+			if self.XiNetworkState != 2:
+				self.NetworkState(2)
+				print('INFO: Network synced')
+	
+    #Background thread
 	def NetworkThread(self):
-		global daemon_url
 		#Initial config
 		if not pathlib.Path("Wallet.ini").is_file():
 			print('INFO: No wallet config, initial setup')
@@ -1125,34 +1127,28 @@ If you enjoy the program you can support me by donating some MRL using button be
 			print('INFO: Config saved')
 		#reading config file
 		config.read("Wallet.ini")
-		daemon_url = config['wallet']['url']
 		self.hLabelInit.show()
 		if '--offline' in app.arguments():
 			print('INFO: Running wallet in offline mode')
 			self.runOffline()
 		else:
 			daemon = False
-			local=False
-			if config["wallet"]["connection"] == "local":
-				#killing morelod process if exists
-				if ProcessExists("morelod"):
-					ProcessClose("morelod")
-				local = True
-			#Starting morelo daemon and wallet RPC
+			local = True if config["wallet"]["connection"] == "local" else False
+				
+			#Initializing morelo daemon and wallet RPC
 			self.morelo = Morelo(config['wallet']['workdir'], d_url = config['wallet']['url'], local=local)
-			if not self.morelo.daemon.wait():
-				print('ERROR: Failed to start morelo daemon')
-				return
-			#checking connection with external node if is choosen
+			
+			#Check connection with external node if is choosen
 			if config['wallet']['connection'] != 'local':
 				print('INFO: Connecting to', config['wallet']['url'] + '...')
 				response = self.morelo.api.daemon.get_info()
 				if 'result' in response:
 					daemon = True
 				else:
-					print('ERROR: Unable connect to external node')
-					daemon_url = 'http://127.0.0.1:38301'
-			#starting local node and waiting for connection
+					print('ERROR: Unable connect to external node, using local instead')
+					self.morelo = Morelo(config['wallet']['workdir'], d_url = "http://127.0.0.1:38301", local=True)
+                    
+			#Waiting for connection to daemon
 			if not daemon:
 				print('INFO: Connecting to local node...')
 				response = self.morelo.api.daemon.get_info()
@@ -1160,26 +1156,28 @@ If you enjoy the program you can support me by donating some MRL using button be
 					daemon = True
 				else:
 					print('ERROR: Unable connect to local node')
-			#closing wallet if something was fucking wrong with connection
+                    
+			#Closing wallet if something was fucking wrong with connection
 			if not daemon:
-				print('ERROR: No connection to daemon, closing wallet...')
-				sleep(2.5)
-				self.close()
-				return
+				print("ERROR: No connection to daemon, running offline")
+			#	print('ERROR: No connection to daemon, closing wallet...')
+			#	sleep(2.5)
+			#	self.close()
+			#	return
+			#else:
+			#	checking wallet in config exists or is not configured
+			if not pathlib.Path(config['wallet']['path']).is_file():
+                #if no show open / create / restore wallet buttons
+				print('ERROR: Wallet file not found')
+				self.hButtonCreate.show()
+				self.hButtonOpen.show()
+				self.hButtonRestore.show()
+				self.hLabelTip.show()
+				self.hLabelInit.hide()
 			else:
-				#checking wallet in config exists or is not configured
-				if not pathlib.Path(config['wallet']['path'] + "/" + config['wallet']['path']).is_file():
-					#if no show open / create / restore wallet buttons
-					print('ERROR: Wallet file not found')
-					self.hButtonCreate.show()
-					self.hButtonOpen.show()
-					self.hButtonRestore.show()
-					self.hLabelTip.show()
-					self.hLabelInit.hide()
-				else:
-					#if yes we going further
-					print('INFO: Wallet file found')
-					self.pipe = 'walletrpc'
+				#if yes we going further
+				print('INFO: Wallet file found')
+				self.pipe = 'walletrpc'
 			#magic here
 			#\/ this loop for logout and re logging feature
 			while True:
@@ -1272,7 +1270,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 						if not int(config['wallet']['disablenotifications']): self.tray_icon.showMessage('New transaction', item[0] + '\nNew transaction found\nTx hash (' + item[1] + ')\nAmount: ' + item[2], msecs=2500)
 					except:
 						pass
-					self.XiNetworkUpdate()
+					self.NetworkUpdate()
 					self.UpdateBalance()
 					self.UpdateTransactions()
 					sleep(2.5)
@@ -1280,10 +1278,6 @@ If you enjoy the program you can support me by donating some MRL using button be
 			
 	#running wallet rpc and waiting for his respond
 	def WaitForWalletRPC(self):
-		#addressand port parsing
-		url = daemon_url[7:].split(':')
-		addr = url[0]
-		port = url[1]
 		#opening wallet using RPC
 		response = self.morelo.wallet.open(config['wallet']['path'].split("/").pop(), self.hInputPass.text())
 		walletRPC = False

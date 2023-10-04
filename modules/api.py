@@ -31,7 +31,13 @@ class API():
 		
 		def get_address(self):
 			return self.post("get_address", {"account_index":0})
-			
+
+		def get_version(self):
+			return self.post("get_version")
+
+		def stop(self):
+			return self.post("stop_wallet")
+
 		def get_balance(self, index = 0):
 			response = self.post("get_balance", {"account_index": index})
 			#if index and 'per_subaddress' in response['result']: #Why if index?

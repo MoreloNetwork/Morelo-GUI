@@ -3,6 +3,7 @@ from modules.timer import *
 from modules.api import *
 import time
 import os
+import signal
 
 class Morelo():
 	def __init__(self, workdir, local = True, d_url = 'http://127.0.0.1:38302', w_port = 38340):
@@ -18,8 +19,11 @@ class Morelo():
 				self.process = self.run(workdir)
 			
 		def run(self, workdir):
-			return subprocess.Popen(os.getcwd() + '/morelod --data-dir "' + workdir, stdout=subprocess.PIPE, shell=True)
-			
+			return subprocess.Popen(os.getcwd() + '/morelod --data-dir "' + workdir, stdout=subprocess.PIPE, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP, shell=True)
+
+		def stop(self):
+			return os.killpg(os.getpgid(self.process.pid), signal.SIGTERM)
+
 		def wait(self):
 			timeout = Timer()
 			while timeout.get() < 15000:
@@ -52,7 +56,18 @@ class Morelo():
 		def __init__(self, workdir, w_port, api, d_url):
 			self.api = api
 			self.proc = self.run(workdir, w_port, d_url)
-			
+
+		def wait(self):
+			timeout = Timer()
+			while timeout.get() < 15000:
+				try:
+					walletInfo = self.api.wallet.get_version()
+					if walletInfo and 'result' in walletInfo:
+						return True
+				except:
+					pass
+				time.sleep(1)
+			return False
 		def stop(self):
 			return self.api.wallet.stop()
 			
@@ -91,7 +106,10 @@ class Morelo():
 		
 		def get_keys(self):
 			return self.api.wallet.get_keys()
-			
+
+		def get_version(self):
+			return self.api.wallet.get_version()
+
 		def get_height(self):
 			return self.api.wallet.get_height()
 			

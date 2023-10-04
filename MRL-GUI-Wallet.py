@@ -212,9 +212,12 @@ initStyle = '''
 '''
 
 def MoreloGetPrice():
-	response = requests.get("https://xeggex.com/api/v2/asset/getbyticker/MRL", headers = {'Content-Type': 'application/json'})
-	data = json.loads(response.text)
-	return data['usdValue']
+	try:
+		response = requests.get("https://xeggex.com/api/v2/asset/getbyticker/MRL", headers = {'Content-Type': 'application/json'})
+		data = json.loads(response.text)
+		return data['usdValue']
+	except:
+		return "Unknown"
 
 #modyfing controls (widgets) style attributes
 def GUICtrlSetBkColor(control, color):
@@ -317,13 +320,10 @@ class App(QWidget):
 				config.write(configfile)
 			#check wallet was launched in offline mode
 			if not '--offline' in app.arguments():
-				try:
 				#send close signal to wallet's rpc
-					self.morelo.wallet.stop()
-				except:
-					pass
+				self.morelo.wallet.stop()
 				#close daemon
-				if self.xi_daemon: self.xi_daemon.terminate()
+				self.morelo.daemon.stop()
 			#destroy tray icon
 			self.tray_icon.hide()
 			#close background thread
@@ -1109,7 +1109,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 			self.hInputUrl.move(450, 220)
 			self.hLabelUrlPort.move(450, 255)
 			self.hInputUrlPort.move(450, 270)
-			while True:
+			while self.running:
 				if self.pipe == 'config':
 					break
 			self.hDropDownNode.move(215, 175)
@@ -1154,7 +1154,9 @@ If you enjoy the program you can support me by donating some MRL using button be
 					daemon = True
 				else:
 					print('ERROR: Unable connect to local node')
-                    
+
+            #Waiting for wallet RPC
+			self.morelo.wallet.wait();
 			#Closing wallet if something was fucking wrong with connection
 			if not daemon:
 				print("ERROR: No connection to daemon, running offline")
@@ -1178,12 +1180,9 @@ If you enjoy the program you can support me by donating some MRL using button be
 				self.pipe = 'walletrpc'
 			#magic here
 			#\/ this loop for logout and re logging feature
-			while True:
+			while self.running:
 				#\/ this loop waiting for user choice if any wallet doesnt exist or we logout
-				while True:
-					#closing background thread
-					if not self.running:
-						return
+				while self.running:
 					#we going to run wallet rpc
 					if self.pipe == 'walletrpc':
 						break
@@ -1194,9 +1193,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 						self.hLabelPassSet.hide()
 						self.hInputPass.hide()
 						self.hButtonPassSet.hide()
-						while True:
-							if not self.running:
-								return
+						while self.running:
 							respond = self.morelo.wallet.create(config['wallet']['file'], self.hInputPass.text())
 							print(respond)
 							if 'result' in respond:
@@ -1208,9 +1205,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 					else:
 						sleep(0.05)
 				#next magic loop
-				while True:
-					if not self.running:
-						return
+				while self.running:
 					result = self.WaitForWalletRPC()
 					#password is good or wallet doesnt have password
 					if result == 'ok':
@@ -1278,18 +1273,14 @@ If you enjoy the program you can support me by donating some MRL using button be
 		response = self.morelo.wallet.open(config['wallet']['file'], self.hInputPass.text())
 		walletRPC = False
 		#waiting for respond or crash
-		while self.morelo.wallet.proc.poll() is None:
-			rpc = self.morelo.wallet.get_balance()
-			if rpc != -1:
-				walletRPC = True
-				break
-		if False:
-			stdout = str(self.walletRPC.communicate()[0])
-			if 'invalid password' in stdout:
-				if self.pwd == '':
-					return 'requirepassword'
-				else:
-					return 'wrongpassword'
+		if 'result' in response:
+			walletRPC = True
+			return 'ok'
+		if 'error' in response:
+			if self.pwd == '':
+				return 'requirepassword'
+			else:
+				return 'wrongpassword'
 		else:
 			return 'ok'
 

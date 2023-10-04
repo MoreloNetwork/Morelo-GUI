@@ -22,7 +22,7 @@ class Morelo():
 			return subprocess.Popen(os.getcwd() + '/morelod --data-dir "' + workdir, stdout=subprocess.PIPE, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP, shell=True)
 
 		def stop(self):
-			return os.killpg(os.getpgid(self.process.pid), signal.SIGTERM)
+			return os.kill(self.process.pid, signal.SIGTERM)
 
 		def wait(self):
 			timeout = Timer()

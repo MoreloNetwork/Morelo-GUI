@@ -1255,16 +1255,19 @@ If you enjoy the program you can support me by donating some MRL using button be
 					#generate QrCode for our wallet address
 					self.UpdateQrCode()
 				#main networking and notifications loop
+				updateInterval = Timer()
 				while self.running and self.pipe != 'logout':
 					try:
 						item = self.notQueue.get(False)
 						if not int(config['wallet']['disablenotifications']): self.tray_icon.showMessage('New transaction', item[0] + '\nNew transaction found\nTx hash (' + item[1] + ')\nAmount: ' + item[2], msecs=2500)
 					except:
 						pass
-					self.NetworkUpdate()
-					self.UpdateBalance()
-					self.UpdateTransactions()
-					sleep(2.5)
+					if updateInterval.get() > 2500:
+						self.NetworkUpdate()
+						self.UpdateBalance()
+						self.UpdateTransactions()
+						updateInterval.reset()
+					sleep(0.05)
 				#finally the end of this fucking loops magic
 
 	#running wallet rpc and waiting for his respond

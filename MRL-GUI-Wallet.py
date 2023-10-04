@@ -1083,6 +1083,8 @@ If you enjoy the program you can support me by donating some MRL using button be
 	
 	#network status update 
 	def NetworkUpdate(self):
+		if not self.running:
+			return
 		nodeInfo = self.morelo.daemon.get_info()
 		self.nodeSync = nodeInfo['result']['height']
 		self.networkSync = nodeInfo['result']['target_height']
@@ -1173,13 +1175,11 @@ If you enjoy the program you can support me by donating some MRL using button be
 			self.morelo.wallet.wait();
 			#Closing wallet if something was fucking wrong with connection
 			if not daemon:
-				print("ERROR: No connection to daemon, running offline")
-			#	print('ERROR: No connection to daemon, closing wallet...')
-			#	sleep(2.5)
-			#	self.close()
-			#	return
-			#else:
-			#	checking wallet in config exists or is not configured
+				print('ERROR: No connection to daemon, closing wallet...')
+				sleep(2.5)
+				self.close()
+				return
+			#checking wallet in config exists or is not configured
 			if not pathlib.Path(config['wallet']['workdir'] + '/' + config['wallet']['file']).is_file():
                 #if no show open / create / restore wallet buttons
 				print('ERROR: Wallet file not found')
@@ -1335,6 +1335,8 @@ If you enjoy the program you can support me by donating some MRL using button be
 	
 	#read transactions from wallet then add them to table, scan and add incoming transactions to table
 	def UpdateTransactions(self):
+		if not self.running:
+			return
 		try:
 			response = self.morelo.wallet.get_height()
 		except:

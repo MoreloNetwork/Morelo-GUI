@@ -4,6 +4,7 @@ from modules.api import *
 import time
 import os
 import signal
+import atexit
 
 class Morelo():
 	def __init__(self, workdir, local = True, d_url = 'http://127.0.0.1:38302', w_port = 38340):
@@ -15,14 +16,19 @@ class Morelo():
 	class Daemon():
 		def __init__(self, local, d_url, workdir, api):
 			self.api = api
-			if local:
+			self.local = local
+			if self.local:
 				self.process = self.run(workdir)
+				atexit.register(self.process.terminate)
 			
 		def run(self, workdir):
-			return subprocess.Popen(os.getcwd() + '/morelod --data-dir "' + workdir, stdout=subprocess.PIPE, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP, shell=True)
+			return subprocess.Popen(os.getcwd() + '/morelod --data-dir "' + workdir, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
 
 		def stop(self):
-			return os.kill(self.process.pid, signal.SIGTERM)
+			if self.local:
+				return os.kill(self.process.pid, signal.SIGTERM)
+			else:
+				return False
 
 		def wait(self):
 			timeout = Timer()
@@ -55,7 +61,8 @@ class Morelo():
 	class Wallet():
 		def __init__(self, workdir, w_port, api, d_url):
 			self.api = api
-			self.proc = self.run(workdir, w_port, d_url)
+			self.process = self.run(workdir, w_port, d_url)
+			atexit.register(self.process.terminate)
 
 		def wait(self):
 			timeout = Timer()
@@ -75,7 +82,7 @@ class Morelo():
 			return self.api.wallet.create(filename, password)
 			
 		def run(self, workdir, w_port, d_url):
-			return subprocess.Popen(os.getcwd() + '/morelo-wallet-rpc --daemon-addres ' + d_url + ' --wallet-dir "' + workdir + '" --rpc-bind-port ' + str(w_port) + ' --disable-rpc-login', stdout=subprocess.DEVNULL,  shell=True)#, creationflags = CREATE_NO_WINDOW)
+			return subprocess.Popen(os.getcwd() + '/morelo-wallet-rpc --daemon-addres ' + d_url + ' --wallet-dir "' + workdir + '" --rpc-bind-port ' + str(w_port) + ' --disable-rpc-login', stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)#, creationflags = CREATE_NO_WINDOW)
 		
 		def open(self, file, password = ""):
 			return self.api.wallet.open(file, password)

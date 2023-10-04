@@ -211,14 +211,6 @@ initStyle = '''
 	}
 '''
 
-def MoreloGetPrice():
-	try:
-		response = requests.get("https://xeggex.com/api/v2/asset/getbyticker/MRL", headers = {'Content-Type': 'application/json'})
-		data = json.loads(response.text)
-		return data['usdValue']
-	except:
-		return "Unknown"
-
 #modyfing controls (widgets) style attributes
 def GUICtrlSetBkColor(control, color):
 	control.mybackgroundcolor = color
@@ -303,9 +295,13 @@ class App(QWidget):
 		self.initUI()
 		
 		#Start wallet network thread
-		thread = Worker(self.NetworkThread)
-		self.threadpool.start(thread)
-		
+		self.net_thread = Worker(self.NetworkThread)
+		self.threadpool.start(self.net_thread)
+
+		# Request morelo price in background thread
+		self.price_thread = Worker(self.PriceThread)
+		self.threadpool.start(self.price_thread)
+
 	#custom close event
 	def closeEvent(self, event):
 		#checking if minimize to tray instead of closing checbox is checked
@@ -408,7 +404,7 @@ class App(QWidget):
 		self.hLabelNetworkStatus = self.GUICtrlCreateLabel("Disconnected", 125, 450, 150, 0, 'transparent', '#fc7c7c', '11px', 'bold')
 		self.hLabelNetworkDiff = self.GUICtrlCreateLabel("Network diff: 1000000000", 250, 450, 190, 0, 'transparent', 0, '11px', 'bold')
 		self.hLabelNetworkHashrate = self.GUICtrlCreateLabel("Network hashrate: 0", 400, 450, 190, 0, 'transparent', 0, '11px', 'bold')
-		self.hLabelMoreloPrice = self.GUICtrlCreateLabel("Price: ", 600, 450, 190, 0, 'transparent', 0, '11px', 'bold')
+		self.hLabelMoreloPrice = self.GUICtrlCreateLabel("Price: Unknown", 600, 450, 190, 0, 'transparent', 0, '11px', 'bold')
 		#Navigation
 		self.activeTab = self.hButtonSend = self.GUICtrlCreateButton('Send', 0, 150, 200, 35, 'rgba(230, 140, 0, 50%)', 'white')
 		self.hButtonReceive = self.GUICtrlCreateButton("Receive", 0, 185, 200, 35)
@@ -616,6 +612,26 @@ If you enjoy the program you can support me by donating some MRL using button be
 		self.wallet_keys = self.morelo.wallet.get_keys()
 		if not self.wallet_keys:
 			print("ERROR: Can't read wallet keys")
+
+	def MoreloGetPrice(self):
+		try:
+			response = requests.get("https://xeggex.com/api/v2/asset/getbyticker/MRL", headers={'Content-Type': 'application/json'})
+			data = json.loads(response.text)
+			self.morelo_price = data['usdValue']
+		except:
+			self.morelo_price = "Unknown"
+
+	def PriceThread(self):
+		self.MoreloGetPrice()
+		self.hLabelMoreloPrice.setText("Price: " + str(self.morelo_price) + " USD")
+		interval = Timer()
+		while self.running:
+			if interval.get() > 60000:
+				interval.reset()
+				self.MoreloGetPrice()
+				self.hLabelMoreloPrice.setText("Price: " + str(self.morelo_price) + " USD")
+			sleep(0.05)
+
 	#detecting hover event on create / open / restore wallet buttons and modify "tooltip" with right text
 	def eventFilter(self, obj, event):
 		type = event.type()
@@ -1067,8 +1083,6 @@ If you enjoy the program you can support me by donating some MRL using button be
 	
 	#network status update 
 	def NetworkUpdate(self):
-		morelo_price = MoreloGetPrice()
-		self.hLabelMoreloPrice.setText("Price: " + str(morelo_price) + " USD")
 		nodeInfo = self.morelo.daemon.get_info()
 		self.nodeSync = nodeInfo['result']['height']
 		self.networkSync = nodeInfo['result']['target_height']
@@ -1239,6 +1253,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 				self.wallet_address = self.morelo.wallet.get_address()
 				self.UpdateWalletAddress()
 				self.UpdateBalance()
+				self.NetworkUpdate()
 				#hide some controls and show other
 				self.hLabelInit.hide()
 				self.hLabelLogo.hide()

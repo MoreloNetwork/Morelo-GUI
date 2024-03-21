@@ -1517,15 +1517,11 @@ style = '''
             subcontrol-origin: margin;
         }
 
-        QScrollBar::sub-line:vertical {
-            border: 1px solid rgb(230, 140, 0);
-            background: rgba(230, 140, 0, 50%);
-            height: 20
-style = '''
+        style = '''
     QHeaderView::section {
         background-color: rgba(230, 140, 0, 50%);
         color: white;
-        padding-left: 4px;  # Correct syntax here
+        padding-left: 4px;
         border: 1px solid rgb(230, 140, 0);
         font-weight: bold;
     }
@@ -1538,6 +1534,13 @@ style = '''
         padding-left: 4px;  # Correct syntax here
         border: 1px solid rgb(230, 140, 0);
     }
+    QScrollBar::sub-line:vertical {
+        border: 1px solid rgb(230, 140, 0);
+        background: rgba(230, 140, 0, 50%);
+        height: 20px;  # Ensure the height value has a unit (e.g., px)
+    }
+'''
+
     QTableWidget {
         gridline-color: rgb(230, 140, 0);
         background-color: rgba(255, 255, 255, 15%);

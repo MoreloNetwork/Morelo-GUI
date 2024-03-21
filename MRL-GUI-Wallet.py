@@ -845,8 +845,6 @@ def SelectNode(self):
                 ctrl.hide()
 
 # buttons event processing function
-
-
 def button_proc(self):
     obj = self.sender()
     if obj != self.activeTab:
@@ -879,6 +877,16 @@ def button_proc(self):
                 ctrl.show()
             self.activeTab = obj
         else:
+            # config ok button
+            if obj == self.hButtonOk:
+                for ctrl in [
+                    self.hLabelUrl,
+                    self.hInputUrl,
+                    self.hLabelUrlPort,
+                    self.hInputUrlPort,
+                ]:
+                    ctrl.hide()
+                self.pipe = "config"
 # config ok button" 
 if obj == self.hButtonOk:
     for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:

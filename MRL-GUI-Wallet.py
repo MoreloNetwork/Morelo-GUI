@@ -1517,7 +1517,7 @@ style = '''
             subcontrol-origin: margin;
         }
 
-        style = '''
+style = '''
     QHeaderView::section {
         background-color: rgba(230, 140, 0, 50%);
         color: white;
@@ -1531,13 +1531,13 @@ style = '''
     QHeaderView::section:checked {
         background-color: rgba(230, 140, 0, 50%);
         color: white;
-        padding-left: 4px;  # Correct syntax here
+        padding-left: 4px;
         border: 1px solid rgb(230, 140, 0);
     }
     QScrollBar::sub-line:vertical {
         border: 1px solid rgb(230, 140, 0);
         background: rgba(230, 140, 0, 50%);
-        height: 20px;  # Ensure the height value has a unit (e.g., px)
+        height: 20px;
     }
 '''
 

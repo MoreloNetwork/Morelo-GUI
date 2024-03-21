@@ -846,24 +846,35 @@ for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlP
 
 # buttons event processing function
 
+
 def button_proc(self):
     obj = self.sender()
     if obj != self.activeTab:
         # Switching TABS
         if obj in self.navButtons:
-            if config['wallet']['connection'] == 'custom':
+            if config["wallet"]["connection"] == "custom":
                 if obj == self.hButtonSettings:
-                    for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
+                    for ctrl in [
+                        self.hLabelUrl,
+                        self.hInputUrl,
+                        self.hLabelUrlPort,
+                        self.hInputUrlPort,
+                    ]:
                         ctrl.show()
                 else:
-                    for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
+                    for ctrl in [
+                        self.hLabelUrl,
+                        self.hInputUrl,
+                        self.hLabelUrlPort,
+                        self.hInputUrlPort,
+                    ]:
                         ctrl.hide()
-            GUICtrlSetBkColor(self.activeTab, 'rgba(255, 255, 255, 15%)')
-            GUICtrlSetColor(self.activeTab, 'rgb(230, 140, 0)')
+            GUICtrlSetBkColor(self.activeTab, "rgba(255, 255, 255, 15%)")
+            GUICtrlSetColor(self.activeTab, "rgb(230, 140, 0)")
             for ctrl in self.tabsControls[self.activeTab.objectName()]:
                 ctrl.hide()
-            GUICtrlSetBkColor(obj, 'rgba(230, 140, 0, 50%)')
-            GUICtrlSetColor(obj, 'white')
+            GUICtrlSetBkColor(obj, "rgba(230, 140, 0, 50%)")
+            GUICtrlSetColor(obj, "white")
             for ctrl in self.tabsControls[obj.objectName()]:
                 ctrl.show()
             self.activeTab = obj

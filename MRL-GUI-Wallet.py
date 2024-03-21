@@ -805,19 +805,20 @@ If you enjoy the program you can support me by donating some MRL using button be
 		input.editingFinished.connect(self.input_proc_end)
 		return input
 		
-	#network status update function (visual)
-	def NetworkState(self, state, percent = 0):
-		match state:
-			case 1:
-				GUICtrlSetColor(self.hLabelNetworkStatus, '#f7ff91')
-				self.hLabelNetworkStatus.setText("Syncing (" + '%.2f' % percent + "%)")
-			case 2:
-				GUICtrlSetColor(self.hLabelNetworkStatus, 'rgb(26, 188, 156)')
-				self.hLabelNetworkStatus.setText("Synced")
-			case 3: 
-				GUICtrlSetColor(self.hLabelNetworkStatus, '#fc7c7c')
-				self.hLabelNetworkStatus.setText("Disconnected")
-		self.XiNetworkState = state
+# network status update function (visual)
+def NetworkState(self, state, percent=0):
+    if state == 1:
+        GUICtrlSetColor(self.hLabelNetworkStatus, '#f7ff91')
+        self.hLabelNetworkStatus.setText("Syncing (" + '%.2f' % percent + "%)")
+    elif state == 2:
+        GUICtrlSetColor(self.hLabelNetworkStatus, 'rgb(26, 188, 156)')
+        self.hLabelNetworkStatus.setText("Synced")
+    elif state == 3:
+        GUICtrlSetColor(self.hLabelNetworkStatus, '#fc7c7c')
+        self.hLabelNetworkStatus.setText("Disconnected")
+
+    self.XiNetworkState = state
+
 	
 	#node type selection
 	def SelectNode(self):

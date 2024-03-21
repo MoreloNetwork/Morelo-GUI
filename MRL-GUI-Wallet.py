@@ -886,7 +886,7 @@ if obj == self.hButtonOk:
     for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
         ctrl.hide()
     self.pipe = 'config'
-# Show keys button
+    # Show keys button
 elif obj == self.hButtonKeys:
     for ctrl in self.tabsControls[self.hButtonSettings.objectName()]:
         ctrl.hide()

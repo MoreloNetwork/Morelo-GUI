@@ -1518,10 +1518,11 @@ style = '''
         }
 
 style = '''
+style = '''
     QHeaderView::section {
         background-color: rgba(230, 140, 0, 50%);
         color: white;
-        padding-left: 4px;
+        padding-left: '4px';  # Enclose in quotes
         border: 1px solid rgb(230, 140, 0);
         font-weight: bold;
     }
@@ -1531,7 +1532,7 @@ style = '''
     QHeaderView::section:checked {
         background-color: rgba(230, 140, 0, 50%);
         color: white;
-        padding-left: 4px;
+        padding-left: '4px';  # Enclose in quotes
         border: 1px solid rgb(230, 140, 0);
     }
     QScrollBar::sub-line:vertical {

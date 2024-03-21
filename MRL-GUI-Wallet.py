@@ -1629,15 +1629,6 @@ if __name__ == '__main__':
                         'disablenotifications': 0}
     if '--offline' in sys.argv:
         # check morelo binaries exists
-        pathwalletRPC = 'morelo
-if __name__ == '__main__':
-    donate_address = 'emo1MrKriSGc5AfEyUaEMMExVkKpPbNXSiUcNdNWX4W8KK5NH8E9zMiBi35QJii89SYwZmSyNBdWUYmGFJvphYUM4qRL5E33bq'
-    config = configparser.ConfigParser()
-    config['wallet'] = {'workdir': str(pathlib.Path(str(pathlib.Path.home()) + '/morelo')),
-                        'file': '', 'url': 'http://127.0.0.1:38302', 'connection': 'local', 'trayclose': 0,
-                        'disablenotifications': 0}
-    if '--offline' in sys.argv:
-        # check morelo binaries exists
         pathwalletRPC = 'morelo-wallet-rpc.exe' if os.name == 'nt' else 'morelo-wallet-rpc'
         pathDaemon = 'morelod.exe' if os.name == 'nt' else 'morelod'
         if not pathlib.Path(pathwalletRPC).is_file() or not pathlib.Path(pathDaemon).is_file():

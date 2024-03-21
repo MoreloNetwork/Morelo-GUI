@@ -820,30 +820,32 @@ def NetworkState(self, state, percent=0):
     self.XiNetworkState = state
 
 	
-	#node type selection
-	def SelectNode(self):
-		obj = self.sender()
-		lastSetting = config['wallet']['connection']
-		if obj == self.hDropDownNode.items[0]:
-			config['wallet']['connection'] = 'local'
-			config['wallet']['url'] = 'http://127.0.0.1:38302'
-		elif obj == self.hDropDownNode.items[1]:
-			config['wallet']['connection'] = 'remote'
-			config['wallet']['url'] = 'http://80.60.19.222:38302' #Sniper's public node
-		elif obj == self.hDropDownNode.items[2]:
-			config['wallet']['connection'] = 'remote'
-			config['wallet']['url'] = 'http://'
-		elif obj == self.hDropDownNode.items[3]:
-			config['wallet']['connection'] = 'custom'
-		if lastSetting != config['wallet']['connection']:
-			if config['wallet']['connection'] == 'custom':
-				for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
-					ctrl.show()
-			else:
-				for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
-					ctrl.hide()
-	
-	#buttons event processing function
+# node type selection
+def SelectNode(self):
+    obj = self.sender()
+    lastSetting = config['wallet']['connection']
+    if obj == self.hDropDownNode.items[0]:
+        config['wallet']['connection'] = 'local'
+        config['wallet']['url'] = 'http://127.0.0.1:38302'
+    elif obj == self.hDropDownNode.items[1]:
+        config['wallet']['connection'] = 'remote'
+        config['wallet']['url'] = 'http://80.60.19.222:38302'  # Sniper's public node
+    elif obj == self.hDropDownNode.items[2]:
+        config['wallet']['connection'] = 'remote'
+        config['wallet']['url'] = 'http://'
+    elif obj == self.hDropDownNode.items[3]:
+        config['wallet']['connection'] = 'custom'
+
+    if lastSetting != config['wallet']['connection']:
+        if config['wallet']['connection'] == 'custom':
+            for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
+                ctrl.show()
+        else:
+            for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
+                ctrl.hide()
+
+# buttons event processing function
+
 	def button_proc(self):
 		obj = self.sender()
 		if obj != self.activeTab:

@@ -805,715 +805,844 @@ If you enjoy the program you can support me by donating some MRL using button be
 		input.editingFinished.connect(self.input_proc_end)
 		return input
 		
-	#network status update function (visual)
-	def NetworkState(self, state, percent = 0):
-		match state:
-			case 1:
-				GUICtrlSetColor(self.hLabelNetworkStatus, '#f7ff91')
-				self.hLabelNetworkStatus.setText("Syncing (" + '%.2f' % percent + "%)")
-			case 2:
-				GUICtrlSetColor(self.hLabelNetworkStatus, 'rgb(26, 188, 156)')
-				self.hLabelNetworkStatus.setText("Synced")
-			case 3: 
-				GUICtrlSetColor(self.hLabelNetworkStatus, '#fc7c7c')
-				self.hLabelNetworkStatus.setText("Disconnected")
-		self.XiNetworkState = state
-	
-	#node type selection
-	def SelectNode(self):
-		obj = self.sender()
-		lastSetting = config['wallet']['connection']
-		if obj == self.hDropDownNode.items[0]:
-			config['wallet']['connection'] = 'local'
-			config['wallet']['url'] = 'http://127.0.0.1:38302'
-		elif obj == self.hDropDownNode.items[1]:
-			config['wallet']['connection'] = 'remote'
-			config['wallet']['url'] = 'http://80.60.19.222:38302' #Sniper's public node
-		elif obj == self.hDropDownNode.items[2]:
-			config['wallet']['connection'] = 'remote'
-			config['wallet']['url'] = 'http://'
-		elif obj == self.hDropDownNode.items[3]:
-			config['wallet']['connection'] = 'custom'
-		if lastSetting != config['wallet']['connection']:
-			if config['wallet']['connection'] == 'custom':
-				for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
-					ctrl.show()
-			else:
-				for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
-					ctrl.hide()
-	
-	#buttons event processing function
-	def button_proc(self):
-		obj = self.sender()
-		if obj != self.activeTab:
-			#Switching TABS
-			if obj in self.navButtons:
-				if config['wallet']['connection'] == 'custom':
-					if obj == self.hButtonSettings:
-						for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
-							ctrl.show()
-					else:
-						for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
-							ctrl.hide()
-				GUICtrlSetBkColor(self.activeTab, 'rgba(255, 255, 255, 15%)')
-				GUICtrlSetColor(self.activeTab, 'rgb(230, 140, 0)')
-				for ctrl in self.tabsControls[self.activeTab.objectName()]:
-					ctrl.hide()
-				GUICtrlSetBkColor(obj, 'rgba(230, 140, 0, 50%)')
-				GUICtrlSetColor(obj, 'white')
-				for ctrl in self.tabsControls[obj.objectName()]:
-					ctrl.show()
-				self.activeTab = obj
-			else:
-				#Initial config ok button
-				if obj == self.hButtonOk:
-					for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
-							ctrl.hide()
-					self.pipe = 'config'
-				#Show keys button
-				elif obj == self.hButtonKeys:
-					for ctrl in self.tabsControls[self.hButtonSettings.objectName()]:
-						ctrl.hide()
-					for ctrl in self.tabsControls['keys']:
-						ctrl.show()
-				#Keys back button
-				elif obj == self.hButtonBack:
-					for ctrl in self.tabsControls[self.hButtonSettings.objectName()]:
-						ctrl.show()
-					for ctrl in self.tabsControls['keys']:
-						ctrl.hide()
-				#initial config browse button
-				elif obj == self.hButtonBrowse:
-					self.hDropDownNode.hButtonSelect.setEnabled(False)
-					self.hButtonBrowse.setEnabled(False)
-					self.hButtonOk.setEnabled(False)
-					tkroot = Tk()
-					tkroot.withdraw()
-					file_path = filedialog.askdirectory(title='Select directory')
-					tkroot.destroy()
-					print(file_path)
-					if file_path and pathlib.Path(file_path).exists():
-						self.hInputPath.setText(file_path)
-						config['wallet']['workdir'] = file_path
-					self.hDropDownNode.hButtonSelect.setEnabled(True)
-					self.hButtonBrowse.setEnabled(True)
-					self.hButtonOk.setEnabled(True)
-				#logout button
-				elif obj == self.hButtonLogout:
-					print("INFO: Log Out")
-					for ctrl in self.tabsControls['leftpanel']:
-						ctrl.hide()
-					for ctrl in self.tabsControls[self.activeTab.objectName()]:
-						ctrl.hide()
-					self.hButtonCreate.show()
-					self.hButtonOpen.show()
-					self.hButtonRestore.show()
-					self.hLabelTip.show()
-					self.hLabelLogo.show()
-					self.hButtonLogout.hide()
-					self.pipe = 'logout'
-					try:
-						self.morelo.wallet.stop()
-					except:
-						pass
-				#submit password (On wallet opening)
-				elif obj == self.hButtonPass:
-					self.hLabelInit.show()
-					self.hLabelPass.hide()
-					self.hInputPass.hide()
-					self.hButtonPass.hide()
-					self.pwd = self.hInputPass.text()
-					if self.pwd == '': self.pwd = -1
-					self.pipe = 'postpassword'
-				elif obj == self.hButtonRestore:
-					self.hButtonCreate.hide()
-					self.hButtonOpen.hide()
-					self.hButtonRestore.hide()
-					self.hLabelTip.hide()
-					self.hLabelInit.hide()
-					self.hLabelMnemonic.show()
-					self.hInputMnemonic.show()
-					self.hButtonMnemonic.show()
-				#submit password (On wallet creation)
-				elif obj == self.hButtonPassSet:
-					self.pwd = self.hInputPass.text()
-					self.hButtonCreate.hide()
-					self.hButtonOpen.hide()
-					self.hButtonRestore.hide()
-					self.hLabelTip.hide()
-					self.pipe = 'newwallet'
-				#Donate button
-				elif obj == self.hButtonDonate:
-					self.hInputAddress.setText(donate_address)
-					self.hInputPaymentID.setText('DONATE')
-					self.hButtonSend.click()
-				#Wallet open button
-				elif obj == self.hButtonOpen:
-					self.hButtonCreate.setEnabled(False)
-					self.hButtonOpen.setEnabled(False)
-					self.hButtonRestore.setEnabled(False)
-					tkroot = Tk()
-					tkroot.withdraw()
-					file_path = filedialog.askopenfilename(title='Select wallet file', filetypes=[('All files', '*')])
-					tkroot.destroy()
-					if pathlib.Path(file_path).is_file():
-						filename = file_path.split("/").pop()
-						config['wallet']['file'] = filename
-						with open("Wallet.ini", "w") as configfile:
-							config.write(configfile)
-						shutil.copyfile(file_path, config['wallet']['workdir'] + "/" + filename)
-						shutil.copyfile(file_path + ".keys", config['wallet']['workdir'] + "/" + filename + ".keys")
-						self.hLabelInit.show()
-						self.hButtonCreate.hide()
-						self.hButtonOpen.hide()
-						self.hButtonRestore.hide()
-						self.hLabelTip.hide()
-						self.pipe = 'walletrpc'
-					self.hButtonCreate.setEnabled(True)
-					self.hButtonOpen.setEnabled(True)
-					self.hButtonRestore.setEnabled(True)
-				#Wallet create button
-				elif obj == self.hButtonCreate:
-					random_container = randomString(10)
-					config['wallet']['file'] = str(pathlib.Path(random_container))
-					self.filename = random_container
-					self.hButtonCreate.hide()
-					self.hButtonOpen.hide()
-					self.hButtonRestore.hide()
-					self.hLabelTip.hide()
-					self.hLabelInit.hide()
-					self.hLabelPassSet.show()
-					self.hInputPass.show()
-					self.hButtonPassSet.show()
-				#Amount all button
-				elif obj == self.hButtonAmountAll and self.walletBalance > 0:
-					self.hInputAmount.setText('%.6f' % float(self.walletBalance - 0.01))
-				#Address copy button
-				elif obj == self.hButtonWalletCopy:
-					threading.Timer(0, self.AddressToClip).start()
-				#Address paste button
-				elif obj == self.hButtonAddressPaste:
-					threading.Timer(0, self.AddressFromClip).start()
-				#Send founds button
-				elif obj== self.hButtonSendSend:
-					sending = True
-					if not self.hInputAddress.hasAcceptableInput() or not self.hInputAmount.hasAcceptableInput() or float(self.hInputAmount.text()) + 0.01 > self.walletBalance:
-						self.controlBlink(3, 0.15)
-						sending = False
-					if sending:
-						respond = self.morelo.wallet.transfer(self.hInputAddress.text(), float(self.hInputAmount.text()), self.hInputPaymentID.text())
-						self.hInputAddress.setText('')
-						self.hInputAmount.setText('')
-						if 'error' in respond:
-							print('Unable to send transaction (' + respond['error']['message'] + ')')
-							self.tray_icon.showMessage('Unable to send transaction', respond['error']['message'], msecs=3000)
-						else:
-							print('Transaction sent! Tx hash (' + respond['result']['tx_hash'] + ')')
-							self.tray_icon.showMessage('Transaction sent!', 'Tx hash (' + respond['result']['tx_hash'] + ')', msecs=3000)
-	
-	def AddressToClip(self):
-		pyperclip.copy(self.wallet_address)
-	
-	def AddressFromClip(self):
-		self.hInputAddress.setText(pyperclip.paste())
-	
-	#procesing data when entering data in inputs is done
-	def input_proc_end(self):
-		obj = self.sender()
-		if obj == self.hInputAmount:
-			if obj.hasAcceptableInput(): obj.setText('%.9f' % float(obj.text()))
-		elif obj == self.hInputUrl or obj == self.hInputUrlPort:
-			config['wallet']['url'] = self.hInputUrl.text() + ':' + self.hInputUrlPort.text()
-			with open("Wallet.ini", "w") as configfile:
-				config.write(configfile)
-	
-	#some inputs validation 
-	def input_proc(self):
-		obj = self.sender()
-		if obj == self.hInputAmount:
-			GUICtrlSetBkColor(self.hInputAmount, 'rgba(255, 0, 0, 15%)')
-			if obj.hasAcceptableInput():
-				if float(obj.text()) > self.walletBalance:
-					self.hLabelAmountErr.setText('Not enought founds')
-				else:
-					self.hLabelAmountErr.setText('')
-					GUICtrlSetBkColor(self.hInputAmount, 'rgba(255, 255, 255, 15%)')
-			else:
-				self.hLabelAmountErr.setText('Invalid amount' if obj.text() != '' else 'Please enter amount')
-				
-		elif obj == self.hInputAddress:
-			#Checking typed address
-			obj.setText(obj.text().replace(' ', ''))
-			GUICtrlSetBkColor(self.hInputAddress, 'rgba(255, 0, 0, 15%)')
-			if obj.hasAcceptableInput():
-				self.hLabelAddressErr.setText('')
-				GUICtrlSetBkColor(self.hInputAddress, 'rgba(255, 255, 255, 15%)')
-			else:
-				self.hLabelAddressErr.setText('Invalid address' if obj.text != '' else 'Please enter address')
-				
-		elif obj == self.hInputUrl:
-			if obj.text() == '' or obj.text()[0:7] != 'http://':
-				obj.setText('http://')
-		return
-	
-	#checkbox clicking processing
-	def checkbox_proc(self):
-		obj = self.sender()
-		if obj == self.hCheckboxTrayClose:
-			config['wallet']['trayclose'] = str(int(obj.isChecked()))
-		elif obj == self.hCheckboxNots:
-			config['wallet']['disablenotifications'] = str(int(obj.isChecked()))
-		#Update config file
-		with open("Wallet.ini", "w") as configfile:
-			config.write(configfile)
-	
-	#function to blink (show and hide in loop) controls
-	def controlBlink(self, times = 5, delay = 0.1):
-		threading.Timer(0, self.blinkProc, args=[times, delay]).start()
-		
-	def blinkProc(self, times, delay):
-		for i in range(times):
-			if not self.hInputAmount.hasAcceptableInput() or float(self.hInputAmount.text()) + 0.01 > self.walletBalance: self.hLabelAmountErr.hide()
-			if not self.hInputAmount.hasAcceptableInput(): self.hLabelAddressErr.hide()
-			sleep(delay)
-			if self.activeTab != self.hButtonSend: break
-			if not self.hInputAmount.hasAcceptableInput() or float(self.hInputAmount.text()) + 0.01 > self.walletBalance: self.hLabelAmountErr.show()
-			if not self.hInputAmount.hasAcceptableInput(): self.hLabelAddressErr.show()
-			sleep(delay)
-	
-	#network status update 
-	def NetworkUpdate(self):
-		if not self.running:
-			return
-		nodeInfo = self.morelo.daemon.get_info()
-		self.nodeSync = nodeInfo['result']['height']
-		self.networkSync = nodeInfo['result']['target_height']
-		diff = nodeInfo['result']['difficulty']
-		self.hLabelNetworkDiff.setText("Network diff: " + str(diff))
-		diff = math.floor(diff / 120)
-		#hashrate formatting
-		if diff < 1000:
-			diff = str(diff) + " H/s"
-		elif diff < 1000000:
-			diff = str('%.2f' % (diff / 1000)) + " kH/s"
-		elif diff < 1000000000:
-			diff = str('%.2f' % (diff / 1000000)) + " MH/s"
-		self.hLabelNetworkHashrate.setText("Network hashrate: " + str(diff))
-		walletInfo = self.morelo.wallet.get_balance()
-		#locked and unlocked balance calculations
-		if walletInfo:
-			self.walletBalance = walletInfo['result']['unlocked_balance'] / 1000000000
-			self.walletBalanceLocked = (walletInfo['result']['balance'] / 1000000000) - self.walletBalance
-			if self.walletBalanceLocked < 0:
-				self.walletBalanceLocked *= -1
-		if self.nodeSync < self.networkSync:
-			self.NetworkState(1, self.nodeSync / self.networkSync * 100)
-		else:
-			if self.XiNetworkState != 2:
-				self.NetworkState(2)
-				print('INFO: Network synced')
-	
-    #Background thread
-	def NetworkThread(self):
-		#Initial config
-		if not pathlib.Path("Wallet.ini").is_file():
-			print('INFO: No wallet config, initial setup')
-			for ctrl in self.tabsControls['initconfig']:
-				ctrl.show()
-			self.hDropDownNode.move(250, 220)
-			self.hLabelUrl.move(450, 205)
-			self.hInputUrl.move(450, 220)
-			self.hLabelUrlPort.move(450, 255)
-			self.hInputUrlPort.move(450, 270)
-			while self.running:
-				if self.pipe == 'config':
-					break
-			self.hDropDownNode.move(215, 175)
-			self.hLabelUrl.move(450, 160)
-			self.hInputUrl.move(450, 175)
-			self.hLabelUrlPort.move(450, 210)
-			self.hInputUrlPort.move(450, 225)
-			for ctrl in self.tabsControls[self.hButtonSettings.objectName()]:
-				ctrl.hide()
-			for ctrl in self.tabsControls['initconfig']:
-				ctrl.hide()
-			newwallet = True
-			with open("Wallet.ini", "w") as configfile:
-				config.write(configfile)
-			print('INFO: Config saved')
-		#reading config file
-		config.read("Wallet.ini")
-		self.hLabelInit.show()
-		if '--offline' in app.arguments():
-			print('INFO: Running wallet in offline mode')
-			self.runOffline()
-		else:
-			daemon = False
-			local = True if config["wallet"]["connection"] == "local" else False
-				
-			#Initializing morelo daemon and wallet RPC
-			self.morelo = Morelo(config['wallet']['workdir'], d_url = config['wallet']['url'], local=local)
-			
-			#Check connection with external node if is choosen
-			if config['wallet']['connection'] != 'local':
-				print('INFO: Connecting to', config['wallet']['url'] + '...')
-				if self.morelo.daemon.wait():
-					daemon = True
-				else:
-					print('ERROR: Unable connect to external node, using local instead')
-					self.morelo = Morelo(config['wallet']['workdir'], d_url = "http://127.0.0.1:38301", local=True)
-                    
-			#Waiting for connection to daemon
-			if not daemon:
-				print('INFO: Connecting to local node...')
-				if self.morelo.daemon.wait():
-					daemon = True
-				else:
-					print('ERROR: Unable connect to local node')
+# network status update function (visual)
+def NetworkState(self, state, percent=0):
+    if state == 1:
+        GUICtrlSetColor(self.hLabelNetworkStatus, '#f7ff91')
+        self.hLabelNetworkStatus.setText("Syncing (" + '%.2f' % percent + "%)")
+    elif state == 2:
+        GUICtrlSetColor(self.hLabelNetworkStatus, 'rgb(26, 188, 156)')
+        self.hLabelNetworkStatus.setText("Synced")
+    elif state == 3:
+        GUICtrlSetColor(self.hLabelNetworkStatus, '#fc7c7c')
+        self.hLabelNetworkStatus.setText("Disconnected")
 
-            #Waiting for wallet RPC
-			self.morelo.wallet.wait();
-			#Closing wallet if something was fucking wrong with connection
-			if not daemon:
-				print('ERROR: No connection to daemon, closing wallet...')
-				sleep(2.5)
-				self.close()
-				return
-			#checking wallet in config exists or is not configured
-			if not pathlib.Path(config['wallet']['workdir'] + '/' + config['wallet']['file']).is_file():
-                #if no show open / create / restore wallet buttons
-				print('ERROR: Wallet file not found')
-				self.hButtonCreate.show()
-				self.hButtonOpen.show()
-				self.hButtonRestore.show()
-				self.hLabelTip.show()
-				self.hLabelInit.hide()
-			else:
-				#if yes we going further
-				print('INFO: Loading wallet file', config['wallet']['workdir'] + '/' + config['wallet']['file'])
-				self.pipe = 'walletrpc'
-			#magic here
-			#\/ this loop for logout and re logging feature
-			while self.running:
-				#\/ this loop waiting for user choice if any wallet doesnt exist or we logout
-				while self.running:
-					#we going to run wallet rpc
-					if self.pipe == 'walletrpc':
-						break
-					#user wants to make new wallet
-					elif self.pipe == 'newwallet':
-						self.hLabelInit.show()
-						#Generate new wallet
-						self.hLabelPassSet.hide()
-						self.hInputPass.hide()
-						self.hButtonPassSet.hide()
-						while self.running:
-							respond = self.morelo.wallet.create(config['wallet']['file'], self.hInputPass.text())
-							print(respond)
-							if 'result' in respond:
-								break
-						#update wallet config
-						with open("Wallet.ini", "w") as configfile:
-							config.write(configfile)
-						break
-					else:
-						sleep(0.05)
-				#next magic loop
-				while self.running:
-					result = self.WaitForWalletRPC()
-					#password is good or wallet doesnt have password
-					if result == 'ok':
-						self.pipe = False
-						break
-					#wallet have password
-					elif result == 'requirepassword':
-						self.hLabelInit.hide()
-						self.hLabelPass.show()
-						self.hInputPass.show()
-						self.hButtonPass.show()
-						self.pipe = False
-						while self.pipe != 'postpassword':
-							sleep(0.05)
-					#user enter wrong password
-					elif result == 'wrongpassword':
-						print('ERROR: Wrong password')
-						self.hLabelPassWrong.show()
-						self.hInputPass.show()
-						self.hButtonPass.show()
-						self.hLabelInit.hide()
-						self.pipe = False
-						while self.pipe != 'postpassword':
-							sleep(0.05)
-					sleep(0.05)
-				if(self.pwd) == "":
-					print('INFO: Wallet started (No password)')
-				else:
-					print('INFO: Wallet started (Password is correct)')
-				#i dont remember why this shit exist here but leave that
-				self.wallet_address = self.morelo.wallet.get_address()
-				self.UpdateWalletAddress()
-				self.UpdateBalance()
-				self.NetworkUpdate()
-				#hide some controls and show other
-				self.hLabelInit.hide()
-				self.hLabelLogo.hide()
-				self.hButtonCreate.hide()
-				self.hButtonOpen.hide()
-				self.hButtonRestore.hide()
-				self.hLabelTip.hide()
-				self.hButtonLogout.show()
-				for ctrl in self.tabsControls['leftpanel']:
-					ctrl.show()
-				for ctrl in self.tabsControls[self.hButtonSend.objectName()]:
-					ctrl.show()
-				if not noQR:
-					#generate QrCode for our wallet address
-					self.UpdateQrCode()
-				#main networking and notifications loop
-				updateInterval = Timer()
-				while self.running and self.pipe != 'logout':
-					try:
-						item = self.notQueue.get(False)
-						if not int(config['wallet']['disablenotifications']): self.tray_icon.showMessage('New transaction', item[0] + '\nNew transaction found\nTx hash (' + item[1] + ')\nAmount: ' + item[2], msecs=2500)
-					except:
-						pass
-					if updateInterval.get() > 2500:
-						self.NetworkUpdate()
-						self.UpdateBalance()
-						self.UpdateTransactions()
-						updateInterval.reset()
-					sleep(0.05)
-				#finally the end of this fucking loops magic
+    self.XiNetworkState = state
 
-	#running wallet rpc and waiting for his respond
-	def WaitForWalletRPC(self):
-		#opening wallet using RPC
-		response = self.morelo.wallet.open(config['wallet']['file'], self.hInputPass.text())
-		walletRPC = False
-		#waiting for respond or crash
-		if 'result' in response:
-			walletRPC = True
-			return 'ok'
-		if 'error' in response:
-			if self.pwd == '':
-				return 'requirepassword'
-			else:
-				return 'wrongpassword'
-		else:
-			return 'ok'
+	
+# node type selection
+def SelectNode(self):
+    obj = self.sender()
+    lastSetting = config['wallet']['connection']
+    if obj == self.hDropDownNode.items[0]:
+        config['wallet']['connection'] = 'local'
+        config['wallet']['url'] = 'http://127.0.0.1:38302'
+    elif obj == self.hDropDownNode.items[1]:
+        config['wallet']['connection'] = 'remote'
+        config['wallet']['url'] = 'http://80.60.19.222:38302'  # Sniper's public node
+    elif obj == self.hDropDownNode.items[2]:
+        config['wallet']['connection'] = 'remote'
+        config['wallet']['url'] = 'http://'
+    elif obj == self.hDropDownNode.items[3]:
+        config['wallet']['connection'] = 'custom'
 
-	#running wallet in offline mode, it's not offline in meaning of without networking but only for GUI debbuging
-	#i will delete that later on stable releases
-	def runOffline(self):
-		for ctrl in self.tabsControls['leftpanel']:
-			ctrl.show()
-		for ctrl in self.tabsControls[self.hButtonSend.objectName()]:
-			ctrl.show()
-		self.UpdateWalletAddress()
-		self.walletBalance = 1.234
-		self.UpdateBalance()
-		if not noQR: self.UpdateQrCode()
-		self.hLabelInit.hide()
-		self.hLabelLogo.hide()
-		date = datetime.datetime.fromtimestamp(1576705196)
-		self.addTx.emit([str(date), '4437459bac024c7ce3fc0ecf63ef482466fd19141f46709c1cd640aeb6c20e27', str(1.234000)])
-	
-	def hideWindow(self):
-		self.hide()
-	
-	#add transaction to table
-	def AddTx(self, data):
-		self.hTableTransactions.insertRow(0)
-		for i in range(3):
-			item = QTableWidgetItem(data[i])
-			item.setFlags( Qt.ItemIsSelectable | Qt.ItemIsEnabled )
-			self.hTableTransactions.setItem(0, i, item)
-	
-	#sort table
-	def SortTx(self):
-		self.hTableTransactions.sortItems(0, Qt.DescendingOrder)
-	
-	#read transactions from wallet then add them to table, scan and add incoming transactions to table
-	def UpdateTransactions(self):
-		if not self.running:
-			return
-		try:
-			response = self.morelo.wallet.get_height()
-		except:
-			print("ERROR: Can't get wallet sync height")
-			return
-		#checking wallet rpc is synced with daemon
-		if response['result']['height'] != self.networkSync:
-			return
-		transactions = []
-		fullScan = False
-		#checking is there new network height
-		if self.networkSync and self.networkSync > 1 and self.lastScan != self.networkSync and not self.scanning:
-			self.scanning = True
-			if self.lastScan < 2:
-				#wallet just started so we need full wallet scan
-				print('INFO: Full tx list request')
-				fullScan = True
-				transactions = self.morelo.wallet.get_transfers(1, self.networkSync)
-				self.lastScan = self.networkSync
-			#new network height so we scanning new range for incoming transactions
-			elif self.networkSync - self.lastScan > 0:
-				print('INFO: Partial tx list request, blocks from', self.lastScan, ' to ', self.networkSync)
-				transactions =  self.morelo.wallet.get_transfers(self.lastScan - 1, self.networkSync - self.lastScan) 
-				self.lastScan = self.networkSync
-			else:
-				self.scanning = False
-				return
-			#any transactions for our wallet?
-			if len(transactions):
-				#Get transactions hashes list
-				for transaction in transactions:
-					tx_info = self.morelo.wallet.get_transfer(transaction)
-					self.transactions.add(tx_info)
-					date = datetime.datetime.fromtimestamp(int(tx_info['result']['transfer']['timestamp']))
-					amount = tx_info['result']['transfer']['amount']
-					amount = amount / 1000000000
-					if tx_info['result']['transfer']['type'] == 'out':
-						amount = amount * -1
-					self.addTx.emit([str(date), transaction, '%.6f' % amount])
-					if not fullScan and tx_info['result']['transfer']['type'] == 'in':
-						print('New transaction found! Amount:' + str(amount) + ' (' + transaction + ')')
-						self.IncomingTx(transaction, str(amount), str(date))
-						
-				print(self.transactions)
-				#sort table
-				self.sortTx.emit()
-				print('INFO: ', len(transactions), 'transactions added to table')
-			else:
-				print('INFO: No new transactions found')
-			self.scanning = False
-	
-	def IncomingTx(self, hash, amount, time):
-		self.notQueue.put([time, hash, amount])
-	
-	def UpdateBalance(self):
-		self.hLabelBalanceValue.setText('%.6f' % self.walletBalance)
-		self.hLabelBalanceLockedValue.setText('%.6f' % self.walletBalanceLocked)
-		
-	def UpdateKeys(self):
-		self.hInputSpend.setText(self.wallet_keys['spend'])
-		self.hInputView.setText(self.wallet_keys['view'])
-		self.hInputSeed.setText(self.wallet_keys['seed'])
+    if lastSetting != config['wallet']['connection']:
+        if config['wallet']['connection'] == 'custom':
+            for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
+                ctrl.show()
+        else:
+            for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
+                ctrl.hide()
+
+# buttons event processing function
+def button_proc(self):
+    obj = self.sender()
+    if obj != self.activeTab:
+        # Switching TABS
+        if obj in self.navButtons:
+            if config["wallet"]["connection"] == "custom":
+                if obj == self.hButtonSettings:
+                    for ctrl in [
+                        self.hLabelUrl,
+                        self.hInputUrl,
+                        self.hLabelUrlPort,
+                        self.hInputUrlPort,
+                    ]:
+                        ctrl.show()
+                else:
+                    for ctrl in [
+                        self.hLabelUrl,
+                        self.hInputUrl,
+                        self.hLabelUrlPort,
+                        self.hInputUrlPort,
+                    ]:
+                        ctrl.hide()
+            GUICtrlSetBkColor(self.activeTab, "rgba(255, 255, 255, 15%)")
+            GUICtrlSetColor(self.activeTab, "rgb(230, 140, 0)")
+            for ctrl in self.tabsControls[self.activeTab.objectName()]:
+                ctrl.hide()
+            GUICtrlSetBkColor(obj, "rgba(230, 140, 0, 50%)")
+            GUICtrlSetColor(obj, "white")
+            for ctrl in self.tabsControls[obj.objectName()]:
+                ctrl.show()
+            self.activeTab = obj
+        else:
+            # config ok button
+            if obj == self.hButtonOk:
+                for ctrl in [
+                    self.hLabelUrl,
+                    self.hInputUrl,
+                    self.hLabelUrlPort,
+                    self.hInputUrlPort,
+                ]:
+                    ctrl.hide()
+                self.pipe = "config"
+# config ok button" 
+if obj == self.hButtonOk:
+    for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
+        ctrl.hide()
+    self.pipe = 'config'
+    # logic here
+
+# Show keys button
+elif obj == self.hButtonKeys:
+    for ctrl in self.tabsControls[self.hButtonSettings.objectName()]:
+        ctrl.hide()
+    for ctrl in self.tabsControls['keys']:
+        ctrl.show()
+
+# Keys back button
+elif obj == self.hButtonBack:
+    for ctrl in self.tabsControls[self.hButtonSettings.objectName()]:
+        ctrl.show()
+    for ctrl in self.tabsControls['keys']:
+        ctrl.hide()
+
+# Initial config browse button
+elif obj == self.hButtonBrowse:
+    self.hDropDownNode.hButtonSelect.setEnabled(False)
+    self.hButtonBrowse.setEnabled(False)
+    self.hButtonOk.setEnabled(False)
+    tkroot = Tk()
+    tkroot.withdraw()
+    file_path = filedialog.askdirectory(title='Select directory')
+    tkroot.destroy()
+    print(file_path)
+    if file_path and pathlib.Path(file_path).exists():
+        self.hInputPath.setText(file_path)
+        config['wallet']['workdir'] = file_path
+    self.hDropDownNode.hButtonSelect.setEnabled(True)
+    self.hButtonBrowse.setEnabled(True)
+    self.hButtonOk.setEnabled(True)
+
+# Logout button
+elif obj == self.hButtonLogout:
+    print("INFO: Log Out")
+    for ctrl in self.tabsControls['leftpanel']:
+        ctrl.hide()
+    for ctrl in self.tabsControls[self.activeTab.objectName()]:
+        ctrl.hide()
+    self.hButtonCreate.show()
+    self.hButtonOpen.show()
+    self.hButtonRestore.show()
+    self.hLabelTip.show()
+    self.hLabelLogo.show()
+    self.hButtonLogout.hide()
+    self.pipe = 'logout'
+    try:
+        self.morelo.wallet.stop()
+    except:
+        pass
+
+# Submit password (On wallet opening)
+elif obj == self.hButtonPass:
+    self.hLabelInit.show()
+    self.hLabelPass.hide()
+    self.hInputPass.hide()
+    self.hButtonPass.hide()
+    self.pwd = self.hInputPass.text()
+    if self.pwd == '':
+        self.pwd = -1
+    self.pipe = 'postpassword'
+
+elif obj == self.hButtonRestore:
+    self.hButtonCreate.hide()
+    self.hButtonOpen.hide()
+    self.hButtonRestore.hide()
+    self.hLabelTip.hide()
+    self.hLabelInit.hide()
+    self.hLabelMnemonic.show()
+    self.hInputMnemonic.show()
+    self.hButtonMnemonic.show()
+
+# Submit password (On wallet creation)
+elif obj == self.hButtonPassSet:
+    self.pwd = self.hInputPass.text()
+    self.hButtonCreate.hide()
+    self.hButtonOpen.hide()
+    self.hButtonRestore.hide()
+    self.hLabelTip.hide()
+    self.pipe = 'newwallet'
+
+# Donate button
+elif obj == self.hButtonDonate:
+    self.hInputAddress.setText(donate_address)
+    self.hInputPaymentID.setText('DONATE')
+    self.hButtonSend.click()
+
+# Wallet open button
+elif obj == self.hButtonOpen:
+    self.hButtonCreate.setEnabled(False)
+    self.hButtonOpen.setEnabled(False)
+    self.hButtonRestore.setEnabled(False)
+    tkroot = Tk()
+    tkroot.withdraw()
+    file_path = filedialog.askopenfilename(title='Select wallet file', filetypes=[('All files', '*')])
+    tkroot.destroy()
+    if pathlib.Path(file_path).is_file():
+        filename = file_path.split("/").pop()
+        config['wallet']['file'] = filename
+        with open("Wallet.ini", "w") as configfile:
+            config.write(configfile)
+        shutil.copyfile(file_path, config['wallet']['workdir'] + "/" + filename)
+        shutil.copyfile(file_path + ".keys", config['wallet']['workdir'] + "/" + filename + ".keys")
+        self.hLabelInit.show()
+        self.hButtonCreate.hide()
+        self.hButtonOpen.hide()
+        self.hButtonRestore.hide()
+        self.hLabelTip.hide()
+        self.pipe = 'walletrpc'
+    self.hButtonCreate.setEnabled(True)
+    self.hButtonOpen.setEnabled(True)
+    self.hButtonRestore.setEnabled(True)
+
+# Wallet create button
+elif obj == self.hButtonCreate:
+    random_container = randomString(10)
+    config['wallet']['file'] = str(pathlib.Path(random_container))
+    self.filename = random_container
+    self.hButtonCreate.hide()
+    self.hButtonOpen.hide()
+    self.hButtonRestore.hide()
+    self.hLabelTip.hide()
+    self.hLabelInit.hide()
+    self.hLabelPassSet.show()
+    self.hInputPass.show()
+    self.hButtonPassSet.show()
+
+# Amount all button
+elif obj == self.hButtonAmountAll and self.walletBalance > 0:
+    self.hInputAmount.setText('%.6f' % float(self.walletBalance - 0.01))
+
+# Address copy button
+elif obj == self.hButtonWalletCopy:
+    threading.Timer(0, self.AddressToClip).start()
+
+# Address paste button
+elif obj == self.hButtonAddressPaste:
+    threading.Timer(0, self.AddressFromClip).start()
+
+# Send founds button
+elif obj == self.hButtonSendSend:
+    sending = True
+    if not self.hInputAddress.hasAcceptableInput() or not self.hInputAmount.hasAcceptableInput() or float(self.hInputAmount.text()) + 0.01 > self.walletBalance:
+        self.controlBlink(3, 0.15)
+        sending = False
+    if sending:
+        respond = self.morelo.wallet.transfer(self.hInputAddress.text(), float(self.hInputAmount.text()), self.hInputPaymentID.text())
+        self.hInputAddress.setText('')
+        self.hInputAmount.setText('')
+        if 'error' in respond:
+            print('Unable to send transaction (' + respond['error']['message'] + ')')
+            self.tray_icon.showMessage('Unable to send transaction', respond['error']['message'], msecs=3000)
+        else:
+            print('Transaction sent! Tx hash (' + respond['result']['tx_hash'] + ')')
+            self.tray_icon.showMessage('Transaction sent!', 'Tx hash (' + respond['result']['tx_hash'] + ')', msecs=3000)
+
+def AddressToClip(self):
+    pyperclip.copy(self.wallet_address)
+
+def AddressFromClip(self):
+    self.hInputAddress.setText(pyperclip.paste())
+
+# Processing data when entering data in inputs is done
+def input_proc_end(self):
+    obj = self.sender()
+    if obj == self.hInputAmount:
+        if obj.hasAcceptableInput(): 
+            obj.setText('%.9f' % float(obj.text()))
+    elif obj == self.hInputUrl or obj == self.hInputUrlPort:
+        config['wallet']['url'] = self.hInputUrl.text() + ':' + self.hInputUrlPort.text()
+        with open("Wallet.ini", "w") as configfile:
+            config.write(configfile)
+
+# Some input validation
+def input_proc(self):
+    obj = self.sender()
+    if obj == self.hInputAmount:
+        GUICtrlSetBkColor(self.hInputAmount, 'rgba(255, 0, 0, 15%)')
+        if obj.hasAcceptableInput():
+            if float(obj.text()) > self.walletBalance:
+                self.hLabelAmountErr.setText('Not enough funds')
+            else:
+                self.hLabelAmountErr.setText('')
+                GUICtrlSetBkColor(self.hInputAmount, 'rgba(255, 255, 255, 15%)')
+        else:
+            self.hLabelAmountErr.setText('Invalid amount' if obj.text() != '' else 'Please enter amount')
+
+    elif obj == self.hInputAddress:
+        # Checking typed address
+        obj.setText(obj.text().replace(' ', ''))
+        GUICtrlSetBkColor(self.hInputAddress, 'rgba(255, 0, 0, 15%)')
+        if obj.hasAcceptableInput():
+            self.hLabelAddressErr.setText('')
+            GUICtrlSetBkColor(self.hInputAddress, 'rgba(255, 255, 255, 15%)')
+        else:
+            self.hLabelAddressErr.setText('Invalid address' if obj.text != '' else 'Please enter address')
+
+    elif obj == self.hInputUrl:
+        if obj.text() == '' or obj.text()[0:7] != 'http://':
+            obj.setText('http://')
+    return
+
+# Checkbox clicking processing
+def checkbox_proc(self):
+    obj = self.sender()
+    if obj == self.hCheckboxTrayClose:
+        config['wallet']['trayclose'] = str(int(obj.isChecked()))
+    elif obj == self.hCheckboxNots:
+        config['wallet']['disablenotifications'] = str(int(obj.isChecked()))
+# Update config file
+with open("Wallet.ini", "w") as configfile:
+    config.write(configfile)
+
+def controlBlink(self, times=5, delay=0.1):
+    threading.Timer(0, self.blinkProc, args=[times, delay]).start()
+
+def blinkProc(self, times, delay):
+    for i in range(times):
+        if not self.hInputAmount.hasAcceptableInput() or float(self.hInputAmount.text()) + 0.01 > self.walletBalance:
+            self.hLabelAmountErr.hide()
+        if not self.hInputAmount.hasAcceptableInput():
+            self.hLabelAddressErr.hide()
+        sleep(delay)
+        if self.activeTab != self.hButtonSend:
+            break
+        if not self.hInputAmount.hasAcceptableInput() or float(self.hInputAmount.text()) + 0.01 > self.walletBalance:
+            self.hLabelAmountErr.show()
+        if not self.hInputAmount.hasAcceptableInput():
+            self.hLabelAddressErr.show()
+        sleep(delay)
+
+# Network status update
+def NetworkUpdate(self):
+    if not self.running:
+        return
+    nodeInfo = self.morelo.daemon.get_info()
+    self.nodeSync = nodeInfo['result']['height']
+    self.networkSync = nodeInfo['result']['target_height']
+    diff = nodeInfo['result']['difficulty']
+    self.hLabelNetworkDiff.setText("Network diff: " + str(diff))
+    diff = math.floor(diff / 120)
+    # Hashrate formatting
+    if diff < 1000:
+        diff = str(diff) + " H/s"
+    elif diff < 1000000:
+        diff = str('%.2f' % (diff / 1000)) + " kH/s"
+    elif diff < 1000000000:
+        diff = str('%.2f' % (diff / 1000000)) + " MH/s"
+    self.hLabelNetworkHashrate.setText("Network hashrate: " + str(diff))
+    walletInfo = self.morelo.wallet.get_balance()
+    # Locked and unlocked balance calculations
+    if walletInfo:
+        self.walletBalance = walletInfo['result']['unlocked_balance'] / 1000000000
+        self.walletBalanceLocked = (walletInfo['result']['balance'] / 1000000000) - self.walletBalance
+        if self.walletBalanceLocked < 0:
+            self.walletBalanceLocked *= -1
+    if self.nodeSync < self.networkSync:
+        self.NetworkState(1, self.nodeSync / self.networkSync * 100)
+    else:
+        if self.XiNetworkState != 2:
+            self.NetworkState(2)
+            print('INFO: Network synced')
+
+# Background thread
+def NetworkThread(self):
+    # Initial config
+    if not pathlib.Path("Wallet.ini").is_file():
+        print('INFO: No wallet config, initial setup')
+        for ctrl in self.tabsControls['initconfig']:
+            ctrl.show()
+        self.hDropDownNode.move(250, 220)
+        self.hLabelUrl.move(450, 205)
+        self.hInputUrl.move(450, 220)
+        self.hLabelUrlPort.move(450, 255)
+        self.hInputUrlPort.move(450, 270)
+        while self.running:
+            if self.pipe == 'config':
+                break
+        self.hDropDownNode.move(215, 175)
+        self.hLabelUrl.move(450, 160)
+        self.hInputUrl.move(450, 175)
+        self.hLabelUrlPort.move(450, 210)
+        self.hInputUrlPort.move(450, 225)
+        for ctrl in self.tabsControls[self.hButtonSettings.objectName()]:
+            ctrl.hide()
+        for ctrl in self.tabsControls['initconfig']:
+            ctrl.hide()
+        newwallet = True
+        with open("Wallet.ini", "w") as configfile:
+            config.write(configfile)
+        print('INFO: Config saved')
+    # Reading config file
+    config.read("Wallet.ini")
+    self.hLabelInit.show()
+    if '--offline' in app.arguments():
+        print('INFO: Running wallet in offline mode')
+        self.runOffline()
+    else:
+        daemon = False
+        local = True if config["wallet"]["connection"] == "local" else False
+            
+        # Initializing morelo daemon and wallet RPC
+        self.morelo = Morelo(config['wallet']['workdir'], d_url=config['wallet']['url'], local=local)
+        
+        # Check connection with external node if chosen
+        if config['wallet']['connection'] != 'local':
+            print('INFO: Connecting to', config['wallet']['url'] + '...')
+            if self.morelo.daemon.wait():
+                daemon = True
+            else:
+                print('ERROR: Unable connect to external node, using local instead')
+                self.morelo = Morelo(config['wallet']['workdir'], d_url="http://127.0.0.1:38301", local=True)
+                
+        # Waiting for connection to daemon
+        if not daemon:
+            print('INFO: Connecting to local node...')
+            if self.morelo.daemon.wait():
+                daemon = True
+            else:
+                print('ERROR: Unable connect to local node')
+
+        # Waiting for wallet RPC
+        self.morelo.wallet.wait()
+        # Closing wallet if something was wrong with connection
+        if not daemon:
+            print('ERROR: No connection to daemon, closing wallet...')
+            sleep(2.5)
+            self.close()
+            return
+        # Checking if wallet in config exists or is not configured
+        if not pathlib.Path(config['wallet']['workdir'] + '/' + config['wallet']['file']).is_file():
+            # If no, show open / create / restore wallet buttons
+            print('ERROR: Wallet file not found')
+            self.hButtonCreate.show()
+            self.hButtonOpen.show()
+            self.hButtonRestore.show()
+            self.hLabelTip.show()
+            self.hLabelInit.hide()
+        else:
+            # If yes, we go further
+            print('INFO: Loading wallet file', config['wallet']['workdir'] + '/' + config['wallet']['file'])
+            self.pipe = 'walletrpc'
+        # Magic here
+        # \/ this loop for logout and re-logging feature
+        while self.running:
+            # \/ this loop waiting for user choice if any wallet doesn't exist or we logout
+            while self.running:
+                # we're going to run wallet rpc
+                if self.pipe == 'walletrpc':
+                    break
+                # user wants to make a new wallet
+                elif self.pipe == 'newwallet':
+                    self.hLabelInit.show()
+                    # Generate new wallet
+                    self.hLabelPassSet.hide()
+                    self.hInputPass.hide()
+                    self.hButtonPassSet.hide()
+                    while self.running:
+                        respond = self.morelo.wallet.create(config['wallet']['file'], self.hInputPass.text())
+                        print(respond)
+                        if 'result' in respond:
+                            break
+                    # update wallet config
+                    with open("Wallet.ini", "w") as configfile:
+                        config.write(configfile)
+                    break
+                else:
+                    sleep(0.05)
+            # next magic loop
+            while self.running:
+                result = self.WaitForWalletRPC()
+                # password is good or wallet doesn't have a password
+                if result == 'ok':
+                    self.pipe = False
+                    break
+                # wallet has a password
+                elif result == 'requirepassword':
+                    self.hLabelInit.hide()
+                    self.hLabelPass.show()
+                    self.hInputPass.show()
+                    self.hButtonPass.show()
+                    self.pipe = False
+                    while self.pipe != 'postpassword':
+                        sleep(0.05)
+                # user enters the wrong password
+                elif result == 'wrongpassword':
+                    print('ERROR: Wrong password')
+                    self.hLabelPassWrong.show()
+                    self.hInputPass.show()
+                    self.hButtonPass.show()
+                    self.hLabelInit.hide()
+                    self.pipe = False
+                    while self.pipe != 'postpassword':
+                        sleep(0.05)
+                sleep(0.05)
+            if(self.pwd) == "":
+                print('INFO: Wallet started (No password)')
+            else:
+                print('INFO: Wallet started (Password is correct)')
+            # I don't remember why this exists here but leave that
+            self.wallet_address = self.morelo.wallet.get_address()
+            self.UpdateWalletAddress()
+            self.UpdateBalance()
+            self.NetworkUpdate()
+            # hide some controls and show others
+            self.hLabelInit.hide()
+            self.hLabelLogo.hide()
+            self.hButtonCreate.hide()
+            self.hButtonOpen.hide()
+            self.hButtonRestore.hide()
+            self.hLabelTip.hide()
+            self.hButtonLogout.show()
+            for ctrl in self.tabsControls['leftpanel']:
+                ctrl.show()
+            for ctrl in self.tabsControls[self.hButtonSend.objectName()]:
+                ctrl.show()
+            if not noQR:
+                # generate QR code for our wallet address
+                self.UpdateQrCode()
+            # main networking and notifications loop
+            updateInterval = Timer()
+            while self.running and self.pipe != 'logout':
+                try:
+                    item = self.notQueue.get(False)
+                    if not int(config['wallet']['disablenotifications']):
+                        self.tray_icon.showMessage('New transaction', item[0] + '\nNew transaction found\nTx hash (' + item[1] + ')\nAmount: ' + item[2], msecs=2500)
+                except:
+                    pass
+                if updateInterval.get() > 2500:
+                    self.NetworkUpdate()
+                    self.UpdateBalance()
+                    self.UpdateTransactions()
+                    updateInterval.reset()
+                sleep(0.05)
+            # finally the end of this magic loop
+
+    # running wallet rpc and waiting for its response
+    def WaitForWalletRPC(self):
+        # opening wallet using RPC
+        response = self.morelo.wallet.open(config['wallet']['file'], self.hInputPass.text())
+        walletRPC = False
+        # waiting for response or crash
+        if 'result' in response:
+            walletRPC = True
+            return 'ok'
+        if 'error' in response:
+            if self.pwd == '':
+                return 'requirepassword'
+            else:
+                return 'wrongpassword'
+        else:
+            return 'ok'
+
+    # running wallet in offline mode, it's not offline in meaning of without networking but only for GUI debugging
+    # I will delete that later on stable releases
+    def runOffline(self):
+        for ctrl in self.tabsControls['leftpanel']:
+            ctrl.show()
+        for ctrl in self.tabsControls[self.hButtonSend.objectName()]:
+            ctrl.show()
+        self.UpdateWalletAddress()
+        self.walletBalance = 1.234
+        self.UpdateBalance()
+        if not noQR:
+            self.UpdateQrCode()
+        self.hLabelInit.hide()
+        self.hLabelLogo.hide()
+        date = datetime.datetime.fromtimestamp(1576705196)
+        self.addTx.emit([str(date), '4437459bac024c7ce3fc0ecf63ef482466fd19141f46709c1cd640aeb6c20e27', str(1.234000)])
+
+    def hideWindow(self):
+        self.hide()
+
+    # add transaction to table
+    def AddTx(self, data):
+        self.hTableTransactions.insertRow(0)
+        for i in range(3):
+            item = QTableWidgetItem(data[i])
+            item.setFlags( Qt.ItemIsSelectable | Qt.ItemIsEnabled )
+            self.hTableTransactions.setItem(0, i, item)
+
+    # sort table
+    def SortTx(self):
+        self.hTableTransactions.sortItems(0, Qt.DescendingOrder)
+
+    # read transactions from wallet then add them to table, scan and add incoming transactions to table
+    def UpdateTransactions(self):
+        if not self.running:
+            return
+        try:
+            response = self.morelo.wallet.get_height()
+        except:
+            print("ERROR: Can't get wallet sync height")
+            return
+        # checking if wallet rpc is synced with daemon
+        if response['result']['height'] != self.networkSync:
+            return
+        transactions = []
+        fullScan = False
+        # checking if there's a new network height
+        if self.networkSync and self.networkSync > 1 and self.lastScan != self.networkSync and not self.scanning:
+            self.scanning = True
+            if self.lastScan < 2:
+                # wallet just started so we need a full wallet scan
+                print('INFO: Full tx list request')
+                fullScan = True
+                transactions = self.morelo.wallet.get_transfers(1, self.networkSync)
+                self.lastScan = self.networkSync
+            # new network height so we scanning new range for incoming transactions
+            elif self.networkSync - self.lastScan > 0:
+                print('INFO: Partial tx list request, blocks from', self.lastScan, ' to ', self.networkSync)
+                transactions = self.morelo.wallet.get_transfers(self.lastScan - 1, self.networkSync - self.lastScan)
+                self.lastScan = self.networkSync
+            else:
+                self.scanning = False
+                return
+            # any transactions for our wallet?
+            if len(transactions):
+                # Get transactions hashes list
+                for transaction in transactions:
+                    tx_info = self.morelo.wallet.get_transfer(transaction)
+                    self.transactions.add(tx_info)
+                    date = datetime.datetime.fromtimestamp(int(tx_info['result']['transfer']['timestamp']))
+                    amount = tx_info['result']['transfer']['amount']
+                    amount = amount / 1000000000
+                    if tx_info['result']['transfer']['type'] == 'out':
+                        amount = amount * -1
+                    self.addTx.emit([str(date), transaction, '%.6f' % amount])
+                    if not fullScan and tx_info['result']['transfer']['type'] == 'in':
+                        print('New transaction found! Amount:' + str(amount) + ' (' + transaction + ')')
+                        self.IncomingTx(transaction, str(amount), str(date))
+
+                print(self.transactions)
+                # sort table
+                self.sortTx.emit()
+                print('INFO: ', len(transactions), 'transactions added to table')
+            else:
+                print('INFO: No new transactions found')
+            self.scanning = False
+
+    def IncomingTx(self, hash, amount, time):
+        self.notQueue.put([time, hash, amount])
+
+    def UpdateBalance(self):
+        self.hLabelBalanceValue.setText('%.6f' % self.walletBalance)
+        self.hLabelBalanceLockedValue.setText('%.6f' % self.walletBalanceLocked)
+
+    def UpdateKeys(self):
+        self.hInputSpend.setText(self.wallet_keys['spend'])
+        self.hInputView.setText(self.wallet_keys['view'])
+        self.hInputSeed.setText(self.wallet_keys['seed'])
 
 style = '''
-			QHeaderView::section {
-				background-color: rgba(230, 140, 0, 50%);
-				color: white;
-				padding-left: 4px;
-				border: 1px solid rgb(230, 140, 0);
-				font-weight: bold;
-			}
-			QHeaderView {
-				background: transparent;
-			}
-			QHeaderView::section:checked
-			{
-				background-color: rgba(230, 140, 0, 50%);
-				color: white;
-				padding-left: 4px;
-				border: 1px solid rgb(230, 140, 0);
-			}
-			QTableWidget {
-				gridline-color: rgb(230, 140, 0);
-				background-color: rgba(255, 255, 255, 15%);
-				border: 1px solid rgb(230, 140, 0);
-				color: rgb(230, 140, 0);
-			}
-			QTableWidget::item {
-				border-left: 1px solid rgb(230, 140, 0);
-				background: transparent;
-			}	
-			QTableWidget::item:focus {
-				border-left: 1px solid rgb(230, 140, 0);
-				background: transparent;
-				color: rgb(230, 140, 0);
-			}	
-			QTableWidget::item:selected {
-				border-left: 1px solid rgb(230, 140, 0);
-				background: transparent;
-				color: rgb(230, 140, 0);
-			}	
-			QCheckBox {
-				background-color: transparent;
-				color: rgb(230, 140, 0);
-				width: 25px;
-				height: 25px;
-				font-size: 12px;
-			}
-			QCheckBox::indicator {
-				width: 25px;
-				height: 25px;
-				background-color: transparent;
-			}
-			QCheckBox::indicator:checked {
-				margin: 7.5px 7.5px 7.5px 7.5px;
-				width: 10px;
-				height: 10px;
-				background-color: rgb(230, 140, 0);
-			}
-			QCheckBox::indicator:unchecked {
-				width: 25px;
-				height: 25px;
-			}
-			QScrollBar:vertical {
-				border: none;
-				background: transparent;
-				width: 15px;
-				margin: 22px 0 22px 0;
-			}
-			QScrollBar::handle:vertical {
-				border-top: 1px solid rgb(230, 140, 0);
-				border-bottom: 1px solid rgb(230, 140, 0);
-				background: rgba(230, 140, 0, 50%);
-				min-height: 20px;
-			}
-			QScrollBar::add-line:vertical {
-				border: 1px solid rgb(230, 140, 0);
-				background: rgba(230, 140, 0, 50%);
-				height: 20px;
-				subcontrol-position: bottom;
-				subcontrol-origin: margin;
-			}
+        QHeaderView::section {
+            background-color: rgba(230, 140, 0, 50%);
+            color: white;
+            padding-left: 4px;
+            border: 1px solid rgb(230, 140, 0);
+            font-weight: bold;
+        }
+        QHeaderView {
+            background: transparent;
+        }
+        QHeaderView::section:checked
+        {
+            background-color: rgba(230, 140, 0, 50%);
+            color: white;
+            padding-left: 4px;
+            border: 1px solid rgb(230, 140, 0);
+        }
+        QTableWidget {
+            gridline-color: rgb(230, 140, 0);
+            background-color: rgba(255, 255, 255, 15%);
+            border: 1px solid rgb(230, 140, 0);
+            color: rgb(230, 140, 0);
+        }
+        QTableWidget::item {
+            border-left: 1px solid rgb(230, 140, 0);
+            background: transparent;
+        }   
+        QTableWidget::item:focus {
+            border-left: 1px solid rgb(230, 140, 0);
+            background: transparent;
+            color: rgb(230, 140, 0);
+        }   
+        QTableWidget::item:selected {
+            border-left: 1px solid rgb(230, 140, 0);
+            background: transparent;
+            color: rgb(230, 140, 0);
+        }   
+        QCheckBox {
+            background-color: transparent;
+            color: rgb(230, 140, 0);
+            width: 25px;
+            height: 25px;
+            font-size: 12px;
+        }
+        QCheckBox::indicator {
+            width: 25px;
+            height: 25px;
+            background-color: transparent;
+        }
+        QCheckBox::indicator:checked {
+            margin: 7.5px 7.5px 7.5px 7.5px;
+            width: 10px;
+            height: 10px;
+            background-color: rgb(230, 140, 0);
+        }
+        QCheckBox::indicator:unchecked {
+            width: 25px;
+            height: 25px;
+        }
+        QScrollBar:vertical {
+            border: none;
+            background: transparent;
+            width: 15px;
+            margin: 22px 0 22px 0;
+        }
+        QScrollBar::handle:vertical {
+            border-top: 1px solid rgb(230, 140, 0);
+            border-bottom: 1px solid rgb(230, 140, 0);
+            background: rgba(230, 140, 0, 50%);
+            min-height: 20px;
+        }
+        QScrollBar::add-line:vertical {
+            border: 1px solid rgb(230, 140, 0);
+            background: rgba(230, 140, 0, 50%);
+            height: 20px;
+            subcontrol-position: bottom;
+            subcontrol-origin: margin;
+        }
+    QHeaderView::section {
+        background-color: rgba(230, 140, 0, 50%);
+        color: white;
+        padding-left: '4px';  # Enclose in quotes
+        border: 1px solid rgb(230, 140, 0);
+        font-weight: bold;
+    }
+    QHeaderView {
+        background: transparent;
+    }
+    QHeaderView::section:checked {
+        background-color: rgba(230, 140, 0, 50%);
+        color: white;
+        padding-left: '4px';  # Enclose in quotes
+        border: 1px solid rgb(230, 140, 0);
+    }
+    QScrollBar::sub-line:vertical {
+        border: 1px solid rgb(230, 140, 0);
+        background: rgba(230, 140, 0, 50%);
+        height: 20px;
+    }
+    QTableWidget {
+        gridline-color: rgb(230, 140, 0);
+        background-color: rgba(255, 255, 255, 15%);
+        border: 1px solid rgb(230, 140, 0);
+        color: rgb(230, 140, 0);
+    }
+    QTableWidget::item {
+        border-left: 1px solid rgb(230, 140, 0);
+        background: transparent;
+    }   
+    QTableWidget::item:focus {
+        border-left: 1px solid rgb(230, 140, 0);
+        background: transparent;
+        color: rgb(230, 140, 0);
+    }   
+    QTableWidget::item:selected {
+        border-left: 1px solid rgb(230, 140, 0);
+        background: transparent;
+        color: rgb(230, 140, 0);
+    }   
+    QCheckBox {
+        background-color: transparent;
+        color: rgb(230, 140, 0);
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+    QCheckBox::indicator {
+        width: 25px;
+        height: 25px;
+        background-color: transparent;
+    }
+    QCheckBox::indicator:checked {
+        margin: 7.5px 7.5px 7.5px 7.5px;
+        width: 10px;
+        height: 10px;
+        background-color: rgb(230, 140, 0);
+    }
+    QCheckBox::indicator:unchecked {
+        width: 25px;
+        height: 25px;
+    }
+    QScrollBar:vertical {
+        border: none;
+        background: transparent;
+        width: 15px;
+        margin: 22px 0 22px 0;
+    }
+    QScrollBar::handle:vertical {
+        border-top: 1px solid rgb(230, 140, 0);
+        border-bottom: 1px solid rgb(230, 140, 0);
+        background: rgba(230, 140, 0, 50%);
+        min-height: 20px;
+    }
+    QScrollBar::add-line:vertical {
+        border: 1px solid rgb(230, 140, 0);
+        background: rgba(230, 140, 0, 50%);
+        height: 20px;
+        subcontrol-position: bottom;
+        subcontrol-origin: margin;
+    }
 
-			QScrollBar::sub-line:vertical {
-				border: 1px solid rgb(230, 140, 0);
-				background: rgba(230, 140, 0, 50%);
-				height: 20px;
-				subcontrol-position: top;
-				subcontrol-origin: margin;
-			}
-			QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-				border: 2px solid rgb(230, 140, 0);
-				width: 3px;
-				height: 3px;
-				background: white;
-			}
+    QScrollBar::sub-line:vertical {
+        border: 1px solid rgb(230, 140, 0);
+        background: rgba(230, 140, 0, 50%);
+        height: 20px;
+        subcontrol-position: top;
+        subcontrol-origin: margin;
+    }
+    QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+        border: 2px solid rgb(230, 140, 0);
+        width: 3px;
+        height: 3px;
+        background: white;
+    }
 
-			QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-				background: none;
-			}
-		'''
+    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+        background: none;
+    }
+'''
 
 if __name__ == '__main__':
-	donate_address = 'emo1MrKriSGc5AfEyUaEMMExVkKpPbNXSiUcNdNWX4W8KK5NH8E9zMiBi35QJii89SYwZmSyNBdWUYmGFJvphYUM4qRL5E33bq'
-	config = configparser.ConfigParser()
-	config['wallet'] = {'workdir' : str(pathlib.Path(str(pathlib.Path.home()) + '/morelo')), 'file' : '', 'url' : 'http://127.0.0.1:38302', 'connection' : 'local', 'trayclose' : 0, 'disablenotifications' : 0}
-	if not '--offline' in sys.argv:
-		#check morelo binaries exists
-		pathwalletRPC = 'morelo-wallet-rpc.exe' if os.name == 'nt' else 'morelo-wallet-rpc'
-		pathDaemon = 'morelod.exe' if os.name == 'nt' else 'morelod'
-		if not pathlib.Path(pathwalletRPC).is_file() or not pathlib.Path(pathDaemon).is_file():
-			print('ERROR: morelo binaries not found! Make sure to have "morelod" and "morelo-wallet-rpc" files in wallet folder')
-			sleep(5)
-			sys.exit()
-	app = QApplication(sys.argv)
-	app.setStyleSheet(style)
-	print('INFO: Running main window')
-	ex = App()
-	#GUI main thread
-	sys.exit(app.exec_())
+    donate_address = 'emo1MrKriSGc5AfEyUaEMMExVkKpPbNXSiUcNdNWX4W8KK5NH8E9zMiBi35QJii89SYwZmSyNBdWUYmGFJvphYUM4qRL5E33bq'
+    config = configparser.ConfigParser()
+    config['wallet'] = {'workdir': str(pathlib.Path(str(pathlib.Path.home()) + '/morelo')),
+                        'file': '', 'url': 'http://127.0.0.1:38302', 'connection': 'local', 'trayclose': 0,
+                        'disablenotifications': 0}
+    if '--offline' in sys.argv:
+        # check morelo binaries exists
+        pathwalletRPC = 'morelo-wallet-rpc.exe' if os.name == 'nt' else 'morelo-wallet-rpc'
+        pathDaemon = 'morelod.exe' if os.name == 'nt' else 'morelod'
+        if not pathlib.Path(pathwalletRPC).is_file() or not pathlib.Path(pathDaemon).is_file():
+            print('ERROR: morelo binaries not found! Make sure to have "morelod" and "morelo-wallet-rpc" files in wallet folder')
+            sleep(5)
+            sys.exit()
+    app = QApplication(sys.argv)
+    app.setStyleSheet(style)
+    print('INFO: Running main window')
+    ex = App()
+    # GUI main thread
+    sys.exit(app.exec_())

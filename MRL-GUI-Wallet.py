@@ -1521,23 +1521,21 @@ style = '''
             border: 1px solid rgb(230, 140, 0);
             background: rgba(230, 140, 0, 50%);
             height: 20
-px;
 style = '''
     QHeaderView::section {
         background-color: rgba(230, 140, 0, 50%);
         color: white;
-        padding-left: 4px;
+        padding-left: 4px;  # Correct syntax here
         border: 1px solid rgb(230, 140, 0);
         font-weight: bold;
     }
     QHeaderView {
         background: transparent;
     }
-    QHeaderView::section:checked
-    {
+    QHeaderView::section:checked {
         background-color: rgba(230, 140, 0, 50%);
         color: white;
-        padding-left: 4px;
+        padding-left: 4px;  # Correct syntax here
         border: 1px solid rgb(230, 140, 0);
     }
     QTableWidget {

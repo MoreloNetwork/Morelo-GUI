@@ -879,14 +879,12 @@ def button_proc(self):
                 ctrl.show()
             self.activeTab = obj
         else:
-# Initial config ok button (assuming this part exists)
-# Handle logic for the "Initial config ok button" here
-pass  # Placeholder for the missing logic
+# config ok button" 
 if obj == self.hButtonOk:
     for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
         ctrl.hide()
     self.pipe = 'config'
-    # Show keys button
+    # logic here
 elif obj == self.hButtonKeys:
     for ctrl in self.tabsControls[self.hButtonSettings.objectName()]:
         ctrl.hide()

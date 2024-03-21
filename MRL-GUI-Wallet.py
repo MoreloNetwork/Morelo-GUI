@@ -885,17 +885,21 @@ if obj == self.hButtonOk:
         ctrl.hide()
     self.pipe = 'config'
     # logic here
+
+# Show keys button
 elif obj == self.hButtonKeys:
     for ctrl in self.tabsControls[self.hButtonSettings.objectName()]:
         ctrl.hide()
     for ctrl in self.tabsControls['keys']:
         ctrl.show()
+
 # Keys back button
 elif obj == self.hButtonBack:
     for ctrl in self.tabsControls[self.hButtonSettings.objectName()]:
         ctrl.show()
     for ctrl in self.tabsControls['keys']:
         ctrl.hide()
+
 # Initial config browse button
 elif obj == self.hButtonBrowse:
     self.hDropDownNode.hButtonSelect.setEnabled(False)

@@ -841,8 +841,8 @@ def SelectNode(self):
             for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
                 ctrl.show()
         else:
-for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
-    ctrl.hide()
+            for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
+                ctrl.hide()
 
 # buttons event processing function
 

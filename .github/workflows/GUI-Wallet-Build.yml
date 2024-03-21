@@ -4,9 +4,7 @@ on: [push]
 
 jobs:
   build-windows:
-
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.8
@@ -23,13 +21,11 @@ jobs:
     - name: Upload compiled binary for windows
       uses: actions/upload-artifact@v1
       with:
-        name: Windows binary
+        name: Windows Binary
         path: dist/MRL-GUI-Wallet.exe
 
   build-macos:
-
     runs-on: macOS-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.8
@@ -43,16 +39,14 @@ jobs:
     - name: build with pyinstaller
       run: |
         pyinstaller --onefile MRL-GUI-Wallet.py --icon=morelo.ico -c
-    - name: Upload compiled binary for MacOS
+    - name: Upload compiled binary for macOS
       uses: actions/upload-artifact@v1
       with:
         name: MacOS Binary
-        path: dist/MRL-GUI-Wallet
+        path: dist/MRL-GUI-Wallet.app
 
   build-ubuntu:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.8
@@ -65,7 +59,7 @@ jobs:
         pip install pyinstaller psutil pyperclip image PyQt5 qrcode requests
     - name: build with pyinstaller
       run: |
-        pyinstaller --onefile MRL-GUI-Wallet.py --icon=morelo.ico
+        pyinstaller --onefile MRL-GUI-Wallet.py --icon=morelo.ico -c
     - name: Upload compiled binary for ubuntu
       uses: actions/upload-artifact@v1
       with:

@@ -1516,9 +1516,6 @@ style = '''
             subcontrol-position: bottom;
             subcontrol-origin: margin;
         }
-
-style = '''
-style = '''
     QHeaderView::section {
         background-color: rgba(230, 140, 0, 50%);
         color: white;
@@ -1540,8 +1537,6 @@ style = '''
         background: rgba(230, 140, 0, 50%);
         height: 20px;
     }
-'''
-
     QTableWidget {
         gridline-color: rgb(230, 140, 0);
         background-color: rgba(255, 255, 255, 15%);

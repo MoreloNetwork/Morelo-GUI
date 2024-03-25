@@ -855,6 +855,9 @@ If you enjoy the program you can support me by donating some MRL using button be
 					else:
 						for ctrl in [self.hLabelUrl, self.hInputUrl, self.hLabelUrlPort, self.hInputUrlPort]:
 							ctrl.hide()
+				if self.activeTab == self.hButtonSettings:
+					for ctrl in self.tabsControls['keys']:
+						ctrl.hide()
 				GUICtrlSetBkColor(self.activeTab, 'rgba(255, 255, 255, 15%)')
 				GUICtrlSetColor(self.activeTab, 'rgb(230, 140, 0)')
 				for ctrl in self.tabsControls[self.activeTab.objectName()]:

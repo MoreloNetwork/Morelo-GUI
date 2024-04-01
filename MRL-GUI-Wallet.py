@@ -1088,6 +1088,8 @@ If you enjoy the program you can support me by donating some MRL using button be
 	def NetworkUpdate(self):
 		if not self.running:
 			return
+		wallet_height = self.morelo.wallet.get_height()
+		wallet_height = wallet_height['result']['height']
 		nodeInfo = self.morelo.daemon.get_info()
 		self.nodeSync = nodeInfo['result']['height']
 		self.networkSync = nodeInfo['result']['target_height']
@@ -1109,8 +1111,8 @@ If you enjoy the program you can support me by donating some MRL using button be
 			self.walletBalanceLocked = (walletInfo['result']['balance'] / 1000000000) - self.walletBalance
 			if self.walletBalanceLocked < 0:
 				self.walletBalanceLocked *= -1
-		if self.nodeSync < self.networkSync:
-			self.NetworkState(1, self.nodeSync / self.networkSync * 100)
+		if wallet_height < self.networkSync:
+			self.NetworkState(1, wallet_height / self.networkSync * 100)
 		else:
 			if self.XiNetworkState != 2:
 				self.NetworkState(2)
@@ -1254,6 +1256,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 					print('INFO: Wallet started (Password is correct)')
 				#i dont remember why this shit exist here but leave that
 				self.wallet_address = self.morelo.wallet.get_address()
+				print('INFO: Wallet address:', self.wallet_address)
 				self.UpdateWalletAddress()
 				self.UpdateBalance()
 				self.NetworkUpdate()
@@ -1346,8 +1349,8 @@ If you enjoy the program you can support me by donating some MRL using button be
 			print("ERROR: Can't get wallet sync height")
 			return
 		#checking wallet rpc is synced with daemon
-		if response['result']['height'] != self.networkSync:
-			return
+		#if response['result']['height'] != self.networkSync:
+		#	return
 		transactions = []
 		fullScan = False
 		#checking is there new network height
@@ -1357,13 +1360,13 @@ If you enjoy the program you can support me by donating some MRL using button be
 				#wallet just started so we need full wallet scan
 				print('INFO: Full tx list request')
 				fullScan = True
-				transactions = self.morelo.wallet.get_transfers(1, self.networkSync)
-				self.lastScan = self.networkSync
+				transactions = self.morelo.wallet.get_transfers(1, self.lastScan + 10000) #Scan 10000 blocks at once
+				self.lastScan = self.lastScan + 10000
 			#new network height so we scanning new range for incoming transactions
 			elif self.networkSync - self.lastScan > 0:
 				print('INFO: Partial tx list request, blocks from', self.lastScan, ' to ', self.networkSync)
-				transactions =  self.morelo.wallet.get_transfers(self.lastScan - 1, self.networkSync - self.lastScan) 
-				self.lastScan = self.networkSync
+				transactions =  self.morelo.wallet.get_transfers(self.lastScan - 1, self.lastScan + 10000) 
+				self.lastScan = self.lastScan + 10000
 			else:
 				self.scanning = False
 				return
@@ -1384,8 +1387,9 @@ If you enjoy the program you can support me by donating some MRL using button be
 						self.IncomingTx(transaction, str(amount), str(date))
 						
 				print(self.transactions)
-				#sort table
-				self.sortTx.emit()
+				#sort table if not scanning
+				if not self.scanning:
+					self.sortTx.emit()
 				print('INFO: ', len(transactions), 'transactions added to table')
 			else:
 				print('INFO: No new transactions found')

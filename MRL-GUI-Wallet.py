@@ -1,6 +1,7 @@
 from modules.transactions import *
 from modules.morelo import *
 from modules.version import *
+from modules.db import *
 
 missingLibs = False
 try:
@@ -1371,9 +1372,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 		transactions = []
 		fullScan = False
 		#checking is there new network height
-		print(self.networkSync, self.lastScan, self.scanning)
 		if self.networkSync and self.networkSync > 1 and self.lastScan != self.networkSync and not self.scanning:
-			print('aaa')
 			self.scanning = True
 			if self.lastScan < 2:
 				#wallet just started so we need full wallet scan

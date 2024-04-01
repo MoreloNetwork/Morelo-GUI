@@ -1084,6 +1084,17 @@ If you enjoy the program you can support me by donating some MRL using button be
 			if not self.hInputAmount.hasAcceptableInput(): self.hLabelAddressErr.show()
 			sleep(delay)
 	
+	#Get network height from blockchain explorer
+	#https://github.com/monero-project/monero/issues/1404
+	#Problem with target_height in response
+	def GetNetworkHeight(self):
+		try:
+			response = requests.get("https://explorer.morelonetwork.pl/api/networkinfo", headers={'Content-Type': 'application/json'})
+			data = json.loads(response.text)
+			return data['data']['height']
+		except:
+			return 0
+	
 	#network status update 
 	def NetworkUpdate(self):
 		if not self.running:
@@ -1092,7 +1103,10 @@ If you enjoy the program you can support me by donating some MRL using button be
 		wallet_height = wallet_height['result']['height']
 		nodeInfo = self.morelo.daemon.get_info()
 		self.nodeSync = nodeInfo['result']['height']
-		self.networkSync = nodeInfo['result']['target_height']
+		#self.networkSync = nodeInfo['result']['target_height']
+		#Get network height from explorer
+		self.networkSync = self.GetNetworkHeight()
+		print(self.nodeSync, self.networkSync)
 		diff = nodeInfo['result']['difficulty']
 		self.hLabelNetworkDiff.setText("Network diff: " + str(diff))
 		diff = math.floor(diff / 120)
@@ -1301,6 +1315,8 @@ If you enjoy the program you can support me by donating some MRL using button be
 			walletRPC = True
 			return 'ok'
 		if 'error' in response:
+			if response['code'] == -1:
+				return 'retry'
 			if self.pwd == '':
 				return 'requirepassword'
 			else:
@@ -1341,6 +1357,7 @@ If you enjoy the program you can support me by donating some MRL using button be
 	
 	#read transactions from wallet then add them to table, scan and add incoming transactions to table
 	def UpdateTransactions(self):
+		print('INFO: checking for transactions')
 		if not self.running:
 			return
 		try:
@@ -1354,7 +1371,9 @@ If you enjoy the program you can support me by donating some MRL using button be
 		transactions = []
 		fullScan = False
 		#checking is there new network height
+		print(self.networkSync, self.lastScan, self.scanning)
 		if self.networkSync and self.networkSync > 1 and self.lastScan != self.networkSync and not self.scanning:
+			print('aaa')
 			self.scanning = True
 			if self.lastScan < 2:
 				#wallet just started so we need full wallet scan
@@ -1362,11 +1381,15 @@ If you enjoy the program you can support me by donating some MRL using button be
 				fullScan = True
 				transactions = self.morelo.wallet.get_transfers(1, self.lastScan + 10000) #Scan 10000 blocks at once
 				self.lastScan = self.lastScan + 10000
+				if self.lastScan > self.networkSync:
+					self.lastScan = self.networkSync
 			#new network height so we scanning new range for incoming transactions
 			elif self.networkSync - self.lastScan > 0:
 				print('INFO: Partial tx list request, blocks from', self.lastScan, ' to ', self.networkSync)
 				transactions =  self.morelo.wallet.get_transfers(self.lastScan - 1, self.lastScan + 10000) 
 				self.lastScan = self.lastScan + 10000
+				if self.lastScan > self.networkSync:
+					self.lastScan = self.networkSync
 			else:
 				self.scanning = False
 				return

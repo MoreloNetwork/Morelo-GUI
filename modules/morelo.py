@@ -46,6 +46,9 @@ class Morelo():
 			req1 = self.api.daemon.sync_info()
 			req2 = self.api.daemon.get_connections()
 			req3 = self.api.daemon.get_info()
+			#Check response is valid, remote node fix
+			if not 'result' in req1:
+				return False
 			#some shitty mixing responses json
 			req1['result']['difficulty'] = 0
 			target_height = 0

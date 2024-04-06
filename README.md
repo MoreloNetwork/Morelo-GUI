@@ -16,11 +16,6 @@ Tired of clunky, command-line interfaces for managing your Morelo cryptocurrency
 
 Experience the future of cryptocurrency management with Morelo GUI. Download now and take control of your digital assets like never before!
 
-### Built With
-* [Python 3.7](https://www.python.org/downloads/)
-* [PyQt 5](https://pypi.org/project/PyQt5/)
-* [QrCode](https://pypi.org/project/qrcode/)
-
 ## Getting Started
 
 1. Download the latest Morelo-GUI release from [here](https://github.com/MoreloNetwork/Morelo-GUI/releases).
@@ -28,6 +23,11 @@ Experience the future of cryptocurrency management with Morelo GUI. Download now
 3. Unpack both in the same folder.
 4. Run Morelo-GUI-Wallet.
 5. Follow the application steps to create or open an existing wallet.
+
+### Built With
+* [Python 3.7](https://www.python.org/downloads/)
+* [PyQt 5](https://pypi.org/project/PyQt5/)
+* [QrCode](https://pypi.org/project/qrcode/)
 
 ### Pre Requirements
 
